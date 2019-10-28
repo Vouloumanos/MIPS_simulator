@@ -42,11 +42,18 @@ int main(int argc, char *argv[]){
   std::cerr << "Everything initialised " << std::endl;
 
   //load instruction memory
-
-  //std::cerr << "Instruction memory loaded" << std::endl;;
+  std::vector<uint8_t> buffer;
+  buffer.reserve(binSize);
+  buffer.insert(buffer.begin(), std::istream_iterator<uint8_t> (binStream), std::istream_iterator<uint8_t> ());
+  std::cerr << "Instruction memory loaded" << std::endl;
+  std::cerr << "Buffer size: " << buffer.size() << std::endl;
+  for(int i = 0; i < buffer.size(); i++){
+    std::cerr << buffer[i] << " ";
+  }
+  std::cerr << std::endl;
 
   instruction inst;
-  while(1){
+  while(0){
 
     if(pc == 0){
       uint8_t exitCode = static_cast<uint8_t>(registers[2]);

@@ -1,3 +1,4 @@
+#include <iostream>
 #include "instruction.hpp"
 
 void instruction::set_bits(const uint32_t& input_bits){
