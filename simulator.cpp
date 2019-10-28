@@ -4,7 +4,52 @@
 #include <vector>
 #include <iterator>
 
+#define IMEM_LENGTH 0x1000000
+#define DMEM_LENGTH 0x4000000
+//temporary
+#define MEM_LENGTH 0x30000004
+#define IMEM_OFFSET 0x10000000
+#define DMEM_OFFSET 0x20000000
+#define INPUT_OFFSET 0x30000000
+#define OUTPUT_OFFSET 0x30000004
 
+class instruction{
+public:
+  void set_bits(const uint32_t& input_bits);
+  uint32_t get_bits() const;
+  char get_type() const;
+  void determine_type();
+
+
+private:
+  uint32_t bits;
+  char type;
+};
+
+void instruction::set_bits(const uint32_t& input_bits){
+  bits = input_bits;
+  determine_type();
+}
+
+uint32_t instruction::get_bits() const{
+  return bits;
+}
+
+char instruction::get_type() const{
+  return type;
+}
+
+void instruction::determine_type(){ //put proper conditions!!!
+  if(1){
+    type = 'R';
+  }
+  else if(0){
+    type = 'I';
+  }
+  else{
+    type = 'J';
+  }
+}
 
 
 int main(int argc, char *argv[]){
@@ -16,11 +61,54 @@ int main(int argc, char *argv[]){
   //initialise binStream
   std::ifstream binStream(binName, std::ios::binary);
 
-  std::vector<uint32_t> buffer(std::istream_iterator<uint32_t>(binStream), {});
+  //calculate binSize
+  binStream.seekg(0, std::ios::end);
+  int binSize = binStream.tellg();
+  //binSize-=1; DEBATABLE
+  binStream.seekg(0, std::ios::beg);
+  std::cerr << "Binary file size: " << binSize << std::endl;
 
+  //initialise memory to 0
+  std::vector<uint8_t> memory(MEM_LENGTH, 0);
 
+  //initialiste registers to 0
+  std::vector<uint32_t> registers(32, 0);
 
+  //initialise program counter to IMEM_OFFSET
+  uint32_t pc = IMEM_OFFSET;
 
+  std::cerr << "Everything initialised " << std::endl;
 
+  //load instruction memory
+  
+  //std::cerr << "Instruction memory loaded" << std::endl;;
+
+  instruction inst;
+  while(1){
+
+    if(pc == 0){
+      uint8_t exitCode = static_cast<uint8_t>(registers[2]);
+      std::cerr << "Pc = 0" << std::endl;
+      std::exit(exitCode);
+    }
+    else if((pc < IMEM_LENGTH + IMEM_OFFSET) && (pc >= IMEM_OFFSET)){
+      std::cerr << "Valid pc" << std::endl;
+
+      //get instruction
+      inst.set_bits(memory[pc]);
+      //execute instruction
+
+      //increment pc by 4 if not J otherwise J manipulated it before
+      if(inst.get_type() != 'J') pc+= 4;
+
+    }
+    else{
+      //memory exception
+      std::cerr << "Memory exception" << std::endl;
+      std::exit(-11);
+    }
+
+    //increment
+  }
   return 0;
 }
