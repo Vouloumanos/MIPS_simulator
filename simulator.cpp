@@ -4,53 +4,15 @@
 #include <vector>
 #include <iterator>
 
+#include "instruction.hpp"
+
 #define IMEM_LENGTH 0x1000000
 #define DMEM_LENGTH 0x4000000
-//temporary
 #define MEM_LENGTH 0x30000004
 #define IMEM_OFFSET 0x10000000
 #define DMEM_OFFSET 0x20000000
 #define INPUT_OFFSET 0x30000000
 #define OUTPUT_OFFSET 0x30000004
-
-class instruction{
-public:
-  void set_bits(const uint32_t& input_bits);
-  uint32_t get_bits() const;
-  char get_type() const;
-  void determine_type();
-
-
-private:
-  uint32_t bits;
-  char type;
-};
-
-void instruction::set_bits(const uint32_t& input_bits){
-  bits = input_bits;
-  determine_type();
-}
-
-uint32_t instruction::get_bits() const{
-  return bits;
-}
-
-char instruction::get_type() const{
-  return type;
-}
-
-void instruction::determine_type(){ //put proper conditions!!!
-  if(1){
-    type = 'R';
-  }
-  else if(0){
-    type = 'I';
-  }
-  else{
-    type = 'J';
-  }
-}
-
 
 int main(int argc, char *argv[]){
 
@@ -80,7 +42,7 @@ int main(int argc, char *argv[]){
   std::cerr << "Everything initialised " << std::endl;
 
   //load instruction memory
-  
+
   //std::cerr << "Instruction memory loaded" << std::endl;;
 
   instruction inst;
