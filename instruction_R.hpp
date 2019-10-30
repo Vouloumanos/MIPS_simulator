@@ -7,32 +7,32 @@
 class instruction_R{
 public:
   void set_bits(const uint32_t& input_bits);
-  friend void execute(std::vector<uint32_t>& registers, uint32_t& pc);
-  friend void ADD(std::vector<uint32_t>& registers);
-  friend void ADDU(std::vector<uint32_t>& registers);
-  friend void AND(std::vector<uint32_t>& registers);
-  friend void DIV(std::vector<uint32_t>& registers);
-  friend void DIVU(std::vector<uint32_t>& registers);
-  friend void JALR(std::vector<uint32_t>& registers, uint32_t& pc);
-  friend void JR(std::vector<uint32_t>& registers, uint32_t& pc);
-  friend void MFHI(std::vector<uint32_t>& registers);
-  friend void MFLO(std::vector<uint32_t>& registers);
-  friend void MTHI(std::vector<uint32_t>& registers);
-  friend void MTLO(std::vector<uint32_t>& registers);
-  friend void MULT(std::vector<uint32_t>& registers);
-  friend void MULTU(std::vector<uint32_t>& registers);
-  friend void OR(std::vector<uint32_t>& registers);
-  friend void SLL(std::vector<uint32_t>& registers);
-  friend void SLLV(std::vector<uint32_t>& registers);
-  friend void SLT(std::vector<uint32_t>& registers);
-  friend void SLTU(std::vector<uint32_t>& registers);
-  friend void SRA(std::vector<uint32_t>& registers);
-  friend void SRAV(std::vector<uint32_t>& registers);
-  friend void SRL(std::vector<uint32_t>& registers);
-  friend void SRLV(std::vector<uint32_t>& registers);
-  friend void SUB(std::vector<uint32_t>& registers);
-  friend void SUBU(std::vector<uint32_t>& registers);
-  friend void XOR(std::vector<uint32_t>& registers);
+  void execute(std::vector<uint32_t>& registers, uint32_t& pc);
+  void ADD(std::vector<uint32_t>& registers);
+  void ADDU(std::vector<uint32_t>& registers);
+  void AND(std::vector<uint32_t>& registers);
+  void DIV(std::vector<uint32_t>& registers);
+  void DIVU(std::vector<uint32_t>& registers);
+  void JALR(std::vector<uint32_t>& registers, uint32_t& pc);
+  void JR(std::vector<uint32_t>& registers, uint32_t& pc);
+  void MFHI(std::vector<uint32_t>& registers);
+  void MFLO(std::vector<uint32_t>& registers);
+  void MTHI(std::vector<uint32_t>& registers);
+  void MTLO(std::vector<uint32_t>& registers);
+  void MULT(std::vector<uint32_t>& registers);
+  void MULTU(std::vector<uint32_t>& registers);
+  void OR(std::vector<uint32_t>& registers);
+  void SLL(std::vector<uint32_t>& registers);
+  void SLLV(std::vector<uint32_t>& registers);
+  void SLT(std::vector<uint32_t>& registers);
+  void SLTU(std::vector<uint32_t>& registers);
+  void SRA(std::vector<uint32_t>& registers);
+  void SRAV(std::vector<uint32_t>& registers);
+  void SRL(std::vector<uint32_t>& registers);
+  void SRLV(std::vector<uint32_t>& registers);
+  void SUB(std::vector<uint32_t>& registers);
+  void SUBU(std::vector<uint32_t>& registers);
+  void XOR(std::vector<uint32_t>& registers);
 
 
 private:
