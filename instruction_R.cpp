@@ -91,7 +91,7 @@ void instruction_R::MTLO(std::vector<uint32_t>& registers){
 void instruction_R::MULT(std::vector<uint32_t>& registers){
 
 }
-void instruction_R::MULTU(std::vectobgezalr<uint32_t>& registers){
+void instruction_R::MULTU(std::vector<uint32_t>& registers){
 
 }
 void instruction_R::OR(std::vector<uint32_t>& registers){
@@ -113,7 +113,7 @@ void instruction_R::SLTU(std::vector<uint32_t>& registers){
 }
 void instruction_R::SRA(std::vector<uint32_t>& registers){
   uint32_t msb = registers[src2.to_ulong()] >> 31;
-  temp = registers[src2.to_ulong()] >> shift_amount.to_ulong();
+  uint32_t temp = registers[src2.to_ulong()] >> shift_amount.to_ulong();
   if(msb){
     uint32_t right_ones = 0;
     for(int i = 0; i < shift_amount.to_ulong(); i++){
@@ -126,7 +126,7 @@ void instruction_R::SRA(std::vector<uint32_t>& registers){
 }
 void instruction_R::SRAV(std::vector<uint32_t>& registers){
   uint32_t msb = registers[src2.to_ulong()] >> 31;
-  temp = registers[src2.to_ulong()] >> registers[src1.to_ulong()];
+  uint32_t temp = registers[src2.to_ulong()] >> registers[src1.to_ulong()];
   if(msb){
     uint32_t right_ones = 0;
     for(int i = 0; i < registers[src1.to_ulong()]; i++){
