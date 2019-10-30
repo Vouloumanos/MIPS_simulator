@@ -1,6 +1,7 @@
 #include <iostream>
 #include <bitset>
 #include <vector>
+#include <cmath>
 #include "instruction_R.hpp"
 
 void instruction_R::set_bits(const uint32_t& input_bits){
@@ -45,13 +46,23 @@ void instruction_R::execute(std::vector<uint32_t>& registers, uint32_t& pc){
 }
 
 void instruction_R::ADD(std::vector<uint32_t>& registers){
+  uint32_t msb1 = registers[src1.to_ulong()] >> 31;
+  uint32_t msb2 = registers[src2.to_ulong()] >> 31;
+  uint32_t temp = registers[src1.to_ulong()] + registers[src2.to_ulong()];
+  uint32_t msb3 = temp >> 31;
 
+  if((msb1 == 0 && msb2 == 0 && msb3 == 1) || (msb1 == 1 && msb2 == 1 && msb3 == 0)){
+    //TRIGGER OVERFLOW
+  }
+  else{
+    registers[dest.to_ulong()] = temp;
+  }
 }
 void instruction_R::ADDU(std::vector<uint32_t>& registers){
-
+  registers[dest.to_ulong()] = registers[src1.to_ulong()] + registers[src2.to_ulong()];
 }
 void instruction_R::AND(std::vector<uint32_t>& registers){
-
+  registers[dest.to_ulong()] = registers[src1.to_ulong()] & registers[src2.to_ulong()];
 }
 void instruction_R::DIV(std::vector<uint32_t>& registers){
 
@@ -80,16 +91,18 @@ void instruction_R::MTLO(std::vector<uint32_t>& registers){
 void instruction_R::MULT(std::vector<uint32_t>& registers){
 
 }
-void instruction_R::MULTU(std::vector<uint32_t>& registers){
+void instruction_R::MULTU(std::vectobgezalr<uint32_t>& registers){
 
 }
 void instruction_R::OR(std::vector<uint32_t>& registers){
+  registers[dest.to_ulong()] = registers[src1.to_ulong()] | registers[src2.to_ulong()];
 
 }
 void instruction_R::SLL(std::vector<uint32_t>& registers){
-
+  registers[dest.to_ulong()] = registers[src2.to_ulong()] << shift_amount.to_ulong();
 }
 void instruction_R::SLLV(std::vector<uint32_t>& registers){
+  registers[dest.to_ulong()] = registers[src2.to_ulong()] << registers[src1.to_ulong()];
 
 }
 void instruction_R::SLT(std::vector<uint32_t>& registers){
@@ -99,23 +112,55 @@ void instruction_R::SLTU(std::vector<uint32_t>& registers){
 
 }
 void instruction_R::SRA(std::vector<uint32_t>& registers){
+  uint32_t msb = registers[src2.to_ulong()] >> 31;
+  temp = registers[src2.to_ulong()] >> shift_amount.to_ulong();
+  if(msb){
+    uint32_t right_ones = 0;
+    for(int i = 0; i < shift_amount.to_ulong(); i++){
+      right_ones += std::pow(2, 31-i);
+    }
+    temp = temp | right_ones;
+  }
+  registers[dest.to_ulong()] = temp;
 
 }
 void instruction_R::SRAV(std::vector<uint32_t>& registers){
-
+  uint32_t msb = registers[src2.to_ulong()] >> 31;
+  temp = registers[src2.to_ulong()] >> registers[src1.to_ulong()];
+  if(msb){
+    uint32_t right_ones = 0;
+    for(int i = 0; i < registers[src1.to_ulong()]; i++){
+      right_ones += std::pow(2, 31-i);
+    }
+    temp = temp | right_ones;
+  }
+  registers[dest.to_ulong()] = temp;
 }
 void instruction_R::SRL(std::vector<uint32_t>& registers){
+  registers[dest.to_ulong()] = registers[src2.to_ulong()] >> shift_amount.to_ulong();
 
 }
 void instruction_R::SRLV(std::vector<uint32_t>& registers){
+  registers[dest.to_ulong()] = registers[src2.to_ulong()] >> registers[src1.to_ulong()];
 
 }
 void instruction_R::SUB(std::vector<uint32_t>& registers){
+  uint32_t msb1 = registers[src1.to_ulong()] >> 31;
+  uint32_t msb2 = registers[src2.to_ulong()] >> 31;
+  uint32_t temp = registers[src1.to_ulong()] - registers[src2.to_ulong()];
+  uint32_t msb3 = temp >> 31;
 
+  if((msb1 == 0 && msb2 == 1 && msb3 == 1) || (msb1 == 1 && msb2 == 0 && msb3 == 0)){
+    //TRIGGER OVERFLOW
+  }
+  else{
+    registers[dest.to_ulong()] = temp;
+  }
 }
 void instruction_R::SUBU(std::vector<uint32_t>& registers){
-
+  registers[dest.to_ulong()] = registers[src1.to_ulong()] - registers[src2.to_ulong()];
 }
 void instruction_R::XOR(std::vector<uint32_t>& registers){
+  registers[dest.to_ulong()] = registers[src1.to_ulong()] ^ registers[src2.to_ulong()];
 
 }
