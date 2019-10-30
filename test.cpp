@@ -25,14 +25,6 @@ int main(int argc, char *argv[]){
   }
   std::cout << std::endl;
 
-  uint8_t a = (uint8_t)'_';
-  std::cout << a << std::endl;
-  std::cout << std::bitset<8>(a) << std::endl;
-
-  if(mem[0] == a){
-    std::cout << "yes " << std::endl;
-  }
-
   // std::vector<uint8_t> buffer;
   // buffer.reserve(binSize);
   // buffer.insert(buffer.begin(), std::istream_iterator<uint8_t> (binStream), std::istream_iterator<uint8_t> ());

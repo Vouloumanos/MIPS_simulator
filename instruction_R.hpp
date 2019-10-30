@@ -8,13 +8,13 @@ public:
   void set_bits(const uint32_t& input_bits);
 
 private:
-  bitset<32> bits;
-  bitset<6> opcode;
-  bitset<5> src1;
-  bitset<5> src2;
-  bitset<5> dest;
-  bitset<5> shift_amount;
-  bitset<6> fn_code;
+  std::bitset<32> bits;
+  std::bitset<6> opcode;
+  std::bitset<5> src1;
+  std::bitset<5> src2;
+  std::bitset<5> dest;
+  std::bitset<5> shift_amount;
+  std::bitset<6> fn_code;
 };
 
 #endif

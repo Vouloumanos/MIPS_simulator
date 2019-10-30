@@ -8,11 +8,11 @@ public:
   void set_bits(const uint32_t& input_bits);
 
 private:
-  bitset<32> bits;
-  bitset<6> opcode;
-  bitset<5> src1;
-  bitset<5> src2_dest;
-  bitset<16> address_data;
+  std::bitset<32> bits;
+  std::bitset<6> opcode;
+  std::bitset<5> src1;
+  std::bitset<5> src2_dest;
+  std::bitset<16> address_data;
 };
 
 #endif

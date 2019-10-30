@@ -8,9 +8,9 @@ public:
   void set_bits(const uint32_t& input_bits);
 
 private:
-  bitset<32> bits;
-  bitset<6> opcode;
-  bitset<26> address;
+  std::bitset<32> bits;
+  std::bitset<6> opcode;
+  std::bitset<26> address;
 };
 
 #endif
