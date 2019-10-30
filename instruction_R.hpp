@@ -6,6 +6,7 @@
 class instruction_R{
 public:
   void set_bits(const uint32_t& input_bits);
+  friend void execute(std::vector<uint32_t>& registers, uint32_t& pc);
 
 private:
   bitset<32> bits;

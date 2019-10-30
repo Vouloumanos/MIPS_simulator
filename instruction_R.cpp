@@ -11,3 +11,9 @@ void instruction_R::set_bits(const uint32_t& input_bits){
   shift_amount = (bits >> 6);
   fn_code = (bits >> 0);
 }
+
+void instruction_R::execute(std::vector<uint32_t>& registers, uint32_t& pc){
+  switch(fn_code){
+    case
+  }
+}
