@@ -3,8 +3,11 @@
 #include <fstream>
 #include <vector>
 #include <iterator>
+#include <bitset>
 
-#include "instruction.hpp"
+#include "instruction_R.hpp"
+#include "instruction_I.hpp"
+#include "instruction_J.hpp"
 
 #define IMEM_LENGTH 0x1000000
 #define DMEM_LENGTH 0x4000000
@@ -13,6 +16,8 @@
 #define DMEM_OFFSET 0x20000000
 #define INPUT_OFFSET 0x30000000
 #define OUTPUT_OFFSET 0x30000004
+
+char get_type(const uint32_t& input_bits);
 
 int main(int argc, char *argv[]){
 
@@ -52,7 +57,6 @@ int main(int argc, char *argv[]){
   }
   std::cerr << std::endl;
 
-  instruction inst;
   while(0){
 
     if(pc == 0){
@@ -64,11 +68,27 @@ int main(int argc, char *argv[]){
       std::cerr << "Valid pc" << std::endl;
 
       //get instruction
-      inst.set_bits(memory[pc]);
-      //execute instruction
+      uint32_t input_bits = (memory[pc] << 24) + (memory[pc+1] << 16) + (memory[pc+2] << 8) + (memory[pc+3] << 0);
+
+      //execute instruction depending on the type
+      if(get_type(input_bits) == 'R'){
+        instruction_R inst;
+        inst.set_bits(input_bits);
+        inst.execute(registers, pc);
+      }
+      else if(get_type(input_bits) == 'I'){
+        instruction_I inst;
+        inst.set_bits(input_bits);
+        inst.execute(memory, registers, pc);
+      }
+      else if(get_type(input_bits) == 'J'){
+        instruction_J inst;
+        inst.set_bits(input_bits);
+        inst.execute(memory, registers, pc);
+      }
 
       //increment pc by 4 if not J otherwise J manipulated it before
-      if(inst.get_type() != 'J') pc+= 4;
+      //do it above!!!
 
     }
     else{
@@ -80,4 +100,12 @@ int main(int argc, char *argv[]){
     //increment
   }
   return 0;
+}
+
+char get_type(const uint32_t& input_bits){
+  bitset<6> opcode = (input_bits >> 26);
+
+  if(opcode == 0b000000) return 'R';
+  else if(opcode == 0b000010 || opcode == 0b000011) return 'J';
+  else return 'I';
 }
