@@ -44,19 +44,19 @@ void instruction_R::execute(std::vector<uint32_t>& registers, uint32_t& pc){
   if(fn_code != 0b001001 && fn_code != 0b001000) pc += 4;
 }
 
-void instruction_R::ADD(std::vector<uint32_t>& registers, uint32_t& pc){
+void instruction_R::ADD(std::vector<uint32_t>& registers){
 
 }
-void instruction_R::ADDU(std::vector<uint32_t>& registers, uint32_t& pc){
+void instruction_R::ADDU(std::vector<uint32_t>& registers){
 
 }
-void instruction_R::AND(std::vector<uint32_t>& registers, uint32_t& pc){
+void instruction_R::AND(std::vector<uint32_t>& registers){
 
 }
-void instruction_R::DIV(std::vector<uint32_t>& registers, uint32_t& pc){
+void instruction_R::DIV(std::vector<uint32_t>& registers){
 
 }
-void instruction_R::DIVU(std::vector<uint32_t>& registers, uint32_t& pc){
+void instruction_R::DIVU(std::vector<uint32_t>& registers){
 
 }
 void instruction_R::JALR(std::vector<uint32_t>& registers, uint32_t& pc){
@@ -65,57 +65,57 @@ void instruction_R::JALR(std::vector<uint32_t>& registers, uint32_t& pc){
 void instruction_R::JR(std::vector<uint32_t>& registers, uint32_t& pc){
 
 }
-void instruction_R::MFHI(std::vector<uint32_t>& registers, uint32_t& pc){
+void instruction_R::MFHI(std::vector<uint32_t>& registers){
 
 }
-void instruction_R::MFLO(std::vector<uint32_t>& registers, uint32_t& pc){
+void instruction_R::MFLO(std::vector<uint32_t>& registers){
 
 }
-void instruction_R::MTHI(std::vector<uint32_t>& registers, uint32_t& pc){
+void instruction_R::MTHI(std::vector<uint32_t>& registers){
 
 }
-void instruction_R::MTLO(std::vector<uint32_t>& registers, uint32_t& pc){
+void instruction_R::MTLO(std::vector<uint32_t>& registers){
 
 }
-void instruction_R::MULT(std::vector<uint32_t>& registers, uint32_t& pc){
+void instruction_R::MULT(std::vector<uint32_t>& registers){
 
 }
-void instruction_R::MULTU(std::vector<uint32_t>& registers, uint32_t& pc){
+void instruction_R::MULTU(std::vector<uint32_t>& registers){
 
 }
-void instruction_R::OR(std::vector<uint32_t>& registers, uint32_t& pc){
+void instruction_R::OR(std::vector<uint32_t>& registers){
 
 }
-void instruction_R::SLL(std::vector<uint32_t>& registers, uint32_t& pc){
+void instruction_R::SLL(std::vector<uint32_t>& registers){
 
 }
-void instruction_R::SLLV(std::vector<uint32_t>& registers, uint32_t& pc){
+void instruction_R::SLLV(std::vector<uint32_t>& registers){
 
 }
-void instruction_R::SLT(std::vector<uint32_t>& registers, uint32_t& pc){
+void instruction_R::SLT(std::vector<uint32_t>& registers){
 
 }
-void instruction_R::SLTU(std::vector<uint32_t>& registers, uint32_t& pc){
+void instruction_R::SLTU(std::vector<uint32_t>& registers){
 
 }
-void instruction_R::SRA(std::vector<uint32_t>& registers, uint32_t& pc){
+void instruction_R::SRA(std::vector<uint32_t>& registers){
 
 }
-void instruction_R::SRAV(std::vector<uint32_t>& registers, uint32_t& pc){
+void instruction_R::SRAV(std::vector<uint32_t>& registers){
 
 }
-void instruction_R::SRL(std::vector<uint32_t>& registers, uint32_t& pc){
+void instruction_R::SRL(std::vector<uint32_t>& registers){
 
 }
-void instruction_R::SRLV(std::vector<uint32_t>& registers, uint32_t& pc){
+void instruction_R::SRLV(std::vector<uint32_t>& registers){
 
 }
-void instruction_R::SUB(std::vector<uint32_t>& registers, uint32_t& pc){
+void instruction_R::SUB(std::vector<uint32_t>& registers){
 
 }
-void instruction_R::SUBU(std::vector<uint32_t>& registers, uint32_t& pc){
+void instruction_R::SUBU(std::vector<uint32_t>& registers){
 
 }
-void instruction_R::XOR(std::vector<uint32_t>& registers, uint32_t& pc){
+void instruction_R::XOR(std::vector<uint32_t>& registers){
 
 }
