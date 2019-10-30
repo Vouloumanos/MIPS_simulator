@@ -81,17 +81,17 @@ int main(int argc, char *argv[]){
       if(get_type(input_bits) == 'R'){
         instruction_R inst;
         inst.set_bits(input_bits);
-        // inst.execute(registers, pc);
+        inst.execute(registers, pc);
       }
       else if(get_type(input_bits) == 'I'){
         instruction_I inst;
         inst.set_bits(input_bits);
-        // inst.execute(memory, registers, pc);
+        inst.execute(memory, registers, pc);
       }
       else if(get_type(input_bits) == 'J'){
         instruction_J inst;
         inst.set_bits(input_bits);
-        // inst.execute(memory, registers, pc);
+        inst.execute(memory, registers, pc);
       }
 
       //increment pc by 4 if not J otherwise J manipulated it before
