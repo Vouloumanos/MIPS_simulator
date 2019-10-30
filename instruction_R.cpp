@@ -11,3 +11,9 @@ void instruction_R::set_bits(const uint32_t& input_bits){
   shift_amount = std::bitset<5>((bits >> 6).to_ulong());
   fn_code = std::bitset<6>((bits >> 0).to_ulong());
 }
+
+void instruction_R::execute(std::vector<uint32_t>& registers, uint32_t& pc){
+  switch(fn_code){
+    case
+  }
+}
