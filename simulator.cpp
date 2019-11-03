@@ -86,12 +86,12 @@ int main(int argc, char *argv[]){
       else if(get_type(input_bits) == 'I'){
         instruction_I inst;
         inst.set_bits(input_bits);
-        inst.execute(memory, registers, pc);
+        inst.execute(registers, pc, memory);
       }
       else if(get_type(input_bits) == 'J'){
         instruction_J inst;
         inst.set_bits(input_bits);
-        inst.execute(memory, registers, pc);
+        inst.execute(registers, pc, memory);
       }
 
       //increment pc by 4 if not J otherwise J manipulated it before

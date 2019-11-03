@@ -1,5 +1,7 @@
 #include <iostream>
 #include <bitset>
+#include <vector>
+
 #include "instruction_I.hpp"
 
 void instruction_I::set_bits(const uint32_t& input_bits){
@@ -43,87 +45,81 @@ void instruction_I::execute(std::vector<uint32_t>& registers, uint32_t& pc, std:
   }
 }
 
-void set_bits(const uint32_t& input_bits){
+void instruction_I::ADDI(std::vector<uint32_t>& registers){
 
 }
-void execute(std::vector<uint32_t>& registers, uint32_t& pc, std::vector<uint8_t>& memory){
+void instruction_I::ADDIU(std::vector<uint32_t>& registers){
 
 }
-void ADDI(std::vector<uint32_t>& registers){
+void instruction_I::ANDI(std::vector<uint32_t>& registers){
 
 }
-void ADDIU(std::vector<uint32_t>& registers){
+void instruction_I::BEQ(std::vector<uint32_t>& registers, uint32_t& pc){
 
 }
-void ANDI(std::vector<uint32_t>& registers){
+void instruction_I::BGEZ(std::vector<uint32_t>& registers, uint32_t& pc){
 
 }
-void BEQ(std::vector<uint32_t>& registers, uint32_t& pc){
+void instruction_I::BGEZAL(std::vector<uint32_t>& registers, uint32_t& pc){
 
 }
-void BGEZ(std::vector<uint32_t>& registers, uint32_t& pc){
+void instruction_I::BGTZ(std::vector<uint32_t>& registers, uint32_t& pc){
 
 }
-void BGEZAL(std::vector<uint32_t>& registers, uint32_t& pc){
+void instruction_I::BLEZ(std::vector<uint32_t>& registers, uint32_t& pc){
 
 }
-void BGTZ(std::vector<uint32_t>& registers, uint32_t& pc){
+void instruction_I::BLTZ(std::vector<uint32_t>& registers, uint32_t& pc){
 
 }
-void BLEZ(std::vector<uint32_t>& registers, uint32_t& pc){
+void instruction_I::BLTZAL(std::vector<uint32_t>& registers, uint32_t& pc){
 
 }
-void BLTZ(std::vector<uint32_t>& registers, uint32_t& pc){
+void instruction_I::BNE(std::vector<uint32_t>& registers, uint32_t& pc){
 
 }
-void BLTZAL(std::vector<uint32_t>& registers, uint32_t& pc){
+void instruction_I::LB(std::vector<uint32_t>& registers, std::vector<uint8_t>& memory){
 
 }
-void BNE(std::vector<uint32_t>& registers, uint32_t& pc){
+void instruction_I::LBU(std::vector<uint32_t>& registers, std::vector<uint8_t>& memory){
 
 }
-void LB(std::vector<uint32_t>& registers, std::vector<uint8_t>& memory){
+void instruction_I::LH(std::vector<uint32_t>& registers, std::vector<uint8_t>& memory){
 
 }
-void LBU(std::vector<uint32_t>& registers, std::vector<uint8_t>& memory){
+void instruction_I::LHU(std::vector<uint32_t>& registers, std::vector<uint8_t>& memory){
 
 }
-void LH(std::vector<uint32_t>& registers, std::vector<uint8_t>& memory){
+void instruction_I::LUI(std::vector<uint32_t>& registers){
 
 }
-void LHU(std::vector<uint32_t>& registers, std::vector<uint8_t>& memory){
+void instruction_I::LW(std::vector<uint32_t>& registers, std::vector<uint8_t>& memory){
 
 }
-void LUI(std::vector<uint32_t>& registers){
+void instruction_I::LWL(std::vector<uint32_t>& registers, std::vector<uint8_t>& memory){
 
 }
-void LW(std::vector<uint32_t>& registers, std::vector<uint8_t>& memory){
+void instruction_I::LWR(std::vector<uint32_t>& registers, std::vector<uint8_t>& memory){
 
 }
-void LWL(std::vector<uint32_t>& registers, std::vector<uint8_t>& memory){
+void instruction_I::ORI(std::vector<uint32_t>& registers){
 
 }
-void LWR(std::vector<uint32_t>& registers, std::vector<uint8_t>& memory){
+void instruction_I::SB(std::vector<uint32_t>& registers, std::vector<uint8_t>& memory){
 
 }
-void ORI(std::vector<uint32_t>& registers){
+void instruction_I::SH(std::vector<uint32_t>& registers, std::vector<uint8_t>& memory){
 
 }
-void SB(std::vector<uint32_t>& registers, std::vector<uint8_t>& memory){
+void instruction_I::SLTI(std::vector<uint32_t>& registers){
 
 }
-void SH(std::vector<uint32_t>& registers, std::vector<uint8_t>& memory){
+void instruction_I::SLTIU(std::vector<uint32_t>& registers){
 
 }
-void SLTI(std::vector<uint32_t>& registers){
+void instruction_I::SW(std::vector<uint32_t>& registers, std::vector<uint8_t>& memory){
 
 }
-void SLTIU(std::vector<uint32_t>& registers){
-
-}
-void SW(std::vector<uint32_t>& registers, std::vector<uint8_t>& memory){
-
-}
-void XORI(std::vector<uint32_t>& registers){
+void instruction_I::XORI(std::vector<uint32_t>& registers){
 
 }

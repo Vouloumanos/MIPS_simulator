@@ -2,6 +2,7 @@
 #define INSTRUCTION_I_HPP
 
 #include <bitset>
+#include <vector>
 
 class instruction_I{
 public:

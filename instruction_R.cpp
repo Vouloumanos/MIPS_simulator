@@ -15,7 +15,7 @@ void instruction_R::set_bits(const uint32_t& input_bits){
 }
 
 void instruction_R::execute(std::vector<uint32_t>& registers, uint32_t& pc){
-  switch(fn_code){
+  switch((int)fn_code.to_ulong()){
     case 0b100000: ADD(registers);
     case 0b100001: ADDU(registers);
     case 0b100100: AND(registers);
@@ -96,20 +96,19 @@ void instruction_R::MULTU(std::vector<uint32_t>& registers){
 }
 void instruction_R::OR(std::vector<uint32_t>& registers){
   registers[dest.to_ulong()] = registers[src1.to_ulong()] | registers[src2.to_ulong()];
-
 }
 void instruction_R::SLL(std::vector<uint32_t>& registers){
   registers[dest.to_ulong()] = registers[src2.to_ulong()] << shift_amount.to_ulong();
 }
 void instruction_R::SLLV(std::vector<uint32_t>& registers){
   registers[dest.to_ulong()] = registers[src2.to_ulong()] << registers[src1.to_ulong()];
-
 }
 void instruction_R::SLT(std::vector<uint32_t>& registers){
 
 }
 void instruction_R::SLTU(std::vector<uint32_t>& registers){
-
+  if(registers[src1.to_ulong()] < registers[src2.to_ulong()]) registers[dest.to_ulong()] = 1;
+  else registers[dest.to_ulong()] = 0;
 }
 void instruction_R::SRA(std::vector<uint32_t>& registers){
   uint32_t msb = registers[src2.to_ulong()] >> 31;
@@ -122,7 +121,6 @@ void instruction_R::SRA(std::vector<uint32_t>& registers){
     temp = temp | right_ones;
   }
   registers[dest.to_ulong()] = temp;
-
 }
 void instruction_R::SRAV(std::vector<uint32_t>& registers){
   uint32_t msb = registers[src2.to_ulong()] >> 31;
@@ -138,11 +136,9 @@ void instruction_R::SRAV(std::vector<uint32_t>& registers){
 }
 void instruction_R::SRL(std::vector<uint32_t>& registers){
   registers[dest.to_ulong()] = registers[src2.to_ulong()] >> shift_amount.to_ulong();
-
 }
 void instruction_R::SRLV(std::vector<uint32_t>& registers){
   registers[dest.to_ulong()] = registers[src2.to_ulong()] >> registers[src1.to_ulong()];
-
 }
 void instruction_R::SUB(std::vector<uint32_t>& registers){
   uint32_t msb1 = registers[src1.to_ulong()] >> 31;

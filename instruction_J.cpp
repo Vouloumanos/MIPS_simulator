@@ -1,5 +1,6 @@
 #include <iostream>
 #include <bitset>
+#include <vector>
 #include "instruction_J.hpp"
 
 void instruction_J::set_bits(const uint32_t& input_bits){
@@ -8,8 +9,8 @@ void instruction_J::set_bits(const uint32_t& input_bits){
   address = std::bitset<26>((bits >> 0).to_ulong());
 }
 
-void instruction_J::execute(std::vector<uint8_t>& memory, std::vector<uint32_t>& registers, uint32_t& pc){
-  switch(opcode){
+void instruction_J::execute(std::vector<uint32_t>& registers, uint32_t& pc, std::vector<uint8_t>& memory){
+  switch((int)opcode.to_ulong()){
     case 0b000010: J(pc);
     case 0b000011: JAL(registers, pc);
   }
