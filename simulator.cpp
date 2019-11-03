@@ -28,7 +28,7 @@ int main(int argc, char *argv[]){
   std::vector<uint8_t> memory(MEM_LENGTH, 0);
 
   //initialiste registers to 0
-  std::vector<uint32_t> registers(32, 0);
+  std::vector<uint32_t> registers(34, 0);
 
   //initialise program counter to IMEM_OFFSET
   uint32_t pc = IMEM_OFFSET;

@@ -17,8 +17,9 @@ void instruction_J::execute(std::vector<uint32_t>& registers, uint32_t& pc, std:
 }
 
 void instruction_J::J(uint32_t& pc){
-
+  pc = address.to_ulong()*4;
 }
 void instruction_J::JAL(std::vector<uint32_t>& registers, uint32_t& pc){
-
+  registers[31] = pc + 8;
+  pc = address.to_ulong()*4;
 }
