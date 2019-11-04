@@ -1,7 +1,6 @@
 #ifndef INSTRUCTION_J_HPP
 #define INSTRUCTION_J_HPP
 
-#include <bitset>
 #include <vector>
 
 
@@ -13,9 +12,9 @@ public:
   void JAL(std::vector<uint32_t>& registers, uint32_t& pc);
 
 private:
-  std::bitset<32> bits;
-  std::bitset<6> opcode;
-  std::bitset<26> address;
+  uint32_t bits;
+  uint32_t opcode;
+  uint32_t address;
 };
 
 #endif
