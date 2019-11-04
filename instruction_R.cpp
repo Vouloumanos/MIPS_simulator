@@ -45,6 +45,7 @@ void instruction_R::execute(std::vector<uint32_t>& registers, uint32_t& pc){
   if(fn_code != 0b001001 && fn_code != 0b001000) pc += 4;
 }
 
+
 void instruction_R::ADD(std::vector<uint32_t>& registers){
   uint32_t msb1 = registers[src1.to_ulong()] >> 31;
   uint32_t msb2 = registers[src2.to_ulong()] >> 31;
@@ -58,66 +59,84 @@ void instruction_R::ADD(std::vector<uint32_t>& registers){
     registers[dest.to_ulong()] = temp;
   }
 }
+
 void instruction_R::ADDU(std::vector<uint32_t>& registers){
   registers[dest.to_ulong()] = registers[src1.to_ulong()] + registers[src2.to_ulong()];
 }
+
 void instruction_R::AND(std::vector<uint32_t>& registers){
   registers[dest.to_ulong()] = registers[src1.to_ulong()] & registers[src2.to_ulong()];
 }
+
 void instruction_R::DIV(std::vector<uint32_t>& registers){
   registers[32] = static_cast<int>(registers[src1.to_ulong()]) / static_cast<int>(registers[src2.to_ulong()]);
   registers[33] = static_cast<int>(registers[src1.to_ulong()]) % static_cast<int>(registers[src2.to_ulong()]);
 }
+
 void instruction_R::DIVU(std::vector<uint32_t>& registers){
   registers[32] = registers[src1.to_ulong()] / registers[src2.to_ulong()];
   registers[33] = registers[src1.to_ulong()] % registers[src2.to_ulong()];
 }
+
 void instruction_R::JALR(std::vector<uint32_t>& registers, uint32_t& pc){
   registers[dest.to_ulong()] = pc + 8;
   pc = registers[src1.to_ulong()];
 }
+
 void instruction_R::JR(std::vector<uint32_t>& registers, uint32_t& pc){
   pc = registers[src1.to_ulong()];
 }
+
 void instruction_R::MFHI(std::vector<uint32_t>& registers){
   registers[dest.to_ulong()] = registers[33];
 }
+
 void instruction_R::MFLO(std::vector<uint32_t>& registers){
   registers[dest.to_ulong()] = registers[32];
 }
+
 void instruction_R::MTHI(std::vector<uint32_t>& registers){
   registers[33] = registers[src1.to_ulong()];
 }
+
 void instruction_R::MTLO(std::vector<uint32_t>& registers){
   registers[32] = registers[src1.to_ulong()];
 }
+
 void instruction_R::MULT(std::vector<uint32_t>& registers){
   int64_t product = static_cast<int>(registers[src1.to_ulong()]) * static_cast<int>(registers[src2.to_ulong()]);
   registers[32] = product & 0x00000000FFFFFFFF;
   registers[33] = product & 0xFFFFFFFF00000000;
 }
+
 void instruction_R::MULTU(std::vector<uint32_t>& registers){
   uint64_t product = registers[src1.to_ulong()] * registers[src2.to_ulong()];
   registers[32] = product & 0x00000000FFFFFFFF;
   registers[33] = product & 0xFFFFFFFF00000000;
 }
+
 void instruction_R::OR(std::vector<uint32_t>& registers){
   registers[dest.to_ulong()] = registers[src1.to_ulong()] | registers[src2.to_ulong()];
 }
+
 void instruction_R::SLL(std::vector<uint32_t>& registers){
   registers[dest.to_ulong()] = registers[src2.to_ulong()] << shift_amount.to_ulong();
 }
+
 void instruction_R::SLLV(std::vector<uint32_t>& registers){
   registers[dest.to_ulong()] = registers[src2.to_ulong()] << registers[src1.to_ulong()];
 }
+
 void instruction_R::SLT(std::vector<uint32_t>& registers){
   if(static_cast<int>(registers[src1.to_ulong()]) < static_cast<int>(registers[src2.to_ulong()])) registers[dest.to_ulong()] = 1;
   else registers[dest.to_ulong()] = 0;
 }
+
 void instruction_R::SLTU(std::vector<uint32_t>& registers){
   if(registers[src1.to_ulong()] < registers[src2.to_ulong()]) registers[dest.to_ulong()] = 1;
   else registers[dest.to_ulong()] = 0;
 }
+
 void instruction_R::SRA(std::vector<uint32_t>& registers){
   uint32_t msb = registers[src2.to_ulong()] >> 31;
   uint32_t temp = registers[src2.to_ulong()] >> shift_amount.to_ulong();
@@ -130,6 +149,7 @@ void instruction_R::SRA(std::vector<uint32_t>& registers){
   }
   registers[dest.to_ulong()] = temp;
 }
+
 void instruction_R::SRAV(std::vector<uint32_t>& registers){
   uint32_t msb = registers[src2.to_ulong()] >> 31;
   uint32_t temp = registers[src2.to_ulong()] >> registers[src1.to_ulong()];
@@ -142,12 +162,15 @@ void instruction_R::SRAV(std::vector<uint32_t>& registers){
   }
   registers[dest.to_ulong()] = temp;
 }
+
 void instruction_R::SRL(std::vector<uint32_t>& registers){
   registers[dest.to_ulong()] = registers[src2.to_ulong()] >> shift_amount.to_ulong();
 }
+
 void instruction_R::SRLV(std::vector<uint32_t>& registers){
   registers[dest.to_ulong()] = registers[src2.to_ulong()] >> registers[src1.to_ulong()];
 }
+
 void instruction_R::SUB(std::vector<uint32_t>& registers){
   uint32_t msb1 = registers[src1.to_ulong()] >> 31;
   uint32_t msb2 = registers[src2.to_ulong()] >> 31;
@@ -161,9 +184,11 @@ void instruction_R::SUB(std::vector<uint32_t>& registers){
     registers[dest.to_ulong()] = temp;
   }
 }
+
 void instruction_R::SUBU(std::vector<uint32_t>& registers){
   registers[dest.to_ulong()] = registers[src1.to_ulong()] - registers[src2.to_ulong()];
 }
+
 void instruction_R::XOR(std::vector<uint32_t>& registers){
   registers[dest.to_ulong()] = registers[src1.to_ulong()] ^ registers[src2.to_ulong()];
 
