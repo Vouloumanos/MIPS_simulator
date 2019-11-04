@@ -1,7 +1,6 @@
 #ifndef INSTRUCTION_I_HPP
 #define INSTRUCTION_I_HPP
 
-#include <bitset>
 #include <vector>
 
 class instruction_I{
@@ -36,11 +35,11 @@ public:
   void XORI(std::vector<uint32_t>& registers);
 
 private:
-  std::bitset<32> bits;
-  std::bitset<6> opcode;
-  std::bitset<5> src1;
-  std::bitset<5> src2_dest;
-  std::bitset<16> address_data;
+  uint32_t bits;
+  uint32_t opcode;
+  uint32_t src1;
+  uint32_t src2_dest;
+  uint32_t address_data;
 };
 
 #endif
