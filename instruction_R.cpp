@@ -51,7 +51,7 @@ void instruction_R::ADD(std::vector<uint32_t>& registers){
   uint32_t msb3 = temp >> 31;
 
   if((msb1 == 0 && msb2 == 0 && msb3 == 1) || (msb1 == 1 && msb2 == 1 && msb3 == 0)){
-    //TRIGGER OVERFLOW
+    std::exit(-10);
   }
   else{
     registers[dest] = temp;
