@@ -3,7 +3,6 @@
 #include <fstream>
 #include <vector>
 #include <iterator>
-#include <bitset>
 #include <cstdlib>
 
 #include "instruction_R.hpp"
@@ -13,12 +12,15 @@
 #define IMEM_LENGTH 0x1000000
 #define DMEM_LENGTH 0x4000000
 #define MEM_LENGTH 0x30000004
+
 #define IMEM_OFFSET 0x10000000
+#define IMEM_END_OFFSET 0x11000000
+
 #define DMEM_OFFSET 0x20000000
+#define DMEM_END_OFFSET 0x24000000
+
 #define INPUT_OFFSET 0x30000000
 #define OUTPUT_OFFSET 0x30000004
-#define IMEM_END_OFFSET 0x11000000
-#define DMEM_END_OFFSET 0x24000000
 
 char get_type(const uint32_t& input_bits);
 
@@ -27,7 +29,7 @@ int main(int argc, char *argv[]){
   //initialise memory to 0
   std::vector<uint8_t> memory(MEM_LENGTH, 0);
 
-  //initialiste registers to 0
+  //initialiste registers to 0, registers[32] is LO, registers[33] is HI
   std::vector<uint32_t> registers(34, 0);
 
   //initialise program counter to IMEM_OFFSET
@@ -94,9 +96,6 @@ int main(int argc, char *argv[]){
         inst.execute(registers, pc, memory);
       }
 
-      //increment pc by 4 if not J otherwise J manipulated it before
-      //do it above!!!
-
     }
     else{
       //memory exception
@@ -109,7 +108,7 @@ int main(int argc, char *argv[]){
 }
 
 char get_type(const uint32_t& input_bits){
-  std::bitset<6> opcode = (input_bits >> 26);
+  uint32_t opcode = input_bits >> 26;
 
   if(opcode == 0b000000) return 'R';
   else if(opcode == 0b000010 || opcode == 0b000011) return 'J';
