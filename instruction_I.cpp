@@ -16,19 +16,19 @@
 
 void instruction_I::set_bits(const uint32_t& input_bits){
   bits = input_bits;
-  opcode = ((bits >> 26).to_ulong());
-  src1 = std::bitset<5> ((bits >> 21).to_ulong());
-  src2_dest = std::bitset<5>((bits >> 16).to_ulong());
-  address_data = std::bitset<16>((bits >> 0).to_ulong());
+  opcode = bits >> 26;
+  src1 = 0b11111 & (bits >> 21);
+  src2_dest = 0b11111 & (bits >> 16);
+  address_data = 0xFFFF & bits;
 }
 
 void instruction_I::execute(std::vector<uint32_t>& registers, uint32_t& pc, std::vector<uint8_t>& memory){
-  switch((int)opcode.to_ulong()){
+  switch(opcode){
     case 0b001000: ADDI(registers);
     case 0b001001: ADDIU(registers);
     case 0b001100: ANDI(registers);
     case 0b000100: BEQ(registers, pc);
-    case 0b000001: switch((int)src2_dest.to_ulong()){
+    case 0b000001: switch(src2_dest){
       case 0b00001: BGEZ(registers, pc);
       case 0b10001: BGEZAL(registers, pc);
       case 0b00000: BLTZ(registers, pc);
@@ -57,16 +57,16 @@ void instruction_I::execute(std::vector<uint32_t>& registers, uint32_t& pc, std:
 
 void instruction_I::ADDI(std::vector<uint32_t>& registers){
   uint32_t immediate;
-  uint32_t msb1 = address_data.to_ulong() >> 15;
-  uint32_t msb2 = registers[src1.to_ulong()] >> 31;
+  uint32_t msb1 = address_data >> 15;
+  uint32_t msb2 = registers[src1] >> 31;
   if(msb1 == 1){
-    immediate = 0xFFFF0000 | address_data.to_ulong();
+    immediate = 0xFFFF0000 | address_data;
   }
   else{
-    immediate = 0x00000000 | address_data.to_ulong();
+    immediate = 0x00000000 | address_data;
   }
 
-  uint32_t temp = registers[src1.to_ulong()] + immediate;
+  uint32_t temp = registers[src1] + immediate;
   uint32_t msb3 = temp >> 31;
 
   if((msb1 == 0 && msb2 == 0 && msb3 == 1) || (msb1 == 1 && msb2 == 1 && msb3 == 0)){
@@ -79,27 +79,27 @@ void instruction_I::ADDI(std::vector<uint32_t>& registers){
 
 void instruction_I::ADDIU(std::vector<uint32_t>& registers){
   uint32_t immediate;
-  if((address_data.to_ulong() >> 15) == 1){
-    immediate = 0xFFFF0000 | address_data.to_ulong();
+  if((address_data >> 15) == 1){
+    immediate = 0xFFFF0000 | address_data;
   }
   else{
-    immediate = 0x00000000 | address_data.to_ulong();
+    immediate = 0x00000000 | address_data;
   }
-  registers[src2_dest.to_ulong()] = registers[src1.to_ulong()] + immediate;
+  registers[src2_dest] = registers[src1] + immediate;
 }
 
 void instruction_I::ANDI(std::vector<uint32_t>& registers){
-  registers[src2_dest.to_ulong()] = registers[src1.to_ulong()] & address_data.to_ulong();
+  registers[src2_dest] = registers[src1] & address_data;
 }
 
 void instruction_I::BEQ(std::vector<uint32_t>& registers, uint32_t& pc){
-  if(registers[src1.to_ulong()] == registers[src2_dest.to_ulong()]){
+  if(registers[src1] == registers[src2_dest]){
     int32_t offset;
-    if((address_data.to_ulong() >> 15) == 1){
-      offset = 0xFFFC0000 | (address_data.to_ulong() << 2);
+    if((address_data >> 15) == 1){
+      offset = 0xFFFC0000 | (address_data << 2);
     }
     else{
-      offset = 0x00000000 | (address_data.to_ulong() << 2);
+      offset = 0x00000000 | (address_data << 2);
     }
     pc += 4 + offset;
   }
@@ -109,13 +109,13 @@ void instruction_I::BEQ(std::vector<uint32_t>& registers, uint32_t& pc){
 }
 
 void instruction_I::BGEZ(std::vector<uint32_t>& registers, uint32_t& pc){
-  if(static_cast<int32_t>(registers[src1.to_ulong()]) >= 0){
+  if(static_cast<int32_t>(registers[src1]) >= 0){
     int32_t offset;
-    if((address_data.to_ulong() >> 15) == 1){
-      offset = 0xFFFC0000 | (address_data.to_ulong() << 2);
+    if((address_data >> 15) == 1){
+      offset = 0xFFFC0000 | (address_data << 2);
     }
     else{
-      offset = 0x00000000 | (address_data.to_ulong() << 2);
+      offset = 0x00000000 | (address_data << 2);
     }
     pc += 4 + offset;
   }
@@ -126,13 +126,13 @@ void instruction_I::BGEZ(std::vector<uint32_t>& registers, uint32_t& pc){
 
 //Question:: Look up Bucknell!
 void instruction_I::BGEZAL(std::vector<uint32_t>& registers, uint32_t& pc){
-  if(static_cast<int32_t>(registers[src1.to_ulong()]) >= 0){
+  if(static_cast<int32_t>(registers[src1]) >= 0){
     int32_t offset;
-    if((address_data.to_ulong() >> 15) == 1){
-      offset = 0xFFFC0000 | (address_data.to_ulong() << 2);
+    if((address_data >> 15) == 1){
+      offset = 0xFFFC0000 | (address_data << 2);
     }
     else{
-      offset = 0x00000000 | (address_data.to_ulong() << 2);
+      offset = 0x00000000 | (address_data << 2);
     }
     registers[31] = pc + 8;
     pc += 4 + offset;
@@ -143,13 +143,13 @@ void instruction_I::BGEZAL(std::vector<uint32_t>& registers, uint32_t& pc){
 }
 
 void instruction_I::BGTZ(std::vector<uint32_t>& registers, uint32_t& pc){
-  if(static_cast<int32_t>(registers[src1.to_ulong()]) > 0){
+  if(static_cast<int32_t>(registers[src1]) > 0){
     int32_t offset;
-    if((address_data.to_ulong() >> 15) == 1){
-      offset = 0xFFFC0000 | (address_data.to_ulong() << 2);
+    if((address_data >> 15) == 1){
+      offset = 0xFFFC0000 | (address_data << 2);
     }
     else{
-      offset = 0x00000000 | (address_data.to_ulong() << 2);
+      offset = 0x00000000 | (address_data << 2);
     }
     pc += 4 + offset;
   }
@@ -159,13 +159,13 @@ void instruction_I::BGTZ(std::vector<uint32_t>& registers, uint32_t& pc){
 }
 
 void instruction_I::BLEZ(std::vector<uint32_t>& registers, uint32_t& pc){
-  if(static_cast<int32_t>(registers[src1.to_ulong()]) <= 0){
+  if(static_cast<int32_t>(registers[src1]) <= 0){
     int32_t offset;
-    if((address_data.to_ulong() >> 15) == 1){
-      offset = 0xFFFC0000 | (address_data.to_ulong() << 2);
+    if((address_data >> 15) == 1){
+      offset = 0xFFFC0000 | (address_data << 2);
     }
     else{
-      offset = 0x00000000 | (address_data.to_ulong() << 2);
+      offset = 0x00000000 | (address_data << 2);
     }
     pc += 4 + offset;
   }
@@ -175,13 +175,13 @@ void instruction_I::BLEZ(std::vector<uint32_t>& registers, uint32_t& pc){
 }
 
 void instruction_I::BLTZ(std::vector<uint32_t>& registers, uint32_t& pc){
-  if(static_cast<int32_t>(registers[src1.to_ulong()]) < 0){
+  if(static_cast<int32_t>(registers[src1]) < 0){
     int32_t offset;
-    if((address_data.to_ulong() >> 15) == 1){
-      offset = 0xFFFC0000 | (address_data.to_ulong() << 2);
+    if((address_data >> 15) == 1){
+      offset = 0xFFFC0000 | (address_data << 2);
     }
     else{
-      offset = 0x00000000 | (address_data.to_ulong() << 2);
+      offset = 0x00000000 | (address_data << 2);
     }
     pc += 4 + offset;
   }
@@ -191,13 +191,13 @@ void instruction_I::BLTZ(std::vector<uint32_t>& registers, uint32_t& pc){
 }
 
 void instruction_I::BLTZAL(std::vector<uint32_t>& registers, uint32_t& pc){
-  if(static_cast<int32_t>(registers[src1.to_ulong()]) <= 0){
+  if(static_cast<int32_t>(registers[src1]) <= 0){
     int32_t offset;
-    if((address_data.to_ulong() >> 15) == 1){
-      offset = 0xFFFC0000 | (address_data.to_ulong() << 2);
+    if((address_data >> 15) == 1){
+      offset = 0xFFFC0000 | (address_data << 2);
     }
     else{
-      offset = 0x00000000 | (address_data.to_ulong() << 2);
+      offset = 0x00000000 | (address_data << 2);
     }
     registers[31] = pc + 8;
     pc += 4 + offset;
@@ -208,13 +208,13 @@ void instruction_I::BLTZAL(std::vector<uint32_t>& registers, uint32_t& pc){
 }
 
 void instruction_I::BNE(std::vector<uint32_t>& registers, uint32_t& pc){
-  if(registers[src1.to_ulong()] != registers[src2_dest.to_ulong()]){
+  if(registers[src1] != registers[src2_dest]){
     int32_t offset;
-    if((address_data.to_ulong() >> 15) == 1){
-      offset = 0xFFFC0000 | (address_data.to_ulong() << 2);
+    if((address_data >> 15) == 1){
+      offset = 0xFFFC0000 | (address_data << 2);
     }
     else{
-      offset = 0x00000000 | (address_data.to_ulong() << 2);
+      offset = 0x00000000 | (address_data << 2);
     }
     pc += 4 + offset;
   }
@@ -236,7 +236,7 @@ void instruction_I::LHU(std::vector<uint32_t>& registers, std::vector<uint8_t>& 
 
 }
 void instruction_I::LUI(std::vector<uint32_t>& registers){
-  registers[src2_dest.to_ulong()] = (address_data.to_ulong() << 16);
+  registers[src2_dest] = (address_data << 16);
 }
 
 void instruction_I::LW(std::vector<uint32_t>& registers, std::vector<uint8_t>& memory){
@@ -251,18 +251,18 @@ void instruction_I::LWR(std::vector<uint32_t>& registers, std::vector<uint8_t>& 
 }
 
 void instruction_I::ORI(std::vector<uint32_t>& registers){
-  registers[src2_dest.to_ulong()] = registers[src1.to_ulong()] | address_data.to_ulong();
+  registers[src2_dest] = registers[src1] | address_data;
 }
 
 void instruction_I::SB(std::vector<uint32_t>& registers, std::vector<uint8_t>& memory){
   uint32_t offset;
-  if((address_data.to_ulong() >> 15) == 1){
-    offset = 0xFFFF0000 | address_data.to_ulong();
+  if((address_data >> 15) == 1){
+    offset = 0xFFFF0000 | address_data;
   }
   else{
-    offset = 0x00000000 | address_data.to_ulong();
+    offset = 0x00000000 | address_data;
   }
-  uint32_t address = registers[src1].to_ulong + offset;
+  uint32_t address = registers[src1] + offset;
   if((address >= DMEM_OFFSET) && (address < DMEM_END_OFFSET)){
     memory[address] = registers[src2_dest];
   }
@@ -274,13 +274,13 @@ void instruction_I::SB(std::vector<uint32_t>& registers, std::vector<uint8_t>& m
 //Should the address be even??
 void instruction_I::SH(std::vector<uint32_t>& registers, std::vector<uint8_t>& memory){
   uint32_t offset;
-  if((address_data.to_ulong() >> 15) == 1){
-    offset = 0xFFFF0000 | address_data.to_ulong();
+  if((address_data >> 15) == 1){
+    offset = 0xFFFF0000 | address_data;
   }
   else{
-    offset = 0x00000000 | address_data.to_ulong();
+    offset = 0x00000000 | address_data;
   }
-  uint32_t address = registers[src1].to_ulong + offset;
+  uint32_t address = registers[src1] + offset;
   if((address >= DMEM_OFFSET) && (address < DMEM_END_OFFSET)){
     memory[address] = registers[src2_dest] >> 8;
     memory[address+1] = registers[src2_dest];
@@ -292,47 +292,47 @@ void instruction_I::SH(std::vector<uint32_t>& registers, std::vector<uint8_t>& m
 
 void instruction_I::SLTI(std::vector<uint32_t>& registers){
   int32_t immediate;
-  if((address_data.to_ulong() >> 15) == 1){
-    immediate = 0xFFFF0000 | address_data.to_ulong();
+  if((address_data >> 15) == 1){
+    immediate = 0xFFFF0000 | address_data;
   }
   else{
-    immediate = 0x00000000 | address_data.to_ulong();
+    immediate = 0x00000000 | address_data;
   }
 
-  if(static_cast<int32_t>(registers[src1.to_ulong()]) < immediate){
-    registers[src2_dest.to_ulong()] = 1;
+  if(static_cast<int32_t>(registers[src1]) < immediate){
+    registers[src2_dest] = 1;
   }
   else{
-    registers[src2_dest.to_ulong()] = 0;
+    registers[src2_dest] = 0;
   }
 }
 
 void instruction_I::SLTIU(std::vector<uint32_t>& registers){
   uint32_t immediate;
-  if((address_data.to_ulong() >> 15) == 1){
-    immediate = 0xFFFF0000 | address_data.to_ulong();
+  if((address_data >> 15) == 1){
+    immediate = 0xFFFF0000 | address_data;
   }
   else{
-    immediate = 0x00000000 | address_data.to_ulong();
+    immediate = 0x00000000 | address_data;
   }
 
-  if(registers[src1.to_ulong()] < immediate){
-    registers[src2_dest.to_ulong()] = 1;
+  if(registers[src1] < immediate){
+    registers[src2_dest] = 1;
   }
   else{
-    registers[src2_dest.to_ulong()] = 0;
+    registers[src2_dest] = 0;
   }
 }
 
 void instruction_I::SW(std::vector<uint32_t>& registers, std::vector<uint8_t>& memory){
   uint32_t offset;
-  if((address_data.to_ulong() >> 15) == 1){
-    offset = 0xFFFF0000 | address_data.to_ulong();
+  if((address_data >> 15) == 1){
+    offset = 0xFFFF0000 | address_data;
   }
   else{
-    offset = 0x00000000 | address_data.to_ulong();
+    offset = 0x00000000 | address_data;
   }
-  uint32_t address = registers[src1].to_ulong + offset;
+  uint32_t address = registers[src1] + offset;
   if((address >= DMEM_OFFSET) && (address < DMEM_END_OFFSET)){
     memory[address] = registers[src2_dest] >> 24;
     memory[address+1] = registers[src2_dest] >> 16;
@@ -345,5 +345,5 @@ void instruction_I::SW(std::vector<uint32_t>& registers, std::vector<uint8_t>& m
 }
 
 void instruction_I::XORI(std::vector<uint32_t>& registers){
-  registers[src2_dest.to_ulong()] = registers[src1.to_ulong()] ^ address_data.to_ulong();
+  registers[src2_dest] = registers[src1] ^ address_data;
 }
