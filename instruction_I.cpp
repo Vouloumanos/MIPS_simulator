@@ -376,10 +376,69 @@ void instruction_I::LW(std::vector<uint32_t>& registers, const std::vector<uint8
 }
 
 void instruction_I::LWL(std::vector<uint32_t>& registers, const std::vector<uint8_t>& memory){
-
+  int32_t offset;
+  if((address_data >> 15) == 1){
+    offset = 0xFFFF0000 | address_data;
+  }
+  else{
+    offset = address_data;
+  }
+  uint32_t address = registers[src1] + offset;
+  if((address >= DMEM_OFFSET) && (address < DMEM_END_OFFSET)){
+    switch(address%4){
+      case 0: {
+        registers[src2_dest] = (memory[address] << 24) | (memory[address+1] << 16) | (memory[address+2] << 8) | (memory[address+3]);
+      }
+      case 1: {
+        registers[src2_dest] = registers[src2_dest] & 0xFF;
+        registers[src2_dest] = (memory[address] << 24) | (memory[address+1] << 16) | (memory[address+2] << 8) | registers[src2_dest];
+      }
+      case 2: {
+        registers[src2_dest] = registers[src2_dest] & 0xFFFF;
+        registers[src2_dest] = (memory[address] << 24) | (memory[address+1] << 16) | registers[src2_dest];
+      }
+      case 3: {
+        registers[src2_dest] = registers[src2_dest] & 0xFFFFFF;
+        registers[src2_dest] = (memory[address] << 24) | registers[src2_dest];
+      }
+    }
+  }
+  else{
+    //Memory exception
+  }
 }
-void instruction_I::LWR(std::vector<uint32_t>& registers, const std::vector<uint8_t>& memory){
 
+void instruction_I::LWR(std::vector<uint32_t>& registers, const std::vector<uint8_t>& memory){
+  int32_t offset;
+  if((address_data >> 15) == 1){
+    offset = 0xFFFF0000 | address_data;
+  }
+  else{
+    offset = address_data;
+  }
+  uint32_t address = registers[src1] + offset;
+  if((address >= DMEM_OFFSET) && (address < DMEM_END_OFFSET)){
+    switch(address%4){
+      case 3: {
+        registers[src2_dest] = (memory[address-3] << 24) | (memory[address-2] << 16) | (memory[address-1] << 8) | (memory[address]);
+      }
+      case 2: {
+        registers[src2_dest] = registers[src2_dest] & 0xFF000000;
+        registers[src2_dest] = registers[src2_dest] | (memory[address-2] << 16) | (memory[address-1] << 8) | (memory[address]);
+      }
+      case 1: {
+        registers[src2_dest] = registers[src2_dest] & 0xFFFF0000;
+        registers[src2_dest] = registers[src2_dest] | (memory[address-1] << 24) | (memory[address+1] << 16);
+      }
+      case 0: {
+        registers[src2_dest] = registers[src2_dest] & 0xFFFFFF00;
+        registers[src2_dest] = (memory[address] << 24) | registers[src2_dest];
+      }
+    }
+  }
+  else{
+    //Memory exception
+  }
 }
 
 void instruction_I::ORI(std::vector<uint32_t>& registers){
