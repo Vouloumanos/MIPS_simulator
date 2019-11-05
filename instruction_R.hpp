@@ -1,7 +1,6 @@
 #ifndef INSTRUCTION_R_HPP
 #define INSTRUCTION_R_HPP
 
-#include <bitset>
 #include <vector>
 
 class instruction_R{
@@ -36,13 +35,13 @@ public:
 
 
 private:
-  std::bitset<32> bits;
-  std::bitset<6> opcode;
-  std::bitset<5> src1;
-  std::bitset<5> src2;
-  std::bitset<5> dest;
-  std::bitset<5> shift_amount;
-  std::bitset<6> fn_code;
+  uint32_t bits;
+  uint32_t opcode;
+  uint32_t src1;
+  uint32_t src2;
+  uint32_t dest;
+  uint32_t shift_amount;
+  uint32_t fn_code;
 };
 
 #endif
