@@ -463,6 +463,7 @@ void instruction_I::SB(std::vector<uint32_t>& registers, std::vector<uint8_t>& m
 }
 
 //Should the address be even??
+//df
 void instruction_I::SH(std::vector<uint32_t>& registers, std::vector<uint8_t>& memory){
   int32_t offset;
   if((address_data >> 15) == 1){
