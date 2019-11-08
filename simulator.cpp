@@ -49,7 +49,7 @@ int main(int argc, char *argv[]){
 
     std::cerr << "Input memory OK" << std::endl; //debug - status message
 
-    while(0){ //processor running
+    while(1){ //processor running
 
       if(pc == 0){ //program has finished, return lower 8 bits of register 2
         uint8_t returnCode = static_cast<uint8_t>(registers[2]);
