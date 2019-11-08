@@ -2,6 +2,7 @@
 #define INIT_HPP
 
 #include <cstdint> //for ints and uints
+#include <cstdlib>
 
 //include all other headers
 #include "instruction_R.hpp"
@@ -24,14 +25,14 @@
 
 //error and exception handling
 enum class error{
-  ARITHMETIC = -10;
-  MEMORY = -11;
-  INSTRUCTION = -12;
+  ARITHMETIC = -10,
+  MEMORY = -11,
+  INSTRUCTION = -12,
 };
 
 enum class exception{
-  INTERNAL = -20;
-  IO = -21;
+  INTERNAL = -20,
+  IO = -21,
 };
 
 //function declarations
