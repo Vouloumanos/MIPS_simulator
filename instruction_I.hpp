@@ -6,18 +6,18 @@
 class instruction_I{
 public:
   void set_bits(const uint32_t& input_bits);
-  void execute(std::vector<uint32_t>& registers, uint32_t& pc, std::vector<uint8_t>& memory);
+  void execute(std::vector<uint32_t>& registers, uint32_t& pc, uint32_t& next_pc, std::vector<uint8_t>& memory);
   void ADDI(std::vector<uint32_t>& registers);
   void ADDIU(std::vector<uint32_t>& registers);
   void ANDI(std::vector<uint32_t>& registers);
-  void BEQ(std::vector<uint32_t>& registers, uint32_t& pc);
-  void BGEZ(std::vector<uint32_t>& registers, uint32_t& pc);
-  void BGEZAL(std::vector<uint32_t>& registers, uint32_t& pc);
-  void BGTZ(std::vector<uint32_t>& registers, uint32_t& pc);
-  void BLEZ(std::vector<uint32_t>& registers, uint32_t& pc);
-  void BLTZ(std::vector<uint32_t>& registers, uint32_t& pc);
-  void BLTZAL(std::vector<uint32_t>& registers, uint32_t& pc);
-  void BNE(std::vector<uint32_t>& registers, uint32_t& pc);
+  void BEQ(std::vector<uint32_t>& registers, uint32_t& next_pc);
+  void BGEZ(std::vector<uint32_t>& registers, uint32_t& next_pc);
+  void BGEZAL(std::vector<uint32_t>& registers, uint32_t& pc, uint32_t& next_pc);
+  void BGTZ(std::vector<uint32_t>& registers, uint32_t& next_pc);
+  void BLEZ(std::vector<uint32_t>& registers, uint32_t& next_pc);
+  void BLTZ(std::vector<uint32_t>& registers, uint32_t& next_pc);
+  void BLTZAL(std::vector<uint32_t>& registers, uint32_t& pc, uint32_t& next_pc);
+  void BNE(std::vector<uint32_t>& registers, uint32_t& next_pc);
   void LB(std::vector<uint32_t>& registers, const std::vector<uint8_t>& memory);
   void LBU(std::vector<uint32_t>& registers, const std::vector<uint8_t>& memory);
   void LH(std::vector<uint32_t>& registers, const std::vector<uint8_t>& memory);
@@ -35,7 +35,6 @@ public:
   void XORI(std::vector<uint32_t>& registers);
 
 private:
-  uint32_t bits;
   uint32_t opcode;
   uint32_t src1;
   uint32_t src2_dest;

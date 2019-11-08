@@ -9,74 +9,101 @@
 
 int main(int argc, char *argv[]){
 
-  //initalisation
-  std::vector<uint8_t> memory(MEM_LENGTH, 0); //initialise memory to 0
-  std::vector<uint32_t> registers(34, 0); //initialiste registers to 0, registers[32] is LO, registers[33] is HI
-  uint32_t pc = IMEM_OFFSET; //initialise program counter to IMEM_OFFSET
-  uint32_t next_pc = IMEM_OFFSET + 4; //initialise next program counter to 
-  std::cerr << "Everything initialised " << std::endl; //debug - status update
+  try
+  {
+    if(argc != 2){
+      std::cerr << "Expected 1 input binary file" << std::endl;
+      std::exit(1);
+    }
 
-  //set up binstream
-  std::string binName = argv[1]; //get binary name
-  std::cerr << "binName: " << binName << std::endl; //debug - display binary name
-  std::ifstream binStream(binName, std::ios::binary); //initialise binStream
+    //initalisation
+    std::vector<uint8_t> memory(MEM_LENGTH, 0); //initialise memory to 0
+    std::vector<uint32_t> registers(34, 0); //initialiste registers to 0, registers[32] is LO, registers[33] is HI
+    uint32_t pc = IMEM_OFFSET; //initialise program counter to IMEM_OFFSET
+    uint32_t next_pc = IMEM_OFFSET + 4; //initialise next program counter to
+    std::cerr << "Everything initialised " << std::endl; //debug - status update
 
-  if(!binStream.is_open()){
-    std::cerr << "File couldn't be opened" << std::endl; //debug - error message
-    std::exit(-21);
+    //set up binstream
+    std::string binName = argv[1]; //get binary name
+    std::cerr << "binName: " << binName << std::endl; //debug - display binary name
+    std::ifstream binStream(binName, std::ios::binary); //initialise binStream
+
+    if(!binStream.is_open()){ //THINK ABOUT CORRECT ERROR CODE
+      std::cerr << "File couldn't be opened" << std::endl; //debug - error message
+      throw(static_cast<int32_t>(error::IO));
+    }
+
+    binStream.seekg(0, std::ios::end); //calculate binSize
+    int binSize = binStream.tellg();
+    binStream.seekg(0, std::ios::beg);
+    std::cerr << "Binary file size: " << binSize << std::endl;
+
+    char c;
+    int index = 0;
+    while(binStream >> c){
+      if((index + IMEM_OFFSET) < IMEM_END_OFFSET){
+        memory[index+IMEM_OFFSET] = c;
+        index++;
+      }
+    }
+
+    std::cerr << "Input memory OK" << std::endl; //debug - status message
+
+    while(0){ //processor running
+
+      if(pc == 0){ //program has finished, return lower 8 bits of register 2
+        uint8_t returnCode = static_cast<uint8_t>(registers[2]);
+        std::exit(returnCode);
+      }
+      else if(pc % 4 != 0){
+        throw(static_cast<int32_t>(exception::MEMORY));
+      }
+      else if((pc < IMEM_LENGTH + IMEM_OFFSET) && (pc >= IMEM_OFFSET)){
+        std::cerr << "Valid pc" << std::endl;
+
+        //get instruction
+        uint32_t input_bits = (memory[pc] << 24) + (memory[pc+1] << 16) + (memory[pc+2] << 8) + (memory[pc+3] << 0);
+
+        //store next_pc temporarily as it will get changed during execution
+        uint32_t temp_next_pc = next_pc;
+
+        //execute instruction depending on the type
+        if(get_type(input_bits) == 'R'){
+          instruction_R inst;
+          inst.set_bits(input_bits);
+          inst.execute(registers, pc, next_pc);
+        }
+        else if(get_type(input_bits) == 'I'){
+          instruction_I inst;
+          inst.set_bits(input_bits);
+          inst.execute(registers, pc, next_pc, memory);
+        }
+        else if(get_type(input_bits) == 'J'){
+          instruction_J inst;
+          inst.set_bits(input_bits);
+          inst.execute(registers, pc, next_pc, memory);
+        }
+
+        //point pc to the next instruction
+        pc = temp_next_pc;
+
+      }
+      else{
+        throw(static_cast<int32_t>(exception::MEMORY));
+      }
+    }
   }
 
-  binStream.seekg(0, std::ios::end); //calculate binSize
-  int binSize = binStream.tellg();
-  binStream.seekg(0, std::ios::beg);
-  std::cerr << "Binary file size: " << binSize << std::endl;
-
-  char c;
-  int index = 0;
-  while(binStream >> c){
-    if((index + IMEM_OFFSET) < IMEM_END_OFFSET){
-      memory[index+IMEM_OFFSET] = c;
-      index++;
+  catch(int32_t exitCode){
+    switch (exitCode) {
+      case -10: std::exit(static_cast<int32_t>(exception::ARITHMETIC));
+      case -11: std::exit(static_cast<int32_t>(exception::MEMORY));
+      case -12: std::exit(static_cast<int32_t>(exception::INSTRUCTION));
+      case -21: std::exit(static_cast<int32_t>(error::IO));
     }
   }
-
-  std::cerr << "Input memory OK" << std::endl; //debug - status message
-
-  while(0){ //processor running
-    if(pc == 0){
-      uint8_t exitCode = static_cast<uint8_t>(registers[2]);
-      std::exit(exitCode);
-    }
-    else if((pc < IMEM_LENGTH + IMEM_OFFSET) && (pc >= IMEM_OFFSET)){
-      std::cerr << "Valid pc" << std::endl;
-
-      //get instruction
-      uint32_t input_bits = (memory[pc] << 24) + (memory[pc+1] << 16) + (memory[pc+2] << 8) + (memory[pc+3] << 0);
-
-      //execute instruction depending on the type
-      if(get_type(input_bits) == 'R'){
-        instruction_R inst;
-        inst.set_bits(input_bits);
-        inst.execute(registers, pc);
-      }
-      else if(get_type(input_bits) == 'I'){
-        instruction_I inst;
-        inst.set_bits(input_bits);
-        inst.execute(registers, pc, memory);
-      }
-      else if(get_type(input_bits) == 'J'){
-        instruction_J inst;
-        inst.set_bits(input_bits);
-        inst.execute(registers, pc, memory);
-      }
-
-    }
-    else{
-      //memory exception
-      std::cerr << "Memory exception" << std::endl;
-      std::exit(-11);
-    }
-
+  catch(...){
+    std::exit(static_cast<int32_t>(error::INTERNAL)); //Unexpected behaviour caused by the simulator
   }
   return 0;
 }

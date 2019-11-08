@@ -24,13 +24,13 @@
 #define OUTPUT_OFFSET 0x30000004
 
 //error and exception handling
-enum class error{
+enum class exception{
   ARITHMETIC = -10,
   MEMORY = -11,
   INSTRUCTION = -12,
 };
 
-enum class exception{
+enum class error{
   INTERNAL = -20,
   IO = -21,
 };

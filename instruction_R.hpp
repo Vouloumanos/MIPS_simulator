@@ -6,14 +6,14 @@
 class instruction_R{
 public:
   void set_bits(const uint32_t& input_bits);
-  void execute(std::vector<uint32_t>& registers, uint32_t& pc);
+  void execute(std::vector<uint32_t>& registers, uint32_t& pc, uint32_t& next_pc);
   void ADD(std::vector<uint32_t>& registers);
   void ADDU(std::vector<uint32_t>& registers);
   void AND(std::vector<uint32_t>& registers);
   void DIV(std::vector<uint32_t>& registers);
   void DIVU(std::vector<uint32_t>& registers);
-  void JALR(std::vector<uint32_t>& registers, uint32_t& pc);
-  void JR(std::vector<uint32_t>& registers, uint32_t& pc);
+  void JALR(std::vector<uint32_t>& registers, uint32_t& pc, uint32_t& next_pc);
+  void JR(std::vector<uint32_t>& registers, uint32_t& next_pc);
   void MFHI(std::vector<uint32_t>& registers);
   void MFLO(std::vector<uint32_t>& registers);
   void MTHI(std::vector<uint32_t>& registers);
@@ -35,8 +35,6 @@ public:
 
 
 private:
-  uint32_t bits;
-  uint32_t opcode;
   uint32_t src1;
   uint32_t src2;
   uint32_t dest;

@@ -2,25 +2,25 @@
 #include <vector>
 #include <cmath>
 #include "instruction_R.hpp"
+#include "init.hpp"
 
 void instruction_R::set_bits(const uint32_t& input_bits){
-  bits = input_bits;
-  src1 = 0b11111 & (bits >> 21);
-  src2 = 0b11111 & (bits >> 16);
-  dest = 0b11111 & (bits >> 11);
-  shift_amount = 0b11111 & (bits >> 6);
-  fn_code = 0b111111 & bits;
+  src1 = 0b11111 & (input_bits >> 21);
+  src2 = 0b11111 & (input_bits >> 16);
+  dest = 0b11111 & (input_bits >> 11);
+  shift_amount = 0b11111 & (input_bits >> 6);
+  fn_code = 0b111111 & input_bits;
 }
 
-void instruction_R::execute(std::vector<uint32_t>& registers, uint32_t& pc){
+void instruction_R::execute(std::vector<uint32_t>& registers, uint32_t& pc, uint32_t& next_pc){
   switch(fn_code){
     case 0b100000: ADD(registers);
     case 0b100001: ADDU(registers);
     case 0b100100: AND(registers);
     case 0b011010: DIV(registers);
     case 0b011011: DIVU(registers);
-    case 0b001001: JALR(registers, pc);
-    case 0b001000: JR(registers, pc);
+    case 0b001001: JALR(registers, pc, next_pc);
+    case 0b001000: JR(registers, next_pc);
     case 0b010000: MFHI(registers);
     case 0b010010: MFLO(registers);
     case 0b010001: MTHI(registers);
@@ -40,7 +40,7 @@ void instruction_R::execute(std::vector<uint32_t>& registers, uint32_t& pc){
     case 0b100011: SUBU(registers);
     case 0b100110: XOR(registers);
   }
-  if(fn_code != 0b001001 && fn_code != 0b001000) pc += 4;
+  if(fn_code != 0b001001 && fn_code != 0b001000) next_pc += 4;
 }
 
 
@@ -51,7 +51,7 @@ void instruction_R::ADD(std::vector<uint32_t>& registers){
   uint32_t msb3 = temp >> 31;
 
   if((msb1 == 0 && msb2 == 0 && msb3 == 1) || (msb1 == 1 && msb2 == 1 && msb3 == 0)){
-    std::exit(-10);
+    throw(static_cast<int32_t>(exception::ARITHMETIC));
   }
   else{
     registers[dest] = temp;
@@ -67,23 +67,32 @@ void instruction_R::AND(std::vector<uint32_t>& registers){
 }
 
 void instruction_R::DIV(std::vector<uint32_t>& registers){
-  registers[32] = static_cast<int32_t>(registers[src1]) / static_cast<int32_t>(registers[src2]);
-  registers[33] = static_cast<int32_t>(registers[src1]) % static_cast<int32_t>(registers[src2]);
+  if(registers[src2] == 0){ // Treating division by zero as an exception
+    throw(static_cast<int32_t>(exception::ARITHMETIC));
+  }
+  else{
+    registers[32] = static_cast<int32_t>(registers[src1]) / static_cast<int32_t>(registers[src2]);
+    registers[33] = static_cast<int32_t>(registers[src1]) % static_cast<int32_t>(registers[src2]);
+  }
 }
 
 void instruction_R::DIVU(std::vector<uint32_t>& registers){
-  registers[32] = registers[src1] / registers[src2];
-  registers[33] = registers[src1] % registers[src2];
+  if(registers[src2] == 0){ // Treating division by zero as an exception
+    throw(static_cast<int32_t>(exception::ARITHMETIC));
+  }
+  else{
+    registers[32] = registers[src1] / registers[src2];
+    registers[33] = registers[src1] % registers[src2];
+  }
 }
 
-void instruction_R::JALR(std::vector<uint32_t>& registers, uint32_t& pc){
+void instruction_R::JALR(std::vector<uint32_t>& registers, uint32_t& pc, uint32_t& next_pc){
   registers[dest] = pc + 8;
-  pc = registers[src1];
+  next_pc = registers[src1];
 }
 
-void instruction_R::JR(std::vector<uint32_t>& registers, uint32_t& pc){
-  
-  pc = registers[src1];
+void instruction_R::JR(std::vector<uint32_t>& registers, uint32_t& next_pc){
+  next_pc = registers[src1];
 }
 
 void instruction_R::MFHI(std::vector<uint32_t>& registers){
@@ -137,29 +146,11 @@ void instruction_R::SLTU(std::vector<uint32_t>& registers){
 }
 
 void instruction_R::SRA(std::vector<uint32_t>& registers){
-  uint32_t msb = registers[src2] >> 31;
-  uint32_t temp = registers[src2] >> shift_amount;
-  if(msb){
-    uint32_t right_ones = 0;
-    for(int i = 0; i < shift_amount; i++){
-      right_ones += std::pow(2, 31-i);
-    }
-    temp = temp | right_ones;
-  }
-  registers[dest] = temp;
+  registers[dest] = static_cast<int32_t>(registers[src2]) >> shift_amount;
 }
 
 void instruction_R::SRAV(std::vector<uint32_t>& registers){
-  uint32_t msb = registers[src2] >> 31;
-  uint32_t temp = registers[src2] >> registers[src1];
-  if(msb){
-    uint32_t right_ones = 0;
-    for(int i = 0; i < registers[src1]; i++){
-      right_ones += std::pow(2, 31-i);
-    }
-    temp = temp | right_ones;
-  }
-  registers[dest] = temp;
+  registers[dest] = static_cast<int32_t>(registers[src2]) >> registers[src1];
 }
 
 void instruction_R::SRL(std::vector<uint32_t>& registers){
@@ -177,7 +168,7 @@ void instruction_R::SUB(std::vector<uint32_t>& registers){
   uint32_t msb3 = temp >> 31;
 
   if((msb1 == 0 && msb2 == 1 && msb3 == 1) || (msb1 == 1 && msb2 == 0 && msb3 == 0)){
-    //TRIGGER OVERFLOW
+    throw(static_cast<int32_t>(exception::ARITHMETIC));
   }
   else{
     registers[dest] = temp;
@@ -190,5 +181,4 @@ void instruction_R::SUBU(std::vector<uint32_t>& registers){
 
 void instruction_R::XOR(std::vector<uint32_t>& registers){
   registers[dest] = registers[src1] ^ registers[src2];
-
 }
