@@ -51,6 +51,7 @@ void instruction_I::execute(std::vector<uint32_t>& registers, uint32_t& pc, uint
     case 0b001011: SLTIU(registers);
     case 0b101011: SW(registers, memory);
     case 0b001110: XORI(registers);
+    default: throw(static_cast<int32_t>(exception::INSTRUCTION));
   }
   if((opcode!=0b000100) && (opcode!=0b000001) && (opcode!=0b000111) && (opcode!=0b000110) && (opcode!=0b000101)){
     next_pc += 4;

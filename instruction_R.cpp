@@ -39,6 +39,7 @@ void instruction_R::execute(std::vector<uint32_t>& registers, uint32_t& pc, uint
     case 0b100010: SUB(registers);
     case 0b100011: SUBU(registers);
     case 0b100110: XOR(registers);
+    default: throw(static_cast<int32_t>(exception::INSTRUCTION));
   }
   if(fn_code != 0b001001 && fn_code != 0b001000) next_pc += 4;
 }
