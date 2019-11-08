@@ -5,54 +5,29 @@
 #include <iterator>
 #include <cstdlib>
 
-#include "instruction_R.hpp"
-#include "instruction_I.hpp"
-#include "instruction_J.hpp"
-
-#define IMEM_LENGTH 0x1000000
-#define DMEM_LENGTH 0x4000000
-#define MEM_LENGTH 0x30000004
-
-#define IMEM_OFFSET 0x10000000
-#define IMEM_END_OFFSET 0x11000000
-
-#define DMEM_OFFSET 0x20000000
-#define DMEM_END_OFFSET 0x24000000
-
-#define INPUT_OFFSET 0x30000000
-#define OUTPUT_OFFSET 0x30000004
-
-char get_type(const uint32_t& input_bits);
+#include "init.hpp"
 
 int main(int argc, char *argv[]){
 
-  //initialise memory to 0
-  std::vector<uint8_t> memory(MEM_LENGTH, 0);
+  //initalisation
+  std::vector<uint8_t> memory(MEM_LENGTH, 0); //initialise memory to 0
+  std::vector<uint32_t> registers(34, 0); //initialiste registers to 0, registers[32] is LO, registers[33] is HI
+  uint32_t pc = IMEM_OFFSET; //initialise program counter to IMEM_OFFSET
+  uint32_t next_pc = IMEM_OFFSET + 4; //initialise next program counter to 
+  std::cerr << "Everything initialised " << std::endl; //debug - status update
 
-  //initialiste registers to 0, registers[32] is LO, registers[33] is HI
-  std::vector<uint32_t> registers(34, 0);
-
-  //initialise program counter to IMEM_OFFSET
-  uint32_t pc = IMEM_OFFSET;
-
-  std::cerr << "Everything initialised " << std::endl;
-
-  //get binary name
-  std::string binName = argv[1];
-  //debug - display binary name
-  std::cerr << "binName: " << binName << std::endl;
-  //initialise binStream
-  std::ifstream binStream(binName, std::ios::binary);
+  //set up binstream
+  std::string binName = argv[1]; //get binary name
+  std::cerr << "binName: " << binName << std::endl; //debug - display binary name
+  std::ifstream binStream(binName, std::ios::binary); //initialise binStream
 
   if(!binStream.is_open()){
-    std::cerr << "File couldn't be opened" << std::endl;
+    std::cerr << "File couldn't be opened" << std::endl; //debug - error message
     std::exit(-21);
   }
 
-  //calculate binSize
-  binStream.seekg(0, std::ios::end);
+  binStream.seekg(0, std::ios::end); //calculate binSize
   int binSize = binStream.tellg();
-  //binSize-=1; DEBATABLE
   binStream.seekg(0, std::ios::beg);
   std::cerr << "Binary file size: " << binSize << std::endl;
 
@@ -65,12 +40,11 @@ int main(int argc, char *argv[]){
     }
   }
 
-  std::cerr << "Input memory OK" << std::endl;
+  std::cerr << "Input memory OK" << std::endl; //debug - status message
 
-  while(0){
+  while(0){ //processor running
     if(pc == 0){
       uint8_t exitCode = static_cast<uint8_t>(registers[2]);
-      std::cerr << "Pc = 0" << std::endl;
       std::exit(exitCode);
     }
     else if((pc < IMEM_LENGTH + IMEM_OFFSET) && (pc >= IMEM_OFFSET)){
@@ -105,12 +79,4 @@ int main(int argc, char *argv[]){
 
   }
   return 0;
-}
-
-char get_type(const uint32_t& input_bits){
-  uint32_t opcode = input_bits >> 26;
-
-  if(opcode == 0b000000) return 'R';
-  else if(opcode == 0b000010 || opcode == 0b000011) return 'J';
-  else return 'I';
 }

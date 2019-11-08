@@ -82,6 +82,7 @@ void instruction_R::JALR(std::vector<uint32_t>& registers, uint32_t& pc){
 }
 
 void instruction_R::JR(std::vector<uint32_t>& registers, uint32_t& pc){
+  
   pc = registers[src1];
 }
 
