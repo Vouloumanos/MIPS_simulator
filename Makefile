@@ -1,23 +1,23 @@
 simulator: simulator.o instruction_R.o instruction_I.o instruction_J.o init.o
-	g++ -std=c++11 $^ -o sim
+	g++ -std=c++11 bin/*.o -o bin/sim
 
-simulator.o: simulator.cpp
-	g++ -c $<
+simulator.o:
+	g++ -I inc/ -c src/simulator.cpp -o bin/simulator.o
 
-instruction_R.o: instruction_R.cpp instruction_R.hpp
-	g++ -c $<
+instruction_R.o:
+	g++ -I inc/ -c src/instruction_R.cpp -o bin/instruction_R.o
 
-instruction_I.o: instruction_I.cpp instruction_I.hpp
-	g++ -c $<
+instruction_I.o:
+	g++ -I inc/ -c src/instruction_I.cpp -o bin/instruction_I.o
 
-instruction_J.o: instruction_J.cpp instruction_J.hpp
-	g++ -c $<
+instruction_J.o:
+	g++ -I inc/ -c src/instruction_J.cpp -o bin/instruction_J.o
 
-init.o: init.cpp init.hpp
-	g++ -c $<
+init.o:
+	g++ -I inc/ -c src/init.cpp -o bin/init.o
 
 run:
-	./sim binary.bin
+	./bin/sim bin/binary.bin
 
 clean:
-	rm *.o sim
+	rm bin/*.o bin/sim
