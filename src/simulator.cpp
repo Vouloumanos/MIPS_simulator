@@ -35,18 +35,40 @@ int main(int argc, char *argv[]){
 
     binStream.seekg(0, std::ios::end); //calculate binSize
     int binSize = binStream.tellg();
-    binStream.seekg(0, std::ios::beg);
     std::cerr << "Binary file size: " << binSize << std::endl;
 
-    char c;
-    int index = 0;
-    while(binStream >> c){
-      if((index + IMEM_OFFSET) < IMEM_END_OFFSET){
-        memory[index+IMEM_OFFSET] = c;
-        index++;
+    binStream.seekg(0, std::ios::beg);
+    char* buffer = new char[binSize];
+    binStream.read(buffer, binSize);
+    binStream.close();
+
+    for(int i=0; i<binSize; i++){
+      if((i + IMEM_OFFSET) < IMEM_END_OFFSET){
+        memory[i+IMEM_OFFSET] = buffer[i];
+      }
+      else{
+        throw(static_cast<uint32_t>(exception::MEMORY));
       }
     }
 
+    delete[] buffer;
+    // char c;
+    // int index = 0;
+    // while(binStream >> c){
+    //   // std::cerr
+    //   std::cerr << "next character" << std::endl;
+    //   if((index + IMEM_OFFSET) < IMEM_END_OFFSET){
+    //     memory[index+IMEM_OFFSET] = c;
+    //     index++;
+    //   }
+    // }
+
+    //std::cerr << "memory: " << std::bitset<8> (memory[IMEM_OFFSET+3]) << std::endl;//debug - memory status
+
+
+
+    // std::cerr << "binSize: " << binSize << " index: " << index << std::endl;
+    // assert(index == binSize); // debug - maybe leave in the final version as well
     std::cerr << "Input memory OK" << std::endl; //debug - status message
 
     while(1){ //processor running
@@ -62,27 +84,38 @@ int main(int argc, char *argv[]){
         std::cerr << "Valid pc" << std::endl;
 
         //get instruction
-        uint32_t input_bits = (memory[pc] << 24) + (memory[pc+1] << 16) + (memory[pc+2] << 8) + (memory[pc+3] << 0);
+        uint32_t input_bits = (uint32_t(memory[pc]) << 24) + (uint32_t(memory[pc+1]) << 16) + (uint32_t(memory[pc+2]) << 8) + (uint32_t(memory[pc+3]) << 0);
+        std::cerr << "instruction: " << std::bitset<32> (input_bits) << std::endl;//debug - status
 
         //store next_pc temporarily as it will get changed during execution
         uint32_t temp_next_pc = next_pc;
 
         //execute instruction depending on the type
         if(get_type(input_bits) == 'R'){
+          std::cerr << "instruction R detected" << std::endl;
           instruction_R inst;
           inst.set_bits(input_bits);
           inst.execute(registers, pc, next_pc);
+          std::cerr << "instruction R executed" << std::endl;
+
         }
         else if(get_type(input_bits) == 'I'){
+          std::cerr << "instruction I detected" << std::endl;
           instruction_I inst;
           inst.set_bits(input_bits);
           inst.execute(registers, pc, next_pc, memory);
+          std::cerr << "instruction I executed" << std::endl;
+
         }
         else if(get_type(input_bits) == 'J'){
+          std::cerr << "instruction J detected" << std::endl;
           instruction_J inst;
           inst.set_bits(input_bits);
           inst.execute(registers, pc, next_pc, memory);
+          std::cerr << "instruction J executed" << std::endl;
         }
+
+        registers[0] = 0; // register 0 is grounded and cannot hold value other than 0
 
         //point pc to the next instruction
         pc = temp_next_pc;

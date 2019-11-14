@@ -14,38 +14,40 @@ void instruction_R::set_bits(const uint32_t& input_bits){
 
 void instruction_R::execute(std::vector<uint32_t>& registers, uint32_t& pc, uint32_t& next_pc){
   switch(fn_code){
-    case 0b100000: ADD(registers);
-    case 0b100001: ADDU(registers);
-    case 0b100100: AND(registers);
-    case 0b011010: DIV(registers);
-    case 0b011011: DIVU(registers);
-    case 0b001001: JALR(registers, pc, next_pc);
-    case 0b001000: JR(registers, next_pc);
-    case 0b010000: MFHI(registers);
-    case 0b010010: MFLO(registers);
-    case 0b010001: MTHI(registers);
-    case 0b010011: MTLO(registers);
-    case 0b011000: MULT(registers);
-    case 0b011001: MULTU(registers);
-    case 0b100101: OR(registers);
-    case 0b000000: SLL(registers);
-    case 0b000100: SLLV(registers);
-    case 0b101010: SLT(registers);
-    case 0b101011: SLTU(registers);
-    case 0b000011: SRA(registers);
-    case 0b000111: SRAV(registers);
-    case 0b000010: SRL(registers);
-    case 0b000110: SRLV(registers);
-    case 0b100010: SUB(registers);
-    case 0b100011: SUBU(registers);
-    case 0b100110: XOR(registers);
+    case 0b100000: ADD(registers); next_pc += 4; return;
+    case 0b100001: ADDU(registers); next_pc += 4; return;
+    case 0b100100: AND(registers); next_pc += 4; return;
+    case 0b011010: DIV(registers); next_pc += 4; return;
+    case 0b011011: DIVU(registers); next_pc += 4; return;
+    case 0b001001: JALR(registers, pc, next_pc); return;
+    case 0b001000: JR(registers, next_pc); return;
+    case 0b010000: MFHI(registers); next_pc += 4; return;
+    case 0b010010: MFLO(registers); next_pc += 4; return;
+    case 0b010001: MTHI(registers); next_pc += 4; return;
+    case 0b010011: MTLO(registers); next_pc += 4; return;
+    case 0b011000: MULT(registers); next_pc += 4; return;
+    case 0b011001: MULTU(registers); next_pc += 4; return;
+    case 0b100101: OR(registers); next_pc += 4; return;
+    case 0b000000: SLL(registers); next_pc += 4; return;
+    case 0b000100: SLLV(registers); next_pc += 4; return;
+    case 0b101010: SLT(registers); next_pc += 4; return;
+    case 0b101011: SLTU(registers); next_pc += 4; return;
+    case 0b000011: SRA(registers); next_pc += 4; return;
+    case 0b000111: SRAV(registers); next_pc += 4; return;
+    case 0b000010: SRL(registers); next_pc += 4; return;
+    case 0b000110: SRLV(registers); next_pc += 4; return;
+    case 0b100010: SUB(registers); next_pc += 4; return;
+    case 0b100011: SUBU(registers); next_pc += 4; return;
+    case 0b100110: XOR(registers); next_pc += 4; return;
     default: throw(static_cast<int32_t>(exception::INSTRUCTION));
   }
-  if(fn_code != 0b001001 && fn_code != 0b001000) next_pc += 4;
 }
 
 
 void instruction_R::ADD(std::vector<uint32_t>& registers){
+  // std::cerr << "ADD" << std::endl;
+  // std::cerr << "reg2: " << registers[src1] << " reg3: " << registers[src2] << " reg1: " << registers[dest] << std::endl;
+  //
   uint32_t msb1 = registers[src1] >> 31;
   uint32_t msb2 = registers[src2] >> 31;
   uint32_t temp = registers[src1] + registers[src2];
@@ -57,6 +59,9 @@ void instruction_R::ADD(std::vector<uint32_t>& registers){
   else{
     registers[dest] = temp;
   }
+
+  // std::cerr << "reg2: " << registers[src1] << " reg3: " << registers[src2] << " reg1: " << registers[dest] << std::endl;
+
 }
 
 void instruction_R::ADDU(std::vector<uint32_t>& registers){
