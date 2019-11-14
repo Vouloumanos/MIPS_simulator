@@ -234,10 +234,10 @@ void instruction_I::LB(std::vector<uint32_t>& registers, const std::vector<uint8
   uint32_t address = registers[src1] + offset;
   if((address >= DMEM_OFFSET) && (address < DMEM_END_OFFSET)){
     if((memory[address] >> 7) == 1){
-      registers[src2_dest] = 0xFFFFFF00 | uint32_t(memory[address]);
+      registers[src2_dest] = 0xFFFFFF00 | static_cast<uint32_t>(memory[address]);
     }
     else{
-      registers[src2_dest] = uint32_t(memory[address]);
+      registers[src2_dest] = static_cast<uint32_t>(memory[address]);
     }
   }
   else if(address == INPUT_OFFSET){
@@ -258,7 +258,7 @@ void instruction_I::LBU(std::vector<uint32_t>& registers, const std::vector<uint
   }
   uint32_t address = registers[src1] + offset;
   if((address >= DMEM_OFFSET) && (address < DMEM_END_OFFSET)){
-    registers[src2_dest] = uint32_t(memory[address]);
+    registers[src2_dest] = static_cast<uint32_t>(memory[address]);
   }
   else if(address == INPUT_OFFSET){
     //input from std::cin (throw io error)
@@ -279,10 +279,10 @@ void instruction_I::LH(std::vector<uint32_t>& registers, const std::vector<uint8
   uint32_t address = registers[src1] + offset;
   if((address >= DMEM_OFFSET) && (address < DMEM_END_OFFSET) && (address%2 == 0)){
     if((memory[address] >> 7) == 1){
-      registers[src2_dest] = 0xFFFF0000 | (uint32_t(memory[address]) << 8) | (uint32_t(memory[address+1]));
+      registers[src2_dest] = 0xFFFF0000 | (static_cast<uint32_t>(memory[address]) << 8) | (static_cast<uint32_t>(memory[address+1]));
     }
     else{
-      registers[src2_dest] = (uint32_t(memory[address]) << 8) | (uint32_t(memory[address+1]));
+      registers[src2_dest] = (static_cast<uint32_t>(memory[address]) << 8) | (static_cast<uint32_t>(memory[address+1]));
     }
   }
   else if(address == INPUT_OFFSET){
@@ -303,7 +303,7 @@ void instruction_I::LHU(std::vector<uint32_t>& registers, const std::vector<uint
   }
   uint32_t address = registers[src1] + offset;
   if((address >= DMEM_OFFSET) && (address < DMEM_END_OFFSET) && (address%2 == 0)){
-    registers[src2_dest] = (uint32_t(memory[address]) << 8) | uint32_t(memory[address+1]);
+    registers[src2_dest] = (static_cast<uint32_t>(memory[address]) << 8) | static_cast<uint32_t>(memory[address+1]);
   }
   else if(address == INPUT_OFFSET){
     //io
@@ -327,7 +327,7 @@ void instruction_I::LW(std::vector<uint32_t>& registers, const std::vector<uint8
   }
   uint32_t address = registers[src1] + offset;
   if((address >= DMEM_OFFSET) && (address < DMEM_END_OFFSET) && (address%4 == 0)){
-    registers[src2_dest] = (uint32_t(memory[address]) << 24) | (uint32_t(memory[address+1]) << 16) | (uint32_t(memory[address+2]) << 8) << (uint32_t(memory[address+3]));
+    registers[src2_dest] = (static_cast<uint32_t>(memory[address]) << 24) | (static_cast<uint32_t>(memory[address+1]) << 16) | (static_cast<uint32_t>(memory[address+2]) << 8) << (static_cast<uint32_t>(memory[address+3]));
   }
   else if(address == INPUT_OFFSET){
     //io
@@ -349,19 +349,19 @@ void instruction_I::LWL(std::vector<uint32_t>& registers, const std::vector<uint
   if((address >= DMEM_OFFSET) && (address < DMEM_END_OFFSET)){
     switch(address%4){
       case 0: {
-        registers[src2_dest] = (uint32_t(memory[address]) << 24) | (uint32_t(memory[address+1]) << 16) | (uint32_t(memory[address+2]) << 8) | (uint32_t(memory[address+3]));
+        registers[src2_dest] = (static_cast<uint32_t>(memory[address]) << 24) | (static_cast<uint32_t>(memory[address+1]) << 16) | (static_cast<uint32_t>(memory[address+2]) << 8) | (static_cast<uint32_t>(memory[address+3]));
       }
       case 1: {
         registers[src2_dest] = registers[src2_dest] & 0xFF;
-        registers[src2_dest] = (uint32_t(memory[address]) << 24) | (uint32_t(memory[address+1]) << 16) | (uint32_t(memory[address+2]) << 8) | registers[src2_dest];
+        registers[src2_dest] = (static_cast<uint32_t>(memory[address]) << 24) | (static_cast<uint32_t>(memory[address+1]) << 16) | (static_cast<uint32_t>(memory[address+2]) << 8) | registers[src2_dest];
       }
       case 2: {
         registers[src2_dest] = registers[src2_dest] & 0xFFFF;
-        registers[src2_dest] = (uint32_t(memory[address]) << 24) | (uint32_t(memory[address+1]) << 16) | registers[src2_dest];
+        registers[src2_dest] = (static_cast<uint32_t>(memory[address]) << 24) | (static_cast<uint32_t>(memory[address+1]) << 16) | registers[src2_dest];
       }
       case 3: {
         registers[src2_dest] = registers[src2_dest] & 0xFFFFFF;
-        registers[src2_dest] = (uint32_t(memory[address]) << 24) | registers[src2_dest];
+        registers[src2_dest] = (static_cast<uint32_t>(memory[address]) << 24) | registers[src2_dest];
       }
     }
   }
@@ -385,19 +385,19 @@ void instruction_I::LWR(std::vector<uint32_t>& registers, const std::vector<uint
   if((address >= DMEM_OFFSET) && (address < DMEM_END_OFFSET)){
     switch(address%4){
       case 3: {
-        registers[src2_dest] = (uint32_t(memory[address-3]) << 24) | (uint32_t(memory[address-2]) << 16) | (uint32_t(memory[address-1]) << 8) | (uint32_t(memory[address]));
+        registers[src2_dest] = (static_cast<uint32_t>(memory[address-3]) << 24) | (static_cast<uint32_t>(memory[address-2]) << 16) | (static_cast<uint32_t>(memory[address-1]) << 8) | (static_cast<uint32_t>(memory[address]));
       }
       case 2: {
         registers[src2_dest] = registers[src2_dest] & 0xFF000000;
-        registers[src2_dest] = registers[src2_dest] | (uint32_t(memory[address-2]) << 16) | (uint32_t(memory[address-1]) << 8) | (uint32_t(memory[address]));
+        registers[src2_dest] = registers[src2_dest] | (static_cast<uint32_t>(memory[address-2]) << 16) | (static_cast<uint32_t>(memory[address-1]) << 8) | (static_cast<uint32_t>(memory[address]));
       }
       case 1: {
         registers[src2_dest] = registers[src2_dest] & 0xFFFF0000;
-        registers[src2_dest] = registers[src2_dest] | (uint32_t(memory[address-1]) << 8) | uint32_t(memory[address]);
+        registers[src2_dest] = registers[src2_dest] | (static_cast<uint32_t>(memory[address-1]) << 8) | static_cast<uint32_t>(memory[address]);
       }
       case 0: {
         registers[src2_dest] = registers[src2_dest] & 0xFFFFFF00;
-        registers[src2_dest] = registers[src2_dest] | uint32_t(memory[address]);
+        registers[src2_dest] = registers[src2_dest] | static_cast<uint32_t>(memory[address]);
       }
     }
   }
