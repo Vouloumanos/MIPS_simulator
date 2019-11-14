@@ -3,6 +3,7 @@
 
 #include <cstdint> //for ints and uints
 #include <cstdlib>
+#include <iostream> //for cin and cout
 
 //include all other headers
 #include "instruction_R.hpp"
@@ -37,5 +38,7 @@ enum class error{
 
 //function declarations
 char get_type(const uint32_t& input_bits);
+void output_char(char c);
+char input_char();
 
 #endif

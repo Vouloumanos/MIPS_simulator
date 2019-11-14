@@ -240,8 +240,15 @@ void instruction_I::LB(std::vector<uint32_t>& registers, const std::vector<uint8
       registers[src2_dest] = static_cast<uint32_t>(memory[address]);
     }
   }
-  else if(address == INPUT_OFFSET){
-    //input from std::cin (throw io error)
+  else if(address == INPUT_OFFSET+3){//verify
+    char c = input_char();
+
+    if(c == -1){
+      registers[src2_dest] = -1;
+    }
+    else{
+      registers[src2_dest] = 0x000000FF & c;
+    }
   }
   else{
     throw(static_cast<int32_t>(exception::MEMORY));
@@ -260,8 +267,15 @@ void instruction_I::LBU(std::vector<uint32_t>& registers, const std::vector<uint
   if((address >= DMEM_OFFSET) && (address < DMEM_END_OFFSET)){
     registers[src2_dest] = static_cast<uint32_t>(memory[address]);
   }
-  else if(address == INPUT_OFFSET){
-    //input from std::cin (throw io error)
+  else if(address == INPUT_OFFSET+3){//verify
+    char c = input_char();
+
+    if(c == -1){
+      registers[src2_dest] = -1;
+    }
+    else{
+      registers[src2_dest] = 0x000000FF & c;
+    }
   }
   else{
     throw(static_cast<int32_t>(exception::MEMORY));
@@ -285,8 +299,15 @@ void instruction_I::LH(std::vector<uint32_t>& registers, const std::vector<uint8
       registers[src2_dest] = (static_cast<uint32_t>(memory[address]) << 8) | (static_cast<uint32_t>(memory[address+1]));
     }
   }
-  else if(address == INPUT_OFFSET){
-    //io
+  else if(address == INPUT_OFFSET+2){
+    char c = input_char();
+
+    if(c == -1){
+      registers[src2_dest] = -1;
+    }
+    else{
+      registers[src2_dest] = 0x000000FF & c;
+    }
   }
   else{
     throw(static_cast<int32_t>(exception::MEMORY));
@@ -305,8 +326,15 @@ void instruction_I::LHU(std::vector<uint32_t>& registers, const std::vector<uint
   if((address >= DMEM_OFFSET) && (address < DMEM_END_OFFSET) && (address%2 == 0)){
     registers[src2_dest] = (static_cast<uint32_t>(memory[address]) << 8) | static_cast<uint32_t>(memory[address+1]);
   }
-  else if(address == INPUT_OFFSET){
-    //io
+  else if(address == INPUT_OFFSET+2){//verify
+    char c = input_char();
+
+    if(c == -1){
+      registers[src2_dest] = -1;
+    }
+    else{
+      registers[src2_dest] = 0x000000FF & c;
+    }
   }
   else{
     throw(static_cast<int32_t>(exception::MEMORY));
@@ -330,7 +358,14 @@ void instruction_I::LW(std::vector<uint32_t>& registers, const std::vector<uint8
     registers[src2_dest] = (static_cast<uint32_t>(memory[address]) << 24) | (static_cast<uint32_t>(memory[address+1]) << 16) | (static_cast<uint32_t>(memory[address+2]) << 8) << (static_cast<uint32_t>(memory[address+3]));
   }
   else if(address == INPUT_OFFSET){
-    //io
+    char c = input_char();
+
+    if(c == -1){
+      registers[src2_dest] = -1;
+    }
+    else{
+      registers[src2_dest] = 0x000000FF & c;
+    }
   }
   else{
     throw(static_cast<int32_t>(exception::MEMORY));
@@ -425,8 +460,8 @@ void instruction_I::SB(std::vector<uint32_t>& registers, std::vector<uint8_t>& m
   if((address >= DMEM_OFFSET) && (address < DMEM_END_OFFSET)){
     memory[address] = registers[src2_dest];
   }
-  else if(address == OUTPUT_OFFSET){
-    //io
+  else if(address == OUTPUT_OFFSET+3){ //VERIFY
+    output_char(static_cast<char>(registers[src2_dest] & 0xFF));
   }
   else{
     throw(static_cast<int32_t>(exception::MEMORY));
@@ -446,8 +481,8 @@ void instruction_I::SH(std::vector<uint32_t>& registers, std::vector<uint8_t>& m
     memory[address] = registers[src2_dest] >> 8;
     memory[address+1] = registers[src2_dest];
   }
-  else if(address == OUTPUT_OFFSET){
-    //io
+  else if(address == OUTPUT_OFFSET+2){//VERIFY
+    output_char(static_cast<char>(registers[src2_dest] & 0xFF));
   }
   else{
     throw(static_cast<int32_t>(exception::MEMORY));
@@ -504,7 +539,8 @@ void instruction_I::SW(std::vector<uint32_t>& registers, std::vector<uint8_t>& m
     memory[address+3] = registers[src2_dest];
   }
   else if(address == OUTPUT_OFFSET){
-    //io
+    output_char(static_cast<char>(registers[src2_dest] & 0xFF));
+
   }
   else{
     throw(static_cast<int32_t>(exception::MEMORY));

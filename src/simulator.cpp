@@ -50,25 +50,8 @@ int main(int argc, char *argv[]){
         throw(static_cast<uint32_t>(exception::MEMORY));
       }
     }
-
     delete[] buffer;
-    // char c;
-    // int index = 0;
-    // while(binStream >> c){
-    //   // std::cerr
-    //   std::cerr << "next character" << std::endl;
-    //   if((index + IMEM_OFFSET) < IMEM_END_OFFSET){
-    //     memory[index+IMEM_OFFSET] = c;
-    //     index++;
-    //   }
-    // }
 
-    //std::cerr << "memory: " << std::bitset<8> (memory[IMEM_OFFSET+3]) << std::endl;//debug - memory status
-
-
-
-    // std::cerr << "binSize: " << binSize << " index: " << index << std::endl;
-    // assert(index == binSize); // debug - maybe leave in the final version as well
     std::cerr << "Input memory OK" << std::endl; //debug - status message
 
     while(1){ //processor running
@@ -111,7 +94,7 @@ int main(int argc, char *argv[]){
           std::cerr << "instruction J detected" << std::endl;
           instruction_J inst;
           inst.set_bits(input_bits);
-          inst.execute(registers, pc, next_pc, memory);
+          inst.execute(registers, pc, next_pc);
           std::cerr << "instruction J executed" << std::endl;
         }
 

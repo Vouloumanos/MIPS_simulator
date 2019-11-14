@@ -8,7 +8,7 @@ void instruction_J::set_bits(const uint32_t& input_bits){
   address = 0x3FFFFFF & input_bits;
 }
 
-void instruction_J::execute(std::vector<uint32_t>& registers, uint32_t& pc, uint32_t& next_pc, std::vector<uint8_t>& memory){
+void instruction_J::execute(std::vector<uint32_t>& registers, uint32_t& pc, uint32_t& next_pc){
   switch(opcode){
     case 0b000010: J(next_pc); return;
     case 0b000011: JAL(registers, pc, next_pc); return;
