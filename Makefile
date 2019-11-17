@@ -44,7 +44,7 @@ simulator: $(SIM_DEP)
 # For testbench:
 
 testbench:
-	@echo "Nothing to do"
+	
 
 #################################################
 # For run and clean:
@@ -72,5 +72,3 @@ instruction_J.o:
 init.o:
 	g++ -std=c++11 -I inc/ -c src/init.cpp -o bin/init.o
 # DEBUG END
-
-

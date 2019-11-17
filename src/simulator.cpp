@@ -22,11 +22,11 @@ int main(int argc, char *argv[]){
     std::vector<uint32_t> registers(34, 0); //initialiste registers to 0, registers[32] is LO, registers[33] is HI
     uint32_t pc = IMEM_OFFSET; //initialise program counter to IMEM_OFFSET
     uint32_t next_pc = IMEM_OFFSET + 4; //initialise next program counter to
-    //std::cerr << "Everything initialised " << std::endl; //debug - status update
+    std::cerr << "Everything initialised " << std::endl; //debug - status update
 
     //set up binstream
     std::string binName = argv[1]; //get binary name
-    //std::cerr << "binName: " << binName << std::endl; //debug - display binary name
+    std::cerr << "binName: " << binName << std::endl; //debug - display binary name
     std::ifstream binStream(binName, std::ios::binary); //initialise binStream
 
     if(!binStream.is_open()){ //THINK ABOUT CORRECT ERROR CODE
@@ -36,7 +36,7 @@ int main(int argc, char *argv[]){
 
     binStream.seekg(0, std::ios::end); //calculate binSize
     int binSize = binStream.tellg();
-    //std::cerr << "Binary file size: " << binSize << std::endl;
+    std::cerr << "Binary file size: " << binSize << std::endl;
 
     binStream.seekg(0, std::ios::beg);
     char* buffer = new char[binSize];
