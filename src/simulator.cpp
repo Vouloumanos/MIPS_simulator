@@ -4,6 +4,7 @@
 #include <vector>
 #include <iterator>
 #include <cstdlib>
+#include <bitset>
 
 #include "init.hpp"
 
