@@ -5,11 +5,14 @@ MIPS_OBJDUMP='mips-linux-gnu-objdump'
 MIPS_CPPFLAGS='-W -Wall -O3 -fno-builtin -march=mips1 -mfp32'
 MIPS_LDFLAGS='-nostdlib -Wl,-melf32btsmip -march=mips1 -nostartfiles -mno-check-zero-division -Wl,--gpsize=0 -static -Wl,-Bstatic -Wl,--build-id=none'
 
-TESTS='../test/bin/*bin'
-OUTPUT_FILE='../test/results.csv'
+TESTS='test/bin/*bin'
+DATA='test/data.csv'
+OUTPUT_FILE='test/results.csv'
 
 rm $OUTPUT_FILE
 echo ""TestId","Instruction","Status","Author","Message"" >> $OUTPUT_FILE
+
+COUNT=2
 
 for i in $TESTS
 do
@@ -17,18 +20,24 @@ do
   TEST_NAME=${TEST_NAME%*.mips.bin}
   INSTRUCTION=${TEST_NAME%?}
 
-  ./mips_simulator $i
+  ./bin/mips_simulator $i
   RETCODE=$?
-  echo $RETCODE
 
-  EXPECTED=3
+  eval LINE=($(sed "${COUNT}q;d" $DATA))
+  IFS=',' read -r -a ARRAY <<< "$LINE"
+  COUNT=$((COUNT+1))
+
+  EXPECTED="${ARRAY[2]}"
+  AUTHOR="${ARRAY[3]}"
+  MESSAGE="${ARRAY[4]}"
+  echo $EXPECTED
+  echo $MESSAGE
+
   if [[ "$RETCODE" = "$EXPECTED" ]]
   then
-    echo "Success"
-    echo "$TEST_NAME,$INSTRUCTION,"Pass","faw18","Message"" >> $OUTPUT_FILE
+    echo "$TEST_NAME,$INSTRUCTION,"Pass",$AUTHOR,$MESSAGE" >> $OUTPUT_FILE
   else
-    echo "Failure"
-    echo "$TEST_NAME,$INSTRUCTION,"Fail","faw18","Message"" >> $OUTPUT_FILE
+    echo "$TEST_NAME,$INSTRUCTION,"Fail",$AUTHOR,$MESSAGE" >> $OUTPUT_FILE
   fi
 
 done
