@@ -5,12 +5,12 @@ MIPS_OBJDUMP='mips-linux-gnu-objdump'
 MIPS_CPPFLAGS='-W -Wall -O3 -fno-builtin -march=mips1 -mfp32'
 MIPS_LDFLAGS='-nostdlib -Wl,-melf32btsmip -march=mips1 -nostartfiles -mno-check-zero-division -Wl,--gpsize=0 -static -Wl,-Bstatic -Wl,--build-id=none'
 
-TESTS='test/bin/*bin'
+TESTS='test/bin/*.bin'
 DATA='test/data.csv'
 OUTPUT_FILE='test/results.csv'
 
 rm $OUTPUT_FILE
-echo ""TestId","Instruction","Status","Author","Message"" >> $OUTPUT_FILE
+echo ""TestId","Instruction","Status","Author","Message","ExpectedCode","ReturnCode"" >> $OUTPUT_FILE
 
 COUNT=2
 
@@ -30,14 +30,12 @@ do
   EXPECTED="${ARRAY[2]}"
   AUTHOR="${ARRAY[3]}"
   MESSAGE="${ARRAY[4]}"
-  echo $EXPECTED
-  echo $MESSAGE
 
   if [[ "$RETCODE" = "$EXPECTED" ]]
   then
-    echo "$TEST_NAME,$INSTRUCTION,"Pass",$AUTHOR,$MESSAGE" >> $OUTPUT_FILE
+    echo "$TEST_NAME,$INSTRUCTION,"Pass",$AUTHOR,$MESSAGE,$EXPECTED,$RETCODE" >> $OUTPUT_FILE
   else
-    echo "$TEST_NAME,$INSTRUCTION,"Fail",$AUTHOR,$MESSAGE" >> $OUTPUT_FILE
+    echo "$TEST_NAME,$INSTRUCTION,"Fail",$AUTHOR,$MESSAGE,$EXPECTED,$RETCODE" >> $OUTPUT_FILE
   fi
 
 done

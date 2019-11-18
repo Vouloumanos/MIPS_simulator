@@ -38,14 +38,16 @@ SIM_DEP = src/simulator.cpp src/instruction_R.cpp src/instruction_I.cpp src/inst
 simulator: $(SIM_DEP)
 	mkdir -p bin
 	$(CC) $(CPPFLAGS) $(SIM_DEP) -o bin/mips_simulator
+	chmod +x ./bin/mips_simulator
 	#g++ -std=c++11 bin/*.o -o bin/mips_simulator
 
 #################################################
 # For testbench:
 
 testbench:
-	#cp ./test/mips_testbench /bin FIX
 	./test/converter.sh
+	#cp ./test/mips_testbench /bin FIX
+
 
 
 #################################################
