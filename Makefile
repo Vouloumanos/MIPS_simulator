@@ -44,7 +44,9 @@ simulator: $(SIM_DEP)
 # For testbench:
 
 testbench:
-	
+	#cp ./test/mips_testbench /bin FIX
+	./test/converter.sh
+
 
 #################################################
 # For run and clean:
