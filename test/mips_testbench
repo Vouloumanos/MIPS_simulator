@@ -34,8 +34,10 @@ do
   if [[ "$RETCODE" = "$EXPECTED" ]]
   then
     echo "$TEST_NAME,$INSTRUCTION,"Pass",$AUTHOR,$MESSAGE,$EXPECTED,$RETCODE" >> $OUTPUT_FILE
+echo ""Pass "$TEST_NAME"
   else
     echo "$TEST_NAME,$INSTRUCTION,"Fail",$AUTHOR,$MESSAGE,$EXPECTED,$RETCODE" >> $OUTPUT_FILE
+echo ""Fail "$TEST_NAME"
   fi
 
 done

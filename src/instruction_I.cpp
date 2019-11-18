@@ -101,7 +101,7 @@ void instruction_I::BEQ(std::vector<uint32_t>& registers, uint32_t& next_pc){
     else{
       offset = address_data*4;
     }
-    next_pc += 4 + offset;
+    next_pc += offset;
   }
   else{
     next_pc += 4;
@@ -117,7 +117,7 @@ void instruction_I::BGEZ(std::vector<uint32_t>& registers, uint32_t& next_pc){
     else{
       offset = address_data*4;
     }
-    next_pc += 4 + offset;
+    next_pc += offset;
   }
   else{
     next_pc += 4;
@@ -135,7 +135,7 @@ void instruction_I::BGEZAL(std::vector<uint32_t>& registers, uint32_t& pc, uint3
       offset = address_data*4;
     }
 
-    next_pc += 4 + offset;
+    next_pc += offset;
   }
   else{
     next_pc += 4;
@@ -151,7 +151,7 @@ void instruction_I::BGTZ(std::vector<uint32_t>& registers, uint32_t& next_pc){
     else{
       offset = address_data*4;
     }
-    next_pc += 4 + offset;
+    next_pc += offset;
   }
   else{
     next_pc += 4;
@@ -167,7 +167,7 @@ void instruction_I::BLEZ(std::vector<uint32_t>& registers, uint32_t& next_pc){
     else{
       offset = address_data*4;
     }
-    next_pc += 4 + offset;
+    next_pc += offset;
   }
   else{
     next_pc += 4;
@@ -183,7 +183,7 @@ void instruction_I::BLTZ(std::vector<uint32_t>& registers, uint32_t& next_pc){
     else{
       offset = address_data*4;
     }
-    next_pc += 4 + offset;
+    next_pc += offset;
   }
   else{
     next_pc += 4;
@@ -200,7 +200,7 @@ void instruction_I::BLTZAL(std::vector<uint32_t>& registers, uint32_t& pc, uint3
     else{
       offset = address_data*4;
     }
-    next_pc += 4 + offset;
+    next_pc += offset;
   }
   else{
     next_pc += 4;
@@ -216,7 +216,7 @@ void instruction_I::BNE(std::vector<uint32_t>& registers, uint32_t& next_pc){
     else{
       offset = address_data*4;
     }
-    next_pc += 4 + offset;
+    next_pc += offset;
   }
   else{
     next_pc += 4;

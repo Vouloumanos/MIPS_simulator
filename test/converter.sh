@@ -8,6 +8,7 @@ MIPS_LDFLAGS='-nostdlib -Wl,-melf32btsmip -march=mips1 -nostartfiles -mno-check-
 FILES='test/testcases/*.s'
 
 rm ./test/bin/*
+rm ./test/reassembled_testcases/*
 
 for i in $FILES
 do
