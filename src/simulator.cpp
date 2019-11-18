@@ -55,7 +55,12 @@ int main(int argc, char *argv[]){
 
     //std::cerr << "Input memory OK" << std::endl; //debug - status message
 
+    //std::cerr << std::endl;
+    //std::cerr << std::endl;
+
     while(1){ //processor running
+
+      //std::cerr << "pc: " << std::hex <<pc << " next_pc: " << std::hex << next_pc;
 
       if(pc == 0){ //program has finished, return lower 8 bits of register 2
         uint8_t returnCode = static_cast<uint8_t>(registers[2]);
@@ -73,6 +78,7 @@ int main(int argc, char *argv[]){
 
         //store next_pc temporarily as it will get changed during execution
         uint32_t temp_next_pc = next_pc;
+        //std::cerr << " temp_next_pc: " << std::hex << temp_next_pc;
 
         //execute instruction depending on the type
         if(get_type(input_bits) == 'R'){
@@ -102,7 +108,9 @@ int main(int argc, char *argv[]){
         registers[0] = 0; // register 0 is grounded and cannot hold value other than 0
 
         //point pc to the next instruction
+        //std::cerr << " temp_next_pc: " << std::hex << temp_next_pc << std::endl;
         pc = temp_next_pc;
+        //std::cerr << "reg: " << registers[3] << std::endl;
 
       }
       else{
