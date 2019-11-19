@@ -1,7 +1,7 @@
 
-addi $2, $2, 10
+addi $2, $2, 3
 
-divu $0, $2
+mult $2, $0
 
 mflo $2
 

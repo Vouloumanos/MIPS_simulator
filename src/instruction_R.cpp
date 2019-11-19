@@ -118,15 +118,15 @@ void instruction_R::MTLO(std::vector<uint32_t>& registers){
 }
 
 void instruction_R::MULT(std::vector<uint32_t>& registers){
-  int64_t product = static_cast<int32_t>(registers[src1]) * static_cast<int32_t>(registers[src2]);
-  registers[32] = product & 0x00000000FFFFFFFF;
-  registers[33] = product & 0xFFFFFFFF00000000;
+  int64_t product = static_cast<int64_t>(registers[src1]) * static_cast<int64_t>(registers[src2]);
+  registers[32] = static_cast<int32_t>(product);
+  registers[33] = static_cast<int32_t>(product >> 32);
 }
 
 void instruction_R::MULTU(std::vector<uint32_t>& registers){
-  uint64_t product = registers[src1] * registers[src2];
-  registers[32] = product & 0x00000000FFFFFFFF;
-  registers[33] = product & 0xFFFFFFFF00000000;
+  uint64_t product = static_cast<uint64_t>(registers[src1]) * static_cast<uint64_t>(registers[src2]);
+  registers[32] = static_cast<int32_t>(product);
+  registers[33] = static_cast<int32_t>(product >> 32);
 }
 
 void instruction_R::OR(std::vector<uint32_t>& registers){
