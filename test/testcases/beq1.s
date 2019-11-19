@@ -1,3 +1,5 @@
+.set noreorder
+
 start:
   addiu $2, $0, 5
   addiu $3, $0, 6

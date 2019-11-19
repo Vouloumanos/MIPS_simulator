@@ -37,7 +37,7 @@ do
 echo ""Pass "$TEST_NAME"
   else
     echo "$TEST_NAME,$INSTRUCTION,"Fail",$AUTHOR,$MESSAGE,$EXPECTED,$RETCODE" >> $OUTPUT_FILE
-echo ""Fail "$TEST_NAME"
+echo ""Fail "$TEST_NAME" Expected: "$EXPECTED" Returned: "$RETCODE"
   fi
 
 done
