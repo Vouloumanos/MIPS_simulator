@@ -1,9 +1,9 @@
 .set noreorder
 
 start:
-  addiu $2, $0, 5
-  addiu $3, $0, 6
-  bgez $2, start + 20
+  addi $2, $0, 5
+  addi $3, $0, 10
+  bne $2, start + 20
   nop
   add $2, $2, $3
   jr $0
