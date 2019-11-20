@@ -1,6 +1,6 @@
 lui $3, 0x3000
 ori $3, $3, 0x000C
-lwl $5, 0($3)
+lwl $2, 0($3)
 jr $zero
 nop
 

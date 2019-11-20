@@ -191,7 +191,7 @@ void instruction_I::BLTZ(cpu& mips_cpu){
 
 void instruction_I::BLTZAL(cpu& mips_cpu){
   mips_cpu.registers[31] = mips_cpu.pc + 8;
-  if(static_cast<int32_t>(mips_cpu.registers[src1]) <= 0){
+  if(static_cast<int32_t>(mips_cpu.registers[src1]) < 0){
     int32_t offset;
     if((address_data >> 15) == 1){
       offset = 0xFFFC0000 | (address_data*4);
