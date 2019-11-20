@@ -10,7 +10,7 @@ Disassembly of section .text:
 10000008:	3c04a0bb 	lui	a0,0xa0bb
 1000000c:	348470dd 	ori	a0,a0,0x70dd
 10000010:	ac64fffe 	sw	a0,-2(v1)
-10000014:	9462fffe 	lhu	v0,-2(v1)
+10000014:	94620000 	lhu	v0,0(v1)
 10000018:	00000008 	jr	zero
 1000001c:	00000000 	nop
 	...
