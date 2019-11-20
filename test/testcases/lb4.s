@@ -9,4 +9,4 @@ jr $zero
 nop
 
 
-#Expected: 250
+#Check for sign extension. Expected: 250
