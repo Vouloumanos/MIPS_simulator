@@ -326,7 +326,7 @@ void instruction_I::LHU(std::vector<uint32_t>& registers, const std::vector<uint
   if((address >= DMEM_OFFSET) && (address < DMEM_END_OFFSET) && (address%2 == 0)){
     registers[src2_dest] = (static_cast<uint32_t>(memory[address]) << 8) | static_cast<uint32_t>(memory[address+1]);
   }
-  else if(address == INPUT_OFFSET+2){//verify
+  else if(address == INPUT_OFFSET+2){ //verify
     char c = input_char();
 
     if(c == -1){
