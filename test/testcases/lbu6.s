@@ -1,4 +1,4 @@
-lui $3, 0x10000
+lui $3, 0x1000
 addiu $3, $3, 0x0006
 lui $4, 0xA070
 addiu $4, $4, 0xCCDD
