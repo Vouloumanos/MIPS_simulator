@@ -5,9 +5,9 @@ addiu $4, $4, 0xCCDD
 lui $5, 0xEEEE
 addiu $5, $5, 0xEEEE
 sw $4, 0($3)
-lwl $2, 2($3)
+lwr $5, 3($3)
 jr $zero
 nop
 
 
-#Expected: 238
+#Expected: 221
