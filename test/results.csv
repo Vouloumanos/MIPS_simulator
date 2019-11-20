@@ -36,7 +36,9 @@ divu2,divu,Pass,faw18,divu_zero,246,246
 divu3,divu,Pass,faw18,Divu_-1,1,1
 divu4,divu,Pass,faw18,Divu_-2,0,0
 divu5,divu,Pass,faw18,divu_0_by,0,0
-j0,j,Fail,faw18,lol,69,245
+fibonacci0,fibonacci,Fail,faw18,find_fibonacci_of_10,55,245
+j0,j,Pass,faw18,j_valid,14,14
+jal0,jal,Pass,faw18,jal_valid,15,15
 jalr0,jalr,Pass,faw18,jalr_to_0,12,12
 jalr1,jalr,Pass,faw18,jalr_not_multiple_of_4,245,245
 jalr2,jalr,Pass,faw18,jalr_before_instruction_memory,245,245

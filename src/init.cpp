@@ -1,5 +1,14 @@
 #include "init.hpp"
 
+void init_cpu(cpu& mips_cpu){
+  mips_cpu.memory.resize(MEM_LENGTH, 0);
+  mips_cpu.registers.resize(32, 0);
+  mips_cpu.hi = 0;
+  mips_cpu.lo = 0;
+  mips_cpu.pc = IMEM_OFFSET;
+  mips_cpu.next_pc = IMEM_OFFSET + 4;
+}
+
 char get_type(const uint32_t& input_bits){
   uint32_t opcode = input_bits >> 26;
 
