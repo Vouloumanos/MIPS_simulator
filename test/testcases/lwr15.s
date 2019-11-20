@@ -6,6 +6,7 @@ lui $5, 0xEEEE
 ori $5, $5, 0xEEEE
 sw $4, 0($3)
 lwr $5, 3($3)
+srl $2, $5, 0
 jr $zero
 nop
 

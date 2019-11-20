@@ -5,7 +5,8 @@ ori $4, $4, 0xCCDD
 lui $5, 0xEEEE
 ori $5, $5, 0xEEEE
 sw $4, 0($3)
-lwl $2, 1($3)
+lwl $5, 1($3)
+srl $2, $5, 0
 jr $zero
 nop
 
