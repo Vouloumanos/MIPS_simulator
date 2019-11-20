@@ -6,9 +6,9 @@ Disassembly of section .text:
 
 10000000 <.text>:
 10000000:	3c031000 	lui	v1,0x1000
-10000004:	2463000c 	addiu	v1,v1,12
+10000004:	3463000c 	ori	v1,v1,0xc
 10000008:	3c04aabb 	lui	a0,0xaabb
-1000000c:	2484ccdd 	addiu	a0,a0,-13091
+1000000c:	3484ccdd 	ori	a0,a0,0xccdd
 10000010:	8c620000 	lw	v0,0(v1)
 10000014:	00000008 	jr	zero
 10000018:	00000000 	nop

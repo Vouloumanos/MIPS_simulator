@@ -6,10 +6,10 @@ Disassembly of section .text:
 
 10000000 <.text>:
 10000000:	3c032000 	lui	v1,0x2000
-10000004:	24630012 	addiu	v1,v1,18
+10000004:	34630012 	ori	v1,v1,0x12
 10000008:	3c04aabb 	lui	a0,0xaabb
-1000000c:	2484ccdd 	addiu	a0,a0,-13091
-10000010:	2405ff05 	li	a1,-251
+1000000c:	3484ccdd 	ori	a0,a0,0xccdd
+10000010:	3405ff05 	li	a1,0xff05
 10000014:	ac64fffe 	sw	a0,-2(v1)
 10000018:	a0650000 	sb	a1,0(v1)
 1000001c:	8c62fffe 	lw	v0,-2(v1)
