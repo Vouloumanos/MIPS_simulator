@@ -77,8 +77,8 @@ void instruction_R::DIV(cpu& mips_cpu){
     throw(static_cast<int32_t>(exception::ARITHMETIC));
   }
   else{
-    mips_cpu.registers[32] = static_cast<int32_t>(mips_cpu.registers[src1]) / static_cast<int32_t>(mips_cpu.registers[src2]);
-    mips_cpu.registers[33] = static_cast<int32_t>(mips_cpu.registers[src1]) % static_cast<int32_t>(mips_cpu.registers[src2]);
+    mips_cpu.lo = static_cast<int32_t>(mips_cpu.registers[src1]) / static_cast<int32_t>(mips_cpu.registers[src2]);
+    mips_cpu.hi = static_cast<int32_t>(mips_cpu.registers[src1]) % static_cast<int32_t>(mips_cpu.registers[src2]);
   }
 }
 
@@ -87,8 +87,8 @@ void instruction_R::DIVU(cpu& mips_cpu){
     throw(static_cast<int32_t>(exception::ARITHMETIC));
   }
   else{
-    mips_cpu.registers[32] = mips_cpu.registers[src1] / mips_cpu.registers[src2];
-    mips_cpu.registers[33] = mips_cpu.registers[src1] % mips_cpu.registers[src2];
+    mips_cpu.lo = mips_cpu.registers[src1] / mips_cpu.registers[src2];
+    mips_cpu.hi = mips_cpu.registers[src1] % mips_cpu.registers[src2];
   }
 }
 

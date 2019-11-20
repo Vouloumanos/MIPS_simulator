@@ -5,8 +5,8 @@
 Disassembly of section .text:
 
 10000000 <.text>:
-10000000:	2063fffd 	addi	v1,v1,-3
-10000004:	2042fffb 	addi	v0,v0,-5
+10000000:	2463fffd 	addiu	v1,v1,-3
+10000004:	2442fffb 	addiu	v0,v0,-5
 10000008:	00620018 	mult	v1,v0
 1000000c:	00001010 	mfhi	v0
 10000010:	00000008 	jr	zero
