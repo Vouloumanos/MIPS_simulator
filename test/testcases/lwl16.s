@@ -1,5 +1,5 @@
 lui $3, 0x3000
-addiu $3, $3, 0x000C
+ori $3, $3, 0x000C
 lwl $5, 0($3)
 jr $zero
 nop
