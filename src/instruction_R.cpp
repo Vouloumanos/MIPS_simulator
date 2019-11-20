@@ -118,7 +118,14 @@ void instruction_R::MTLO(std::vector<uint32_t>& registers){
 }
 
 void instruction_R::MULT(std::vector<uint32_t>& registers){
-  int64_t product = static_cast<int64_t>(registers[src1]) * static_cast<int64_t>(registers[src2]);
+  int64_t temp1, temp2;
+  if(registers[src1] >> 31) temp1 = static_cast<int64_t>(registers[src1]) | 0xFFFFFFFF00000000;
+  else temp1 = static_cast<int64_t>(registers[src1]);
+
+  if(registers[src2] >> 31) temp2 = static_cast<int64_t>(registers[src2]) | 0xFFFFFFFF00000000;
+  else temp2 = static_cast<int64_t>(registers[src2]);
+
+  int64_t product = temp1 * temp2;
   registers[32] = static_cast<int32_t>(product);
   registers[33] = static_cast<int32_t>(product >> 32);
 }
@@ -138,7 +145,7 @@ void instruction_R::SLL(std::vector<uint32_t>& registers){
 }
 
 void instruction_R::SLLV(std::vector<uint32_t>& registers){
-  registers[dest] = registers[src2] << registers[src1];
+  registers[dest] = registers[src2] << (registers[src1] & 0b11111);
 }
 
 void instruction_R::SLT(std::vector<uint32_t>& registers){
@@ -156,7 +163,7 @@ void instruction_R::SRA(std::vector<uint32_t>& registers){
 }
 
 void instruction_R::SRAV(std::vector<uint32_t>& registers){
-  registers[dest] = static_cast<int32_t>(registers[src2]) >> registers[src1];
+  registers[dest] = static_cast<int32_t>(registers[src2]) >> (registers[src1] & 0b11111);
 }
 
 void instruction_R::SRL(std::vector<uint32_t>& registers){
@@ -164,7 +171,7 @@ void instruction_R::SRL(std::vector<uint32_t>& registers){
 }
 
 void instruction_R::SRLV(std::vector<uint32_t>& registers){
-  registers[dest] = registers[src2] >> registers[src1];
+  registers[dest] = registers[src2] >> (registers[src1] & 0b11111);
 }
 
 void instruction_R::SUB(std::vector<uint32_t>& registers){
