@@ -1,12 +1,11 @@
 
-addiu $3, $3, -1
-addiu $4, $4, -2
+addiu $2, $2, 10
 
-div $3, $4
+div $0, $2
 
-mfhi $2
+mflo $2
 
 jr $0
 nop
 
-#expect -1 (255)
+#expect 0

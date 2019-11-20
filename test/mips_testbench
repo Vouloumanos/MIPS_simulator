@@ -18,6 +18,7 @@ for i in $TESTS
 do
   TEST_NAME=${i##*/}
   TEST_NAME=${TEST_NAME%*.mips.bin}
+  #echo $TEST_NAME
 
   ./bin/mips_simulator $i
   RETCODE=$?
@@ -26,6 +27,8 @@ do
   IFS=',' read -r -a ARRAY <<< "$LINE"
   COUNT=$((COUNT+1))
 
+  TEST_NAME_READ="${ARRAY[0]}"
+  #echo $TEST_NAME_READ
   INSTRUCTION="${ARRAY[1]}"
   EXPECTED="${ARRAY[2]}"
   AUTHOR="${ARRAY[3]}"
@@ -34,10 +37,12 @@ do
   if [[ "$RETCODE" = "$EXPECTED" ]]
   then
     echo "$TEST_NAME,$INSTRUCTION,"Pass",$AUTHOR,$MESSAGE,$EXPECTED,$RETCODE" >> $OUTPUT_FILE
-echo ""Pass "$TEST_NAME"
+    #echo "$TEST_NAME,$INSTRUCTION,"Pass",$AUTHOR,$MESSAGE,$EXPECTED,$RETCODE"
+    echo "$TEST_NAME" Pass""
   else
     echo "$TEST_NAME,$INSTRUCTION,"Fail",$AUTHOR,$MESSAGE,$EXPECTED,$RETCODE" >> $OUTPUT_FILE
-echo ""Fail "$TEST_NAME" Expected: "$EXPECTED" Returned: "$RETCODE"
+    #echo "$TEST_NAME,$INSTRUCTION,"Fail",$AUTHOR,$MESSAGE,$EXPECTED,$RETCODE"
+    echo "$TEST_NAME" Fail Expected "$EXPECTED" Returned "$RETCODE"
   fi
 
 done

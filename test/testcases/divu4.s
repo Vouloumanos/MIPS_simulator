@@ -1,10 +1,9 @@
 
-addiu $3, $3, -2
-addiu $4, $4, 2
+addiu $2, $2, 10
 
-divu $3, $4
+divu $0, $2
 
-mfhi $2
+mflo $2
 
 jr $0
 nop

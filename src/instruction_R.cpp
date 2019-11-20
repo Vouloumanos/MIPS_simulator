@@ -73,20 +73,14 @@ void instruction_R::AND(cpu& mips_cpu){
 }
 
 void instruction_R::DIV(cpu& mips_cpu){
-  if(mips_cpu.registers[src2] == 0){ // Treating division by zero as an exception
-    throw(static_cast<int32_t>(exception::ARITHMETIC));
-  }
-  else{
+  if(mips_cpu.registers[src2] != 0){ // Division by 0 is undefined
     mips_cpu.lo = static_cast<int32_t>(mips_cpu.registers[src1]) / static_cast<int32_t>(mips_cpu.registers[src2]);
     mips_cpu.hi = static_cast<int32_t>(mips_cpu.registers[src1]) % static_cast<int32_t>(mips_cpu.registers[src2]);
   }
 }
 
 void instruction_R::DIVU(cpu& mips_cpu){
-  if(mips_cpu.registers[src2] == 0){ // Treating division by zero as an exception
-    throw(static_cast<int32_t>(exception::ARITHMETIC));
-  }
-  else{
+  if(mips_cpu.registers[src2] != 0){ // Division by 0 is undefined
     mips_cpu.lo = mips_cpu.registers[src1] / mips_cpu.registers[src2];
     mips_cpu.hi = mips_cpu.registers[src1] % mips_cpu.registers[src2];
   }
