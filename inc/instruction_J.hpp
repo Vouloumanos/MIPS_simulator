@@ -1,15 +1,16 @@
 #ifndef INSTRUCTION_J_HPP
 #define INSTRUCTION_J_HPP
 
-#include <vector>
+#include "init.hpp"
 
+#include <vector>
 
 class instruction_J{
 public:
   void set_bits(const uint32_t& input_bits);
-  void execute(std::vector<uint32_t>& registers, uint32_t& pc, uint32_t& next_pc);
-  void J(uint32_t& next_pc);
-  void JAL(std::vector<uint32_t>& registers, uint32_t& pc, uint32_t& next_pc);
+  void execute(cpu& mips_cpu);
+  void J(cpu& mips_cpu);
+  void JAL(cpu& mips_cpu);
 
 private:
   uint32_t opcode;

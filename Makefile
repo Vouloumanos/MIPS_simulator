@@ -47,18 +47,14 @@ simulator: $(SIM_DEP)
 testbench:
 	mkdir -p bin
 	./test/converter.sh
-	#cp ./test/mips_testbench /bin FIX
-
-
+	cp -f ./test/mips_testbench ./bin
+	chmod +x ./bin/mips_testbench
 
 #################################################
-# For run and clean:
-
-run:
-	./bin/mips_simulator test/binary.bin
+# For clean:
 
 clean:
-	rm bin/*.o bin/mips_simulator
+	rm bin/*
 
 #################################################
 # DEBUG START

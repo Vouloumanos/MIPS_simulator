@@ -4,6 +4,7 @@
 #include <cstdint> //for ints and uints
 #include <cstdlib>
 #include <iostream> //for cin and cout
+#include <vector> //for memory and registers in cpu
 
 //include all other headers
 #include "instruction_R.hpp"
@@ -24,6 +25,16 @@
 #define INPUT_OFFSET 0x30000000
 #define OUTPUT_OFFSET 0x30000004
 
+//structure for easier management of data related to the state of the processor
+struct cpu{
+  std::vector<uint8_t> memory;
+  std::vector<uint32_t> registers;
+  uint32_t hi;
+  uint32_t lo;
+  uint32_t pc;
+  uint32_t next_pc;
+};
+
 //error and exception handling
 enum class exception{
   ARITHMETIC = -10,
@@ -37,6 +48,7 @@ enum class error{
 };
 
 //function declarations
+void init_cpu(cpu& mips_cpu);
 char get_type(const uint32_t& input_bits);
 void output_char(char c);
 char input_char();
