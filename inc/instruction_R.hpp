@@ -1,37 +1,39 @@
 #ifndef INSTRUCTION_R_HPP
 #define INSTRUCTION_R_HPP
 
+#include "init.hpp"
+
 #include <vector>
 
 class instruction_R{
 public:
   void set_bits(const uint32_t& input_bits);
-  void execute(std::vector<uint32_t>& registers, uint32_t& pc, uint32_t& next_pc);
-  void ADD(std::vector<uint32_t>& registers);
-  void ADDU(std::vector<uint32_t>& registers);
-  void AND(std::vector<uint32_t>& registers);
-  void DIV(std::vector<uint32_t>& registers);
-  void DIVU(std::vector<uint32_t>& registers);
-  void JALR(std::vector<uint32_t>& registers, uint32_t& pc, uint32_t& next_pc);
-  void JR(std::vector<uint32_t>& registers, uint32_t& next_pc);
-  void MFHI(std::vector<uint32_t>& registers);
-  void MFLO(std::vector<uint32_t>& registers);
-  void MTHI(std::vector<uint32_t>& registers);
-  void MTLO(std::vector<uint32_t>& registers);
-  void MULT(std::vector<uint32_t>& registers);
-  void MULTU(std::vector<uint32_t>& registers);
-  void OR(std::vector<uint32_t>& registers);
-  void SLL(std::vector<uint32_t>& registers);
-  void SLLV(std::vector<uint32_t>& registers);
-  void SLT(std::vector<uint32_t>& registers);
-  void SLTU(std::vector<uint32_t>& registers);
-  void SRA(std::vector<uint32_t>& registers);
-  void SRAV(std::vector<uint32_t>& registers);
-  void SRL(std::vector<uint32_t>& registers);
-  void SRLV(std::vector<uint32_t>& registers);
-  void SUB(std::vector<uint32_t>& registers);
-  void SUBU(std::vector<uint32_t>& registers);
-  void XOR(std::vector<uint32_t>& registers);
+  void execute(cpu& mips_cpu);
+  void ADD(cpu& mips_cpu);
+  void ADDUcpu& mips_cpus);
+  void AND(cpu& mips_cpu);
+  void DIV(cpu& mips_cpu);
+  void DIVU(cpu& mips_cpu);
+  void JALR(cpu& mips_cpu);
+  void JR(cpu& mips_cpu);
+  void MFHI(cpu& mips_cpu);
+  void MFLO(cpu& mips_cpu);
+  void MTHI(cpu& mips_cpu);
+  void MTLO(cpu& mips_cpu);
+  void MULT(cpu& mips_cpu);
+  void MULTU(cpu& mips_cpu);
+  void OR(cpu& mips_cpu);
+  void SLL(cpu& mips_cpu);
+  void SLLV(cpu& mips_cpu);
+  void SLT(cpu& mips_cpu);
+  void SLTU(cpu& mips_cpu);
+  void SRA(cpu& mips_cpu);
+  void SRAV(cpu& mips_cpu);
+  void SRL(cpu& mips_cpu);
+  void SRLV(cpu& mips_cpu);
+  void SUB(cpu& mips_cpu);
+  void SUBU(cpu& mips_cpu);
+  void XOR(cpu& mips_cpu);
 
 
 private:

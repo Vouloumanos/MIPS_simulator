@@ -18,10 +18,12 @@ int main(int argc, char *argv[]){
     }
 
     //initalisation
-    std::vector<uint8_t> memory(MEM_LENGTH, 0); //initialise memory to 0
-    std::vector<uint32_t> registers(34, 0); //initialiste registers to 0, registers[32] is LO, registers[33] is HI
-    uint32_t pc = IMEM_OFFSET; //initialise program counter to IMEM_OFFSET
-    uint32_t next_pc = IMEM_OFFSET + 4; //initialise next program counter to
+    cpu mips_cpu;
+    mips_cpu.init_cpu();
+    //std::vector<uint8_t> memory(MEM_LENGTH, 0); //initialise memory to 0
+    //std::vector<uint32_t> registers(34, 0); //initialiste registers to 0, registers[32] is LO, registers[33] is HI
+    //uint32_t pc = IMEM_OFFSET; //initialise program counter to IMEM_OFFSET
+    //uint32_t next_pc = IMEM_OFFSET + 4; //initialise next program counter to
     //std::cerr << "Everything initialised " << std::endl; //debug - status update
 
     //set up binstream
@@ -45,7 +47,7 @@ int main(int argc, char *argv[]){
 
     for(int i=0; i<binSize; i++){
       if((i + IMEM_OFFSET) < IMEM_END_OFFSET){
-        memory[i+IMEM_OFFSET] = buffer[i];
+        mips_cpu.memory[i+IMEM_OFFSET] = buffer[i];
       }
       else{
         throw(static_cast<uint32_t>(exception::MEMORY));
@@ -62,22 +64,22 @@ int main(int argc, char *argv[]){
 
       //std::cerr << "pc: " << std::hex <<pc << " next_pc: " << std::hex << next_pc;
 
-      if(pc == 0){ //program has finished, return lower 8 bits of register 2
+      if(mips_cpu.pc == 0){ //program has finished, return lower 8 bits of register 2
         uint8_t returnCode = static_cast<uint8_t>(registers[2]);
         std::exit(returnCode);
       }
-      else if(pc % 4 != 0){
+      else if(mips_cpu.pc % 4 != 0){
         throw(static_cast<int32_t>(exception::MEMORY));
       }
-      else if((pc < IMEM_LENGTH + IMEM_OFFSET) && (pc >= IMEM_OFFSET)){
+      else if((mips_cpu.pc < IMEM_LENGTH + IMEM_OFFSET) && (mips_cpu.pc >= IMEM_OFFSET)){
         //std::cerr << "Valid pc" << std::endl;
 
         //get instruction
-        uint32_t input_bits = (uint32_t(memory[pc]) << 24) + (uint32_t(memory[pc+1]) << 16) + (uint32_t(memory[pc+2]) << 8) + (uint32_t(memory[pc+3]) << 0);
+        uint32_t input_bits = (uint32_t(mips_cpu.memory[pc]) << 24) + (uint32_t(mips_cpu.memory[pc+1]) << 16) + (uint32_t(mips_cpu.memory[pc+2]) << 8) + (uint32_t(mips_cpu.memory[pc+3]) << 0);
         //std::cerr << "instruction: " << std::bitset<32> (input_bits) << std::endl;//debug - status
 
         //store next_pc temporarily as it will get changed during execution
-        uint32_t temp_next_pc = next_pc;
+        uint32_t temp_next_pc = mips_cpu.next_pc;
         //std::cerr << " temp_next_pc: " << std::hex << temp_next_pc;
 
         //execute instruction depending on the type
@@ -85,7 +87,7 @@ int main(int argc, char *argv[]){
           //std::cerr << "instruction R detected" << std::endl;
           instruction_R inst;
           inst.set_bits(input_bits);
-          inst.execute(registers, pc, next_pc);
+          inst.execute(mips_cpu);
           //std::cerr << "instruction R executed" << std::endl;
 
         }
@@ -93,7 +95,7 @@ int main(int argc, char *argv[]){
           //std::cerr << "instruction I detected" << std::endl;
           instruction_I inst;
           inst.set_bits(input_bits);
-          inst.execute(registers, pc, next_pc, memory);
+          inst.execute(mips_cpu);
           //std::cerr << "instruction I executed" << std::endl;
 
         }
@@ -101,15 +103,15 @@ int main(int argc, char *argv[]){
           //std::cerr << "instruction J detected" << std::endl;
           instruction_J inst;
           inst.set_bits(input_bits);
-          inst.execute(registers, pc, next_pc);
+          inst.execute(mips_cpu);
           //std::cerr << "instruction J executed" << std::endl;
         }
 
-        registers[0] = 0; // register 0 is grounded and cannot hold value other than 0
+        mips_cpu.registers[0] = 0; // register 0 is grounded and cannot hold value other than 0
 
         //point pc to the next instruction
         //std::cerr << " temp_next_pc: " << std::hex << temp_next_pc << std::endl;
-        pc = temp_next_pc;
+        mips_cpu.pc = temp_next_pc;
         //std::cerr << "reg: " << registers[3] << std::endl;
 
       }
