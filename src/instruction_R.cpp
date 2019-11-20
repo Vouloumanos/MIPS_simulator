@@ -14,31 +14,31 @@ void instruction_R::set_bits(const uint32_t& input_bits){
 
 void instruction_R::execute(cpu& mips_cpu){
   switch(fn_code){
-    case 0b100000: ADD(mips_cpu); next_pc += 4; return;
-    case 0b100001: ADDU(mips_cpu); next_pc += 4; return;
-    case 0b100100: AND(mips_cpu); next_pc += 4; return;
-    case 0b011010: DIV(mips_cpu); next_pc += 4; return;
-    case 0b011011: DIVU(mips_cpu); next_pc += 4; return;
+    case 0b100000: ADD(mips_cpu); mips_cpu.next_pc += 4; return;
+    case 0b100001: ADDU(mips_cpu); mips_cpu.next_pc += 4; return;
+    case 0b100100: AND(mips_cpu); mips_cpu.next_pc += 4; return;
+    case 0b011010: DIV(mips_cpu); mips_cpu.next_pc += 4; return;
+    case 0b011011: DIVU(mips_cpu); mips_cpu.next_pc += 4; return;
     case 0b001001: JALR(mips_cpu); return;
     case 0b001000: JR(mips_cpu); return;
-    case 0b010000: MFHI(mips_cpu); next_pc += 4; return;
-    case 0b010010: MFLO(mips_cpu); next_pc += 4; return;
-    case 0b010001: MTHI(mips_cpu); next_pc += 4; return;
-    case 0b010011: MTLO(mips_cpu); next_pc += 4; return;
-    case 0b011000: MULT(mips_cpu); next_pc += 4; return;
-    case 0b011001: MULTU(mips_cpu); next_pc += 4; return;
-    case 0b100101: OR(mips_cpu); next_pc += 4; return;
-    case 0b000000: SLL(mips_cpu); next_pc += 4; return;
-    case 0b000100: SLLV(mips_cpu); next_pc += 4; return;
-    case 0b101010: SLT(mips_cpu); next_pc += 4; return;
-    case 0b101011: SLTU(mips_cpu); next_pc += 4; return;
-    case 0b000011: SRA(mips_cpu); next_pc += 4; return;
-    case 0b000111: SRAV(mips_cpu); next_pc += 4; return;
-    case 0b000010: SRL(mips_cpu); next_pc += 4; return;
-    case 0b000110: SRLV(mips_cpu); next_pc += 4; return;
-    case 0b100010: SUB(mips_cpu); next_pc += 4; return;
-    case 0b100011: SUBU(mips_cpu); next_pc += 4; return;
-    case 0b100110: XOR(mips_cpu); next_pc += 4; return;
+    case 0b010000: MFHI(mips_cpu); mips_cpu.next_pc += 4; return;
+    case 0b010010: MFLO(mips_cpu); mips_cpu.next_pc += 4; return;
+    case 0b010001: MTHI(mips_cpu); mips_cpu.next_pc += 4; return;
+    case 0b010011: MTLO(mips_cpu); mips_cpu.next_pc += 4; return;
+    case 0b011000: MULT(mips_cpu); mips_cpu.next_pc += 4; return;
+    case 0b011001: MULTU(mips_cpu); mips_cpu.next_pc += 4; return;
+    case 0b100101: OR(mips_cpu); mips_cpu.next_pc += 4; return;
+    case 0b000000: SLL(mips_cpu); mips_cpu.next_pc += 4; return;
+    case 0b000100: SLLV(mips_cpu); mips_cpu.next_pc += 4; return;
+    case 0b101010: SLT(mips_cpu); mips_cpu.next_pc += 4; return;
+    case 0b101011: SLTU(mips_cpu); mips_cpu.next_pc += 4; return;
+    case 0b000011: SRA(mips_cpu); mips_cpu.next_pc += 4; return;
+    case 0b000111: SRAV(mips_cpu); mips_cpu.next_pc += 4; return;
+    case 0b000010: SRL(mips_cpu); mips_cpu.next_pc += 4; return;
+    case 0b000110: SRLV(mips_cpu); mips_cpu.next_pc += 4; return;
+    case 0b100010: SUB(mips_cpu); mips_cpu.next_pc += 4; return;
+    case 0b100011: SUBU(mips_cpu); mips_cpu.next_pc += 4; return;
+    case 0b100110: XOR(mips_cpu); mips_cpu.next_pc += 4; return;
     default: throw(static_cast<int32_t>(exception::INSTRUCTION));
   }
 }

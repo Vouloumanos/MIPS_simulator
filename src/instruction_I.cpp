@@ -2,7 +2,6 @@
 #include <vector>
 
 #include "instruction_I.hpp"
-#include "init.hpp"
 
 #define IMEM_LENGTH 0x1000000
 #define DMEM_LENGTH 0x4000000
@@ -23,9 +22,9 @@ void instruction_I::set_bits(const uint32_t& input_bits){
 
 void instruction_I::execute(cpu& mips_cpu){
   switch(opcode){
-    case 0b001000: ADDI(mips_cpu); next_pc += 4; return;
-    case 0b001001: ADDIU(mips_cpu); next_pc += 4;  return;
-    case 0b001100: ANDI(mips_cpu); next_pc += 4; return;
+    case 0b001000: ADDI(mips_cpu); mips_cpu.next_pc += 4; return;
+    case 0b001001: ADDIU(mips_cpu); mips_cpu.next_pc += 4;  return;
+    case 0b001100: ANDI(mips_cpu); mips_cpu.next_pc += 4; return;
     case 0b000100: BEQ(mips_cpu); return;
     case 0b000001: switch(src2_dest){
       case 0b00001: BGEZ(mips_cpu); return;
@@ -36,21 +35,21 @@ void instruction_I::execute(cpu& mips_cpu){
     case 0b000111: BGTZ(mips_cpu); return;
     case 0b000110: BLEZ(mips_cpu); return;
     case 0b000101: BNE(mips_cpu); return;
-    case 0b100000: LB(mips_cpu); next_pc += 4; return;
-    case 0b100100: LBU(mips_cpu); next_pc += 4; return;
-    case 0b100001: LH(mips_cpu); next_pc += 4; return;
-    case 0b100101: LHU(mips_cpu); next_pc += 4; return;
-    case 0b001111: LUI(mips_cpu); next_pc += 4; return;
-    case 0b100011: LW(mips_cpu); next_pc += 4; return;
-    case 0b100010: LWL(mips_cpu); next_pc += 4; return;
-    case 0b100110: LWR(mips_cpu); next_pc += 4; return;
-    case 0b001101: ORI(mips_cpu); next_pc += 4; return;
-    case 0b101000: SB(mips_cpu); next_pc += 4; return;
-    case 0b101001: SH(mips_cpu); next_pc += 4; return;
-    case 0b001010: SLTI(mips_cpu); next_pc += 4; return;
-    case 0b001011: SLTIU(mips_cpu); next_pc += 4; return;
-    case 0b101011: SW(mips_cpu); next_pc += 4; return;
-    case 0b001110: XORI(mips_cpu); next_pc += 4; return;
+    case 0b100000: LB(mips_cpu); mips_cpu.next_pc += 4; return;
+    case 0b100100: LBU(mips_cpu); mips_cpu.next_pc += 4; return;
+    case 0b100001: LH(mips_cpu); mips_cpu.next_pc += 4; return;
+    case 0b100101: LHU(mips_cpu); mips_cpu.next_pc += 4; return;
+    case 0b001111: LUI(mips_cpu); mips_cpu.next_pc += 4; return;
+    case 0b100011: LW(mips_cpu); mips_cpu.next_pc += 4; return;
+    case 0b100010: LWL(mips_cpu); mips_cpu.next_pc += 4; return;
+    case 0b100110: LWR(mips_cpu); mips_cpu.next_pc += 4; return;
+    case 0b001101: ORI(mips_cpu); mips_cpu.next_pc += 4; return;
+    case 0b101000: SB(mips_cpu); mips_cpu.next_pc += 4; return;
+    case 0b101001: SH(mips_cpu); mips_cpu.next_pc += 4; return;
+    case 0b001010: SLTI(mips_cpu); mips_cpu.next_pc += 4; return;
+    case 0b001011: SLTIU(mips_cpu); mips_cpu.next_pc += 4; return;
+    case 0b101011: SW(mips_cpu); mips_cpu.next_pc += 4; return;
+    case 0b001110: XORI(mips_cpu); mips_cpu.next_pc += 4; return;
     default: throw(static_cast<int32_t>(exception::INSTRUCTION));
   }
 }
@@ -125,7 +124,7 @@ void instruction_I::BGEZ(cpu& mips_cpu){
 }
 
 void instruction_I::BGEZAL(cpu& mips_cpu){
-  mips_cpu.registers[31] = pc + 8;
+  mips_cpu.registers[31] = mips_cpu.pc + 8;
   if(static_cast<int32_t>(mips_cpu.registers[src1]) >= 0){
     int32_t offset;
     if((address_data >> 15) == 1){
@@ -191,7 +190,7 @@ void instruction_I::BLTZ(cpu& mips_cpu){
 }
 
 void instruction_I::BLTZAL(cpu& mips_cpu){
-  mips_cpu.registers[31] = pc + 8;
+  mips_cpu.registers[31] = mips_cpu.pc + 8;
   if(static_cast<int32_t>(mips_cpu.registers[src1]) <= 0){
     int32_t offset;
     if((address_data >> 15) == 1){
@@ -233,7 +232,7 @@ void instruction_I::LB(cpu& mips_cpu){
   }
   uint32_t address = mips_cpu.registers[src1] + offset;
   if(((address >= DMEM_OFFSET) && (address < DMEM_END_OFFSET)) || ((address >=IMEM_OFFSET) && (address < IMEM_END_OFFSET))){
-    if((memory[address] >> 7) == 1){
+    if((mips_cpu.memory[address] >> 7) == 1){
       mips_cpu.registers[src2_dest] = 0xFFFFFF00 | static_cast<uint32_t>(mips_cpu.memory[address]);
     }
     else{

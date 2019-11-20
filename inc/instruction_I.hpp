@@ -5,6 +5,8 @@
 
 #include <vector>
 
+struct cpu;
+
 class instruction_I{
 public:
   void set_bits(const uint32_t& input_bits);

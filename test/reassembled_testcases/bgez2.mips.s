@@ -5,8 +5,8 @@
 Disassembly of section .text:
 
 10000000 <start>:
-10000000:	2402ffec 	li	v0,-20
-10000004:	24030006 	li	v1,6
+10000000:	2002ffec 	addi	v0,zero,-20
+10000004:	20030006 	addi	v1,zero,6
 10000008:	04410002 	bgez	v0,10000014 <start+0x14>
 1000000c:	00000000 	nop
 10000010:	00431020 	add	v0,v0,v1

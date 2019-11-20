@@ -5,12 +5,14 @@
 
 #include <vector>
 
+struct cpu;
+
 class instruction_R{
 public:
   void set_bits(const uint32_t& input_bits);
   void execute(cpu& mips_cpu);
   void ADD(cpu& mips_cpu);
-  void ADDUcpu& mips_cpus);
+  void ADDU(cpu& mips_cpus);
   void AND(cpu& mips_cpu);
   void DIV(cpu& mips_cpu);
   void DIVU(cpu& mips_cpu);
