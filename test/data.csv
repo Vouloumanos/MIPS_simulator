@@ -21,8 +21,8 @@ andi0,andi,85,sv1818,Simple_andi
 beq0,beq,5,sv1818,Branch
 beq1,beq,11,sv1818,Not_branch
 bgez0,bgez,5,sv1818,Branch_at_positive
-bgez1,bgez,5,sv1818,Branch_at_zero
-bgez2,bgez,244,sv1818,Not_branch
+bgez1,bgez,0,sv1818,Branch_at_zero
+bgez2,bgez,242,sv1818,Not_branch
 bgezal0,bgezal,20,sv1818,Branch_at_positive
 bgezal1,bgezal,10,sv1818,Branch_at_zero
 bgezal2,bgezal,241,sv1818,Not_branch
@@ -32,7 +32,7 @@ bgtz1,bgtz,241,sv1818,Not_branch_at_negative
 bgtz2,bgtz,10,sv1818,Not_branch_at_zero
 blez0,blez,231,sv1818,Branch_at_negative
 blez1,blez,0,sv1818,Branch_at_zero
-blez2,blez,25,sv1818,Not_branch
+blez2,blez,35,sv1818,Not_branch
 bltz0,bltz,231,sv1818,Branch
 bltz1,bltz,35,sv1818,Not_branch_at_positive
 bltz2,bltz,10,sv1818,Not_branch_at_zero
