@@ -1,5 +1,5 @@
 
-addi $3, $3, 7
+addiu $3, $3, 7
 mtlo $3
 
 mflo $2

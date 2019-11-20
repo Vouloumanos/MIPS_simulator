@@ -1,7 +1,7 @@
 .set noreorder
 
 lui $2, 0x1100
-addiu $2, $2, 8
+ori $2, $2, 8
 
 jr $2
 nop

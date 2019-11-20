@@ -1,7 +1,7 @@
 .set noreorder
 
 lui $3, 0x1000
-addiu $3, $3, 0x0018
+ori $3, $3, 0x0018
 
 jalr $2, $3
 nop

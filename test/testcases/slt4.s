@@ -1,6 +1,6 @@
 
 lui $2, 0x7FFF
-addi $2, $2, 0xFFFF
+ori $2, $2, 0xFFFF
 lui $3, 0x8000
 
 slt $2, $2, $3

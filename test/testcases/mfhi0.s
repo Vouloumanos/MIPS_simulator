@@ -1,5 +1,5 @@
 
-addi $3, $3, 7
+addiu $3, $3, 7
 mthi $3
 
 mfhi $2

@@ -1,6 +1,6 @@
 
-addi $3, $3, 3
-addi $4, $4, 4
+addiu $3, $3, 3
+addiu $4, $4, 4
 
 multu $3, $4
 
