@@ -354,7 +354,7 @@ void instruction_I::LW(cpu& mips_cpu){
   }
   uint32_t address = mips_cpu.registers[src1] + offset;
   if((((address >= DMEM_OFFSET) && (address < DMEM_END_OFFSET)) || ((address >=IMEM_OFFSET) && (address <IMEM_END_OFFSET))) && (address%4 == 0)){
-    mips_cpu.registers[src2_dest] = (static_cast<uint32_t>(mips_cpu.memory[address]) << 24) | (static_cast<uint32_t>(mips_cpu.memory[address+1]) << 16) | (static_cast<uint32_t>(mips_cpu.memory[address+2]) << 8) << (static_cast<uint32_t>(mips_cpu.memory[address+3]));
+    mips_cpu.registers[src2_dest] = (static_cast<uint32_t>(mips_cpu.memory[address]) << 24) | (static_cast<uint32_t>(mips_cpu.memory[address+1]) << 16) | (static_cast<uint32_t>(mips_cpu.memory[address+2]) << 8) | (static_cast<uint32_t>(mips_cpu.memory[address+3]));
   }
   else if(address == INPUT_OFFSET){
     char c = input_char();
