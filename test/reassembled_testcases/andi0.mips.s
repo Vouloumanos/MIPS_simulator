@@ -1,5 +1,5 @@
 
-./test/temp/andi.mips.elf:     file format elf32-tradbigmips
+./test/temp/andi0.mips.elf:     file format elf32-tradbigmips
 
 
 Disassembly of section .text:
