@@ -21,8 +21,8 @@ andi0,andi,Pass,sv1818,Simple_andi,85,85
 beq0,beq,Pass,sv1818,Branch,5,5
 beq1,beq,Pass,sv1818,Not_branch,11,11
 bgez0,bgez,Pass,sv1818,Branch_at_positive,5,5
-bgez1,bgez,Fail,sv1818,Branch_at_zero,5,0
-bgez2,bgez,Fail,sv1818,Not_branch,244,242
+bgez1,bgez,Pass,sv1818,Branch_at_zero,0,0
+bgez2,bgez,Pass,sv1818,Not_branch,242,242
 bgezal0,bgezal,Pass,sv1818,Branch_at_positive,20,20
 bgezal1,bgezal,Pass,sv1818,Branch_at_zero,10,10
 bgezal2,bgezal,Pass,sv1818,Not_branch,241,241
@@ -32,13 +32,13 @@ bgtz1,bgtz,Pass,sv1818,Not_branch_at_negative,241,241
 bgtz2,bgtz,Pass,sv1818,Not_branch_at_zero,10,10
 blez0,blez,Pass,sv1818,Branch_at_negative,231,231
 blez1,blez,Pass,sv1818,Branch_at_zero,0,0
-blez2,blez,Fail,sv1818,Not_branch,25,35
+blez2,blez,Pass,sv1818,Not_branch,35,35
 bltz0,bltz,Pass,sv1818,Branch,231,231
 bltz1,bltz,Pass,sv1818,Not_branch_at_positive,35,35
 bltz2,bltz,Pass,sv1818,Not_branch_at_zero,10,10
 bltzal0,bltzal,Pass,sv1818,Branch_at_negative,241,241
 bltzal1,bltzal,Pass,sv1818,Not_branch_at_positive,10,10
-bltzal2,bltzal,Fail,sv1818,Not_branch_at_zero,0,10
+bltzal2,bltzal,Pass,sv1818,Not_branch_at_zero,0,0
 bltzal3,bltzal,Pass,sv1818,Link_in_no_branch,26,26
 bne0,bne,Pass,sv1818,Branch,5,5
 bne1,bne,Pass,sv1818,Not_branch,20,20
