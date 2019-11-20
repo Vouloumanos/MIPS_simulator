@@ -18,7 +18,6 @@ for i in $TESTS
 do
   TEST_NAME=${i##*/}
   TEST_NAME=${TEST_NAME%*.mips.bin}
-  INSTRUCTION=${TEST_NAME%?}
 
   ./bin/mips_simulator $i
   RETCODE=$?
@@ -27,6 +26,7 @@ do
   IFS=',' read -r -a ARRAY <<< "$LINE"
   COUNT=$((COUNT+1))
 
+  INSTRUCTION="${ARRAY[1]}"
   EXPECTED="${ARRAY[2]}"
   AUTHOR="${ARRAY[3]}"
   MESSAGE="${ARRAY[4]}"
