@@ -19,7 +19,7 @@ do
   if [[ "$EXT" = "s" ]] || [[ "$EXT" = "c" ]]
   then
     VAR=${VAREXT%*.?}
-
+    #echo $VAR
     $MIPS_CC $MIPS_CPPFLAGS -c "./test/testcases/${VAREXT}" -o "./test/temp/${VAR}.mips.o" #.s -> .o
     $MIPS_CC $MIPS_CPPFLAGS $MIPS_LDFLAGS -T ./test/linker.ld "./test/temp/${VAR}.mips.o" -o "./test/temp/${VAR}.mips.elf" #.o -> .elf
     $MIPS_OBJCOPY -O binary --only-section=.text "./test/temp/${VAR}.mips.elf" "./test/bin/${VAR}.mips.bin" # .elf -> .bin
