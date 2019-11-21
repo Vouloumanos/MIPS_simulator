@@ -1,4 +1,5 @@
-addiu $2, $0, 7
+ori $2, $0, 3
+addiu $2, $2, 4
 jr $0
 nop
 

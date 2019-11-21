@@ -1,5 +1,6 @@
-addi $2 , $0 , -7
+ori $2, $0, 14
+addi $2, $2, -7
 jr $0
 nop
 
-#Expected: 249
+#Expected: 7

@@ -1,5 +1,6 @@
-start:
-  addi $3, $3, 0x4000
-  beq $0, $0, start
+addiu $2, $0, 0x7000
+srl $2, $2, 12
+jr $0
+nop
 
-#Check that no arithmetic overflow is produced. Expect memory exception: 245
+#Check for sign extension. Expected: 7

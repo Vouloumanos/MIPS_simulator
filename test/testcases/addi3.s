@@ -1,5 +1,6 @@
-start:
-  addi $3, $3, 0x4000
-  beq $0, $0, start
+addi $2, $0, 0x7000
+srl $2, $2, 12
+jr $0
+nop
 
-#Infinite loop to check for arithmetic overflow, Expected: 246
+#Check for sign extension. Expected: 7
