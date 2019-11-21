@@ -71,7 +71,7 @@ int main(int argc, char *argv[]){
       else if(mips_cpu.pc % 4 != 0){
         throw(static_cast<int32_t>(exception::MEMORY));
       }
-      else if((mips_cpu.pc < IMEM_LENGTH + IMEM_OFFSET) && (mips_cpu.pc >= IMEM_OFFSET)){
+      else if((mips_cpu.pc < IMEM_END_OFFSET) && (mips_cpu.pc >= IMEM_OFFSET)){
         //std::cerr << "Valid pc" << std::endl;
 
         //get instruction
