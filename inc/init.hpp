@@ -23,7 +23,11 @@
 #define DMEM_END_OFFSET 0x24000000
 
 #define INPUT_OFFSET 0x30000000
+#define INPUT_END_OFFSET 0x30000004
+
 #define OUTPUT_OFFSET 0x30000004
+#define OUTPUT_END_OFFSET 0x30000008
+
 
 //structure for easier management of data related to the state of the processor
 struct cpu{
