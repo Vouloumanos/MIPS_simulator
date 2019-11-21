@@ -1,5 +1,5 @@
 
-lui $3, 0xC000
+addiu $3, $3, -2
 addiu $2, $2, 1
 
 divu $2, $3
@@ -10,4 +10,4 @@ srl $2, $2, 24
 jr $0
 nop
 
-#expect 192
+#expect -2 (254)

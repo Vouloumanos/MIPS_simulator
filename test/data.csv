@@ -9,12 +9,14 @@ addi2,addi,250,sv1818,Sign_extension
 addi3,addi,7,sv1818,Sign_extension
 addi4,addi,246,sv1818,positive_overflow
 addi5,addi,246,sv1818,negative_overflow
-addi6,addi,11,sv1818,no_overflow
+addi6,addi,11,sv1818,No_carry_out
 addiu0,addiu,7,sv1818,Simple_addiu
-addiu1,addiu,249,sv1818,Negative_addiu
-addiu2,addiu,250,sv1818,No_sign_extension
-addiu3,addiu,245,sv1818,No_overflow
-addiu4,addiu,69,sv1818,lol
+addiu1,addiu,7,sv1818,Negative_addiu
+addiu2,addiu,250,sv1818,Sign_extension
+addiu3,addiu,7,sv1818,Sign_extension
+addiu4,addiu,8,sv1818,No_positive_overflow
+addiu5,addiu,7,sv1818,No_negative_overflow
+addiu6,addiu,11,sv1818,No_carry_out
 addu0,addu,7,faw18,addu_positive
 addu1,addu,249,faw18,addu_negative
 addu2,addu,0,faw18,addu_overflow_neg
@@ -54,7 +56,7 @@ div4,div,255,faw18,DIV_-2_hi
 div5,div,0,faw18,div_0_by
 div6,div,192,faw18,div_big_lo
 div7,div,0,faw18,div_big_hi
-div8,div,192,faw18,div_1_by_big_hi
+div8,div,254,faw18,div_1_by_big_hi
 divu0,divu,3,faw18,divu_lo
 divu1,divu,1,faw18,divu_hi
 divu2,divu,1,faw18,Divu_-1
@@ -62,7 +64,7 @@ divu3,divu,0,faw18,Divu_-2
 divu4,divu,0,faw18,divu_0_by
 divu5,divu,64,faw18,divu_big_lo
 divu6,divu,0,faw18,divu_big_hi
-divu7,divu,192,faw18,divu_1_by_big_hi
+divu7,divu,254,faw18,divu_1_by_big_hi
 fibonacci0,fibonacci,55,faw18,find_fibonacci_of_10
 j0,j,14,faw18,j_valid
 jal0,jal,15,faw18,jal_valid
