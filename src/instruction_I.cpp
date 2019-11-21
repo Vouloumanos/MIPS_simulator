@@ -240,7 +240,7 @@ void instruction_I::LB(cpu& mips_cpu){
     }
   }
   else if((address >= INPUT_OFFSET) && (address < INPUT_END_OFFSET)){ //verify
-    int32_t input = input_char();
+    uint32_t input = 0xFF & input_char();
 
     if(address == INPUT_OFFSET+3){
       if(input == -1){
@@ -279,7 +279,7 @@ void instruction_I::LBU(cpu& mips_cpu){
 
     if(address == INPUT_OFFSET+3){
       if(input == -1){
-        mips_cpu.registers[src2_dest] = -1;
+        mips_cpu.registers[src2_dest] = ;
       }
       else{
         mips_cpu.registers[src2_dest] = 0x000000FF & input;
@@ -346,7 +346,7 @@ void instruction_I::LHU(cpu& mips_cpu){
     int32_t input = input_char();
 
     if(input == -1){
-      mips_cpu.registers[src2_dest] = -1;
+      mips_cpu.registers[src2_dest] = 0x0000FFFF;
     }
     else{
       mips_cpu.registers[src2_dest] = 0x000000FF & input;
@@ -419,8 +419,15 @@ void instruction_I::LWL(cpu& mips_cpu){
       }
     }
   }
-  else if(address == INPUT_OFFSET){
-    //io
+  else if(address == INPUT_OFFSET){ //only when memory access is aligned
+    int32_t input = input_char();
+
+    if(input == -1){
+      mips_cpu.registers[src2_dest] = -1;
+    }
+    else{
+      mips_cpu.registers[src2_dest] = 0x000000FF & input;
+    }
   }
   else{
     throw(static_cast<int32_t>(exception::MEMORY));
@@ -455,8 +462,15 @@ void instruction_I::LWR(cpu& mips_cpu){
       }
     }
   }
-  else if(address == INPUT_OFFSET){
-    //io
+  else if(address == INPUT_OFFSET+3){  //only when memory access is aligned
+    int32_t input = input_char();
+
+    if(input == -1){
+      mips_cpu.registers[src2_dest] = -1;
+    }
+    else{
+      mips_cpu.registers[src2_dest] = 0x000000FF & input;
+    }
   }
   else{
     throw(static_cast<int32_t>(exception::MEMORY));
@@ -479,9 +493,9 @@ void instruction_I::SB(cpu& mips_cpu){
   if((address >= DMEM_OFFSET) && (address < DMEM_END_OFFSET)){
     mips_cpu.memory[address] = mips_cpu.registers[src2_dest];
   }
-  else if((address >= OUTPUT_OFFSET) && (address < OUTPUT_END_OFFSET)){ //VERIFY
+  else if((address >= OUTPUT_OFFSET) && (address < OUTPUT_END_OFFSET)){
     if(address == OUTPUT_OFFSET+3){
-      output_char(static_cast<char>(mips_cpu.registers[src2_dest] & 0xFF));
+      output_char(mips_cpu.registers[src2_dest] & 0xFF);
     }
     else{
       output_char(0);
@@ -505,11 +519,11 @@ void instruction_I::SH(cpu& mips_cpu){
     mips_cpu.memory[address] = mips_cpu.registers[src2_dest] >> 8;
     mips_cpu.memory[address+1] = mips_cpu.registers[src2_dest];
   }
+  else if(address == OUTPUT_OFFSET+2){
+    output_char(mips_cpu.registers[src2_dest] & 0xFF);
+  }
   else if(address == OUTPUT_OFFSET){
     output_char(0);
-  }
-  else if(address == OUTPUT_OFFSET+2){//VERIFY
-    output_char(static_cast<char>(mips_cpu.registers[src2_dest] & 0xFF));
   }
   else{
     throw(static_cast<int32_t>(exception::MEMORY));
@@ -566,8 +580,7 @@ void instruction_I::SW(cpu& mips_cpu){
     mips_cpu.memory[address+3] = mips_cpu.registers[src2_dest];
   }
   else if(address == OUTPUT_OFFSET){
-    output_char(static_cast<char>(mips_cpu.registers[src2_dest] & 0xFF));
-
+    output_char(mips_cpu.registers[src2_dest] & 0xFF);
   }
   else{
     throw(static_cast<int32_t>(exception::MEMORY));

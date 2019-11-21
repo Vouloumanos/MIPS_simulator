@@ -1,5 +1,5 @@
 
-
+int main();
 int fibonacci(int n);
 asm("li $sp, 0x23FFFFFC");
 

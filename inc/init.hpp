@@ -54,7 +54,7 @@ enum class error{
 //function declarations
 void init_cpu(cpu& mips_cpu);
 char get_type(const uint32_t& input_bits);
-void output_char(char c);
+void output_char(uint32_t output);
 int32_t input_char();
 
 #endif

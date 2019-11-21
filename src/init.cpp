@@ -17,20 +17,20 @@ char get_type(const uint32_t& input_bits){
   else return 'I';
 }
 
-void output_char(char c){
-  putchar(c);
+void output_char(uint32_t output){
+  putchar(static_cast<int>(output));
 
-  if(!std::cout.good()){
+  if(std::ferror(stdout)){
     throw(static_cast<int32_t>(error::IO));
   }
 }
 
 int32_t input_char(){
-  int32_t input;
+  int input;
   input = getchar();
 
-  if(!std::cin.good()){
+  if(std::ferror(stdin)){
     throw(static_cast<int32_t>(error::IO));
   }
-  return input;
+  return static_cast<int32_t>(input);
 }
