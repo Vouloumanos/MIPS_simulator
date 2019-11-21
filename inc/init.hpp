@@ -55,6 +55,6 @@ enum class error{
 void init_cpu(cpu& mips_cpu);
 char get_type(const uint32_t& input_bits);
 void output_char(char c);
-char input_char();
+int32_t input_char();
 
 #endif

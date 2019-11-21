@@ -25,16 +25,12 @@ void output_char(char c){
   }
 }
 
-char input_char(){
-  char c;
-  c = getchar();
-
-  if(std::cin.eof()){
-    return 0xFF;
-  }
+int32_t input_char(){
+  int32_t input;
+  input = getchar();
 
   if(!std::cin.good()){
     throw(static_cast<int32_t>(error::IO));
   }
-  return c;
+  return input;
 }
