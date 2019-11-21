@@ -7,5 +7,5 @@ Disassembly of section .text:
 10000000 <.text>:
 10000000:	3402000e 	li	v0,0xe
 10000004:	00000008 	jr	zero
-10000008:	2402fff9 	li	v0,-7
+10000008:	2442fff9 	addiu	v0,v0,-7
 1000000c:	00000000 	nop
