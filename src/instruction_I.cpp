@@ -310,19 +310,14 @@ void instruction_I::LH(cpu& mips_cpu){
       mips_cpu.registers[src2_dest] = (static_cast<uint32_t>(mips_cpu.memory[address]) << 8) | (static_cast<uint32_t>(mips_cpu.memory[address+1]));
     }
   }
-  else if(address == INPUT_OFFSET+2){
+  else if((address == INPUT_OFFSET+2) || (address == INPUT_OFFSET)){
     int32_t input = input_char();
 
     if(input == -1){
       mips_cpu.registers[src2_dest] = -1;
     }
-    else{
+    else if(INPUT_OFFSET+2){
       mips_cpu.registers[src2_dest] = 0x000000FF & input;
-    }
-  }
-  else if(address == INPUT_OFFSET){
-    if(input == -1){
-      mips_cpu.registers[src2_dest] = -1;
     }
     else{
       mips_cpu.registers[src2_dest] = 0;
@@ -345,23 +340,18 @@ void instruction_I::LHU(cpu& mips_cpu){
   if((((address >= DMEM_OFFSET) && (address < DMEM_END_OFFSET)) || ((address >=IMEM_OFFSET) && (address <IMEM_END_OFFSET))) && (address%2 == 0)){
     mips_cpu.registers[src2_dest] = (static_cast<uint32_t>(mips_cpu.memory[address]) << 8) | static_cast<uint32_t>(mips_cpu.memory[address+1]);
   }
-  else if(address == INPUT_OFFSET+2){
+  else if((address == INPUT_OFFSET+2) || (address == INPUT_OFFSET)){
     int32_t input = input_char();
 
     if(input == -1){
       mips_cpu.registers[src2_dest] = 0x0000FFFF;
     }
-    else{
+    else if(address == INPUT_OFFSET+2){
       mips_cpu.registers[src2_dest] = 0x000000FF & input;
-    }
-  }
-  else if(address == INPUT_OFFSET){
-    if(input == -1){
-      mips_cpu.registers[src2_dest] = 0x0000FFFF;
     }
     else{
       mips_cpu.registers[src2_dest] = 0;
-    }  
+    }
   }
   else{
     throw(static_cast<int32_t>(exception::MEMORY));
