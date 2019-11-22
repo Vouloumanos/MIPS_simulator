@@ -68,7 +68,7 @@ divu5,divu,64,faw18,divu_big_lo
 divu6,divu,0,faw18,divu_big_hi
 divu7,divu,1,faw18,divu_1_by_big_hi
 divu8,divu,0,faw18,divu_1_by_big_lo
-fibonacci0,fibonacci,55,faw18,find_fibonacci_of_10
+fibonacci0,stack/function,55,faw18,find_fibonacci_of_10
 input0,lw,104,sv1818,input_h
 input10,lw,255,sv1818,xx
 input11,lw,255,sv1818,xx
