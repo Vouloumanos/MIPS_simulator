@@ -228,3 +228,16 @@ sh0,sh,Pass,sv1818,sh_31:24,170,170
 sh1,sh,Pass,sv1818,sh_23:16,187,187
 sh2,sh,Pass,sv1818,sh_15:8,7,7
 sh3,sh,Pass,sv1818,sh_7:0,5,5
+sh4,sh,Pass,sv1818,Unaligned_memory,245,245
+sh5,sh,Pass,sv1818,Unaligned_memory,245,245
+sh6,sh,Pass,sv1818,Location_out_of_range,245,245
+sh7,sh,Pass,sv1818,Read_only_location,245,245
+sll0,sll,Pass,faw18,sll_by_1,2,2
+sll1,sll,Pass,faw18,sll_-1_srl,1,1
+sllv0,sllv,Pass,faw18,sllv_by_1,2,2
+sllv1,sllv,Pass,faw18,sllv_-1_srlv,1,1
+sllv2,sllv,Pass,faw18,sllv_by_32_no_change,1,1
+sllv3,sllv,Pass,faw18,sllv_by_33_is_1,2,2
+slt0,slt,Pass,faw18,Slt_-1_0,1,1
+slt1,slt,Pass,faw18,Slt_-1_-2,0,0
+slt2,slt,Pass,faw18,Slt_7_8,1,1
