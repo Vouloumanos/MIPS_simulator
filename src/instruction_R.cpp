@@ -45,9 +45,6 @@ void instruction_R::execute(cpu& mips_cpu){
 
 
 void instruction_R::ADD(cpu& mips_cpu){
-  // std::cerr << "ADD" << std::endl;
-  // std::cerr << "reg2: " << registers[src1] << " reg3: " << registers[src2] << " reg1: " << registers[dest] << std::endl;
-  //
   uint32_t msb1 = mips_cpu.registers[src1] >> 31;
   uint32_t msb2 = mips_cpu.registers[src2] >> 31;
   uint32_t temp = mips_cpu.registers[src1] + mips_cpu.registers[src2];
@@ -59,9 +56,6 @@ void instruction_R::ADD(cpu& mips_cpu){
   else{
     mips_cpu.registers[dest] = temp;
   }
-
-  // std::cerr << "reg2: " << registers[src1] << " reg3: " << registers[src2] << " reg1: " << registers[dest] << std::endl;
-
 }
 
 void instruction_R::ADDU(cpu& mips_cpu){

@@ -20,18 +20,13 @@ int main(int argc, char *argv[]){
     //initalisation
     cpu mips_cpu;
     init_cpu(mips_cpu);
-    //std::vector<uint8_t> memory(MEM_LENGTH, 0); //initialise memory to 0
-    //std::vector<uint32_t> registers(34, 0); //initialiste registers to 0, registers[32] is LO, registers[33] is HI
-    //uint32_t pc = IMEM_OFFSET; //initialise program counter to IMEM_OFFSET
-    //uint32_t next_pc = IMEM_OFFSET + 4; //initialise next program counter to
-    //std::cerr << "Everything initialised " << std::endl; //debug - status update
 
     //set up binstream
     std::string binName = argv[1]; //get binary name
     //std::cerr << "binName: " << binName << std::endl; //debug - display binary name
     std::ifstream binStream(binName, std::ios::binary); //initialise binStream
 
-    if(!binStream.is_open()){ //THINK ABOUT CORRECT ERROR CODE
+    if(!binStream.is_open()){
       std::cerr << "File couldn't be opened" << std::endl; //debug - error message
       throw(static_cast<int32_t>(error::IO));
     }
@@ -55,15 +50,7 @@ int main(int argc, char *argv[]){
     }
     delete[] buffer;
 
-    //std::cerr << "Input memory OK" << std::endl; //debug - status message
-
-    //std::cerr << std::endl;
-    //std::cerr << std::endl;
-
     while(1){ //processor running
-
-      //std::cerr << "pc: " << std::hex <<pc << " next_pc: " << std::hex << next_pc;
-
       if(mips_cpu.pc == 0){ //program has finished, return lower 8 bits of register 2
         uint8_t returnCode = static_cast<uint8_t>(mips_cpu.registers[2]);
         std::exit(returnCode);
@@ -72,48 +59,31 @@ int main(int argc, char *argv[]){
         throw(static_cast<int32_t>(exception::MEMORY));
       }
       else if((mips_cpu.pc < IMEM_END_OFFSET) && (mips_cpu.pc >= IMEM_OFFSET)){
-        //std::cerr << "Valid pc" << std::endl;
-
         //get instruction
         uint32_t input_bits = (uint32_t(mips_cpu.memory[mips_cpu.pc]) << 24) + (uint32_t(mips_cpu.memory[mips_cpu.pc+1]) << 16) + (uint32_t(mips_cpu.memory[mips_cpu.pc+2]) << 8) + (uint32_t(mips_cpu.memory[mips_cpu.pc+3]) << 0);
-        //std::cerr << "instruction: " << std::bitset<32> (input_bits) << std::endl;//debug - status
 
-        //store next_pc temporarily as it will get changed during execution
         uint32_t temp_next_pc = mips_cpu.next_pc;
-        //std::cerr << " temp_next_pc: " << std::hex << temp_next_pc;
 
         //execute instruction depending on the type
         if(get_type(input_bits) == 'R'){
-          //std::cerr << "instruction R detected" << std::endl;
           instruction_R inst;
           inst.set_bits(input_bits);
           inst.execute(mips_cpu);
-          //std::cerr << "instruction R executed" << std::endl;
-
         }
         else if(get_type(input_bits) == 'I'){
-          //std::cerr << "instruction I detected" << std::endl;
           instruction_I inst;
           inst.set_bits(input_bits);
           inst.execute(mips_cpu);
-          //std::cerr << "instruction I executed" << std::endl;
-
         }
         else if(get_type(input_bits) == 'J'){
-          //std::cerr << "instruction J detected" << std::endl;
           instruction_J inst;
           inst.set_bits(input_bits);
           inst.execute(mips_cpu);
-          //std::cerr << "instruction J executed" << std::endl;
         }
 
         mips_cpu.registers[0] = 0; // register 0 is grounded and cannot hold value other than 0
-
-        //point pc to the next instruction
-        //std::cerr << " temp_next_pc: " << std::hex << temp_next_pc << std::endl;
+        
         mips_cpu.pc = temp_next_pc;
-        //std::cerr << "reg: " << registers[3] << std::endl;
-
       }
       else{
         throw(static_cast<int32_t>(exception::MEMORY));
