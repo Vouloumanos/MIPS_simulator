@@ -48,7 +48,7 @@ do
     OUTPUT_IO="${IO_ARRAY[2]}"
     echo $OUTPUT_IO
 
-    if [[ "$OUT_CAPTURE" = "OUTPUT_IO" ]]
+    if [[ "$OUT_CAPTURE" = "$OUTPUT_IO" ]]
     then
       STDOUT_OK="True"
     else
