@@ -40,15 +40,15 @@ do
   then
     #./bin/mips_simulator $i > $OUT_CAPTURE
     #echo $OUT_CAPTURE
-    OUT_CAPTURE="${./bin/mips_simulator $i}"
+    OUT_CAPTURE="$(./bin/mips_simulator $i)"
     echo "${OUT_CAPTURE}"
 
     eval IO_LINE=($(sed "${IO_NUM}q;d" $IO_DATA))
-    IFS_IO=',' read -r -a IO_ARRAY <<< "$IO_LINE"
+    IFS=',' read -r -a IO_ARRAY <<< "$IO_LINE"
     OUTPUT_IO="${IO_ARRAY[2]}"
     echo $OUTPUT_IO
 
-    if [[ "$OUT_CAPTURE" = "OUTPUT_IO" ]]
+    if [[ "$OUT_CAPTURE" = "$OUTPUT_IO" ]]
     then
       STDOUT_OK="True"
     else

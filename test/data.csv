@@ -30,6 +30,7 @@ beq2,beq,5,sv1818,Branch_negative_offset
 bgez0,bgez,5,sv1818,Branch_at_positive
 bgez1,bgez,0,sv1818,Branch_at_zero
 bgez2,bgez,242,sv1818,Not_branch
+bgez3,bgez,5,sv1818,Branch_negative_offset
 bgezal0,bgezal,20,sv1818,Branch_at_positive
 bgezal1,bgezal,10,sv1818,Branch_at_zero
 bgezal2,bgezal,241,sv1818,Not_branch
@@ -68,7 +69,7 @@ divu5,divu,64,faw18,divu_big_lo
 divu6,divu,0,faw18,divu_big_hi
 divu7,divu,1,faw18,divu_1_by_big_hi
 divu8,divu,0,faw18,divu_1_by_big_lo
-fibonacci0,fibonacci,55,faw18,find_fibonacci_of_10
+fibonacci0,stack/function,55,faw18,find_fibonacci_of_10
 input0,lw,104,sv1818,input_h
 input10,lw,255,sv1818,xx
 input11,lw,255,sv1818,xx
