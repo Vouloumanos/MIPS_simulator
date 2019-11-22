@@ -13,10 +13,7 @@ OUT_CAPTURE='test/out_capture.csv'
 
 rm $OUTPUT_FILE
 echo ""TestId","Instruction","Status","Author","Message","ExpectedCode","ReturnCode"" >> $OUTPUT_FILE
-#printf "%-10s | %-12s | %-10s | %-10s | %-35s | %-15s | %-15s\n" "TestId" "Instruction" "Status" "Author" "Message" "ExpectedCode" "ReturnedCode"
 printf "%-10s | %-12s | %-10s | %-10s | %-35s\n" "TestId" "Instruction" "Status" "Author" "Message"
-
-
 
 COUNT=2
 
@@ -40,22 +37,17 @@ do
     eval IO_LINE=($(sed "${IO_NUM}q;d" $IO_DATA))
     IFS=',' read -r -a IO_ARRAY <<< "$IO_LINE"
     INPUT_IO="${IO_ARRAY[0]}"
-    #echo "$INPUT_IO"
 
     ./bin/mips_simulator $i <<< "$INPUT_IO"
     RETCODE=$?
   elif [[ "$IO_NAME1" = "output" ]]
   then
-    #./bin/mips_simulator $i > $OUT_CAPTURE
-    #echo $OUT_CAPTURE
     OUT_CAPTURE="$(./bin/mips_simulator $i)"
     RETCODE=$?
-    #echo "${OUT_CAPTURE}"
 
     eval IO_LINE1=($(sed "${IO_NUM1}q;d" $IO_DATA))
     IFS=',' read -r -a IO_ARRAY1 <<< "$IO_LINE1"
     OUTPUT_IO="${IO_ARRAY1[2]}"
-    #echo $OUTPUT_IO
 
     if [[ "$OUT_CAPTURE" = "$OUTPUT_IO" ]]
     then
@@ -73,7 +65,6 @@ do
   COUNT=$((COUNT+1))
 
   TEST_NAME_READ="${ARRAY[0]}"
-  #echo $TEST_NAME_READ
   INSTRUCTION="${ARRAY[1]}"
   EXPECTED="${ARRAY[2]}"
   AUTHOR="${ARRAY[3]}"
@@ -82,19 +73,12 @@ do
   if [[ "$RETCODE" = "$EXPECTED" ]] && [[ "$STDOUT_OK" = "True" ]]
   then
     echo "$TEST_NAME,$INSTRUCTION,"Pass",$AUTHOR,$MESSAGE,$EXPECTED,$RETCODE" >> $OUTPUT_FILE
-    #echo "$TEST_NAME,$INSTRUCTION,"Pass",$AUTHOR,$MESSAGE,$EXPECTED,$RETCODE"
-    #printf "%-10s | %-12s | %-10s | %-10s | %-35s | %-15s | %-15s\n" "$TEST_NAME" "$INSTRUCTION" "Pass" "$AUTHOR" "$MESSAGE" "$EXPECTED" "$RETCODE"
     printf "%-10s | %-12s | %-10s | %-10s | %-35s\n" "$TEST_NAME" "$INSTRUCTION" "Pass" "$AUTHOR" "$MESSAGE"
-
     #echo "$TEST_NAME" Pass""
   else
     echo "$TEST_NAME,$INSTRUCTION,"Fail",$AUTHOR,$MESSAGE,$EXPECTED,$RETCODE" >> $OUTPUT_FILE
-    #echo "$TEST_NAME,$INSTRUCTION,"Fail",$AUTHOR,$MESSAGE,$EXPECTED,$RETCODE"
     printf "%-10s | %-12s | %-10s | %-10s | %-35s\n" "$TEST_NAME" "$INSTRUCTION" "Fail" "$AUTHOR" "$MESSAGE"
-
     #echo "$TEST_NAME" Fail Expected "$EXPECTED" Returned "$RETCODE"
   fi
 
 done
-
-#print CSV to STDOUT
