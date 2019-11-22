@@ -21,6 +21,16 @@ do
   #echo $TEST_NAME
 
   ./bin/mips_simulator $i
+
+  if [[ "$TEST_NAME" = "input0" ]]
+  then
+    echo "h"
+  elif [[ "$TEST_NAME" = "xyz" ]]
+  then
+    echo "yo"
+  else
+  fi
+
   RETCODE=$?
 
   eval LINE=($(sed "${COUNT}q;d" $DATA))

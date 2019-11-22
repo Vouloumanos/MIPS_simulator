@@ -68,6 +68,7 @@ divu6,divu,0,faw18,divu_big_hi
 divu7,divu,1,faw18,divu_1_by_big_hi
 divu8,divu,0,faw18,divu_1_by_big_lo
 fibonacci0,fibonacci,55,faw18,find_fibonacci_of_10
+input0,lw,104,sv1818,input_h
 j0,j,14,faw18,j_valid
 jal0,jal,15,faw18,jal_valid
 jalr0,jalr,12,faw18,jalr_to_0
@@ -110,6 +111,7 @@ lh7,lh,7,sv1818,Check_for_sign_extension
 lh8,lh,245,sv1818,Location_out_of_range
 lh9,lh,245,sv1818,Write_only_location
 lhu0,lhu,160,sv1818,lhu_31:24
+lhu10,lhu,204,sv1818,Read_from_instruction_memory
 lhu1,lhu,187,sv1818,lhu_23:16
 lhu2,lhu,112,sv1818,lhu_15:8
 lhu3,lhu,221,sv1818,lhu_7:0
