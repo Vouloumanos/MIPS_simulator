@@ -5,4 +5,4 @@ lw $2, 0($3)
 jr $0
 nop
 
-#EOF
+#EOF. Expected: 255

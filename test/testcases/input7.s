@@ -5,4 +5,4 @@ jr $0
 nop
 
 #Check for character a and that the rest of the memory location is zero.
-#Expected:
+#Expected: 6

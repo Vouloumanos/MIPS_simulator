@@ -6,4 +6,4 @@ srl $2, $2, 16
 jr $0
 nop
 
-#EOF
+#EOF. Expected: 255

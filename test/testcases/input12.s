@@ -4,3 +4,5 @@ lw $5, 0($3)
 add $2, $4, $5
 jr $0
 nop
+
+#Check for input of 2 characters "op". Expected: 223
