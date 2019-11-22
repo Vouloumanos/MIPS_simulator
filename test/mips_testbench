@@ -20,14 +20,56 @@ do
   TEST_NAME=${i##*/}
   TEST_NAME=${TEST_NAME%*.mips.bin}
   #echo $TEST_NAME
+  #IO_NAME=${TEST_NAME%*input}
+  #echo $IO_NAME
 
   if [[ "$TEST_NAME" = "input0" ]]
   then
-    ./bin/mips_simulator $i < $IO
+    ./bin/mips_simulator $i <<< h
+    RETCODE=$?
+  elif [[ "$TEST_NAME" = "input10" ]]
+  then
+    ./bin/mips_simulator $i <<< e
+    RETCODE=$?
+  elif [[ "$TEST_NAME" = "input11" ]]
+  then
+    ./bin/mips_simulator $i <<< e
     RETCODE=$?
   elif [[ "$TEST_NAME" = "input1" ]]
   then
-    ./bin/mips_simulator $i < $IO
+    ./bin/mips_simulator $i <<< h
+    RETCODE=$?
+  elif [[ "$TEST_NAME" = "input2" ]]
+  then
+    ./bin/mips_simulator $i <<< h
+    RETCODE=$?
+  elif [[ "$TEST_NAME" = "input3" ]]
+  then
+    ./bin/mips_simulator $i <<< h
+    RETCODE=$?
+  elif [[ "$TEST_NAME" = "input4" ]]
+  then
+    ./bin/mips_simulator $i
+    RETCODE=$?
+  elif [[ "$TEST_NAME" = "input5" ]]
+  then
+    ./bin/mips_simulator $i
+    RETCODE=$?
+  elif [[ "$TEST_NAME" = "input6" ]]
+  then
+    ./bin/mips_simulator $i
+    RETCODE=$?
+  elif [[ "$TEST_NAME" = "input7" ]]
+  then
+    ./bin/mips_simulator $i <<< a
+    RETCODE=$?
+  elif [[ "$TEST_NAME" = "input8" ]]
+  then
+    ./bin/mips_simulator $i <<< e
+    RETCODE=$?
+  elif [[ "$TEST_NAME" = "input9" ]]
+  then
+    ./bin/mips_simulator $i <<< e
     RETCODE=$?
   else
     ./bin/mips_simulator $i

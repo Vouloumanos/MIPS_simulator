@@ -69,6 +69,17 @@ divu7,divu,1,faw18,divu_1_by_big_hi
 divu8,divu,0,faw18,divu_1_by_big_lo
 fibonacci0,fibonacci,55,faw18,find_fibonacci_of_10
 input0,lw,104,sv1818,input_h
+input10,lw,255,sv1819,xx
+input11,lw,255,sv1820,xx
+input1,lw,0,sv1821,xx
+input2,lw,0,sv1822,xx
+input3,lw,0,sv1823,xx
+input4,lw,245,sv1824,xx
+input5,lw,245,sv1825,xx
+input6,lw,245,sv1826,xx
+input7,lw,6,sv1827,input_a
+input8,lw,255,sv1828,xx
+input9,lw,255,sv1829,xx
 j0,j,14,faw18,j_valid
 jal0,jal,15,faw18,jal_valid
 jalr0,jalr,12,faw18,jalr_to_0
