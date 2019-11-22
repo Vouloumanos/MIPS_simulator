@@ -28,7 +28,7 @@ void output_char(uint32_t output){
 int32_t input_char(){
   int input;
   input = getchar();
-
+  
   if(std::ferror(stdin)){
     throw(static_cast<int32_t>(error::IO));
   }

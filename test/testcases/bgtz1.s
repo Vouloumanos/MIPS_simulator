@@ -9,4 +9,4 @@ start:
   jr $0
   nop
 
-#Check for not branching at 0. Expected: 241
+#Check for not branching at negative. Expected: 241
