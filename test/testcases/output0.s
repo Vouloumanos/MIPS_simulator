@@ -6,4 +6,4 @@ ori $2, $2, 5
 jr $0
 nop
 
-#Output character a. Expected: 97
+#Output character a. Expected: 5

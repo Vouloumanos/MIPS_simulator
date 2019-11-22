@@ -7,4 +7,4 @@ ori $2, $2, 5
 jr $0
 nop
 
-#Output character a even when the rest of the register is not 0. Expected: 97
+#Output character a even when the rest of the register is not 0. Expected: 5
