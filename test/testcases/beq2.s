@@ -11,4 +11,4 @@ start:
 
   beq $2, $3, start + 20
 
-#Check for not branching. Expected: 11
+#Check for not branching. Expected: 5
