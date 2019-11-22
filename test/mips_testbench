@@ -8,6 +8,7 @@ MIPS_LDFLAGS='-nostdlib -Wl,-melf32btsmip -march=mips1 -nostartfiles -mno-check-
 TESTS='test/bin/*.bin'
 DATA='test/data.csv'
 OUTPUT_FILE='test/results.csv'
+IO='test/io.txt'
 
 rm $OUTPUT_FILE
 echo ""TestId","Instruction","Status","Author","Message","ExpectedCode","ReturnCode"" >> $OUTPUT_FILE
@@ -20,18 +21,18 @@ do
   TEST_NAME=${TEST_NAME%*.mips.bin}
   #echo $TEST_NAME
 
-  ./bin/mips_simulator $i
-
   if [[ "$TEST_NAME" = "input0" ]]
   then
-    echo "h"
-  elif [[ "$TEST_NAME" = "xyz" ]]
+    ./bin/mips_simulator $i < $IO
+    RETCODE=$?
+  elif [[ "$TEST_NAME" = "input1" ]]
   then
-    echo "yo"
+    ./bin/mips_simulator $i < $IO
+    RETCODE=$?
   else
+    ./bin/mips_simulator $i
+    RETCODE=$?
   fi
-
-  RETCODE=$?
 
   eval LINE=($(sed "${COUNT}q;d" $DATA))
   IFS=',' read -r -a ARRAY <<< "$LINE"
