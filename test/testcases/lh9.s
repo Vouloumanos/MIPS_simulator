@@ -1,8 +1,5 @@
 lui $3, 0x3000
 ori $3, $3, 0x0006
-lui $4, 0xA0BB
-ori $4, $4, 0x70DD
-sw $4, -2($3)
 lh $2, -2($3)
 srl $2, $2, 12
 jr $zero
