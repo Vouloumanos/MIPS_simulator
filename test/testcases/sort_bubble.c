@@ -1,5 +1,6 @@
 //Bubble sort algorithm was taken from Geeks for geeks
 //https://www.geeksforgeeks.org/bubble-sort/
+#include <stdio.h>
 
 asm("li $sp, 0x23FFFFFC");
 asm("j main");
