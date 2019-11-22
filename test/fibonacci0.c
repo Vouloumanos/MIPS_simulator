@@ -1,17 +1,17 @@
 asm("li $sp, 0x23FFFFFC");
 
-int fibonacci(int n) __attribute__ ((destructor));
+int fibonacci(int n);
 
 //int main();
 //int add();
 
 int main(){
 
-	// int n = 10;
+	int n = 10;
 	// int result = fibonacci(n);
 	// asm("")
 	//return 55;
-	return add();
+	return fibonacci(n);
 }
 
 int fibonacci(int n){
