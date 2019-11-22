@@ -88,6 +88,7 @@ lb4,lb,250,sv1818,Check_for_sign_extension
 lb5,lb,7,sv1818,Check_for_sign_extension
 lb6,lb,245,sv1818,Location_out_of_range
 lb7,lb,245,sv1818,Write_only_location
+lb8,lb,204,sv1818,Read_from_instruction_memory
 lbu0,lbu,160,sv1818,lbu_31:24
 lbu1,lbu,112,sv1818,lbu_23:16
 lbu2,lbu,204,sv1818,lbu_15:8
@@ -96,7 +97,9 @@ lbu4,lbu,10,sv1818,Check_for_no_sign_extension
 lbu5,lbu,7,sv1818,Check_for_no_sign_extension
 lbu6,lbu,245,sv1818,Location_out_of_range
 lbu7,lbu,245,sv1818,Write_only_location
+lbu8,lbu,221,sv1818,Read_from_instruction_memory
 lh0,lh,160,sv1818,lh_31:24
+lh10,lh,204,sv1818,Load_from_instruction_memory
 lh1,lh,187,sv1818,lh_23:16
 lh2,lh,112,sv1818,lh_15:8
 lh3,lh,221,sv1818,lh_7:0
