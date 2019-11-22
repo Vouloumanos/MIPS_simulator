@@ -264,8 +264,6 @@ SLTU0,SLTU,0,faw18,Sltu_-1_0
 SLTU1,SLTU,0,faw18,Sltu_-1_-2
 SLTU2,SLTU,1,faw18,Sltu_7_8
 SLTU3,SLTU,0,faw18,Sltu_7_0
-SORT_BUBBLE,STACK,12,faw18,bubble_sort_array
-SORT_MERGE,STACK,6,faw18,merge_sort_array
 SRA0,SRA,255,faw18,Sra_extension
 SRA1,SRA,1,faw18,sra_no_extension
 SRAV0,SRAV,255,faw18,srav_extension
