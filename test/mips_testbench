@@ -86,7 +86,7 @@ do
   else
     echo "$TEST_NAME,$INSTRUCTION,"Fail",$AUTHOR,$MESSAGE,$EXPECTED,$RETCODE" >> $OUTPUT_FILE
     #echo "$TEST_NAME,$INSTRUCTION,"Fail",$AUTHOR,$MESSAGE,$EXPECTED,$RETCODE"
-    printf "%-10s | %-12s | %-5s | %-10s | %-35s | %-15s | %-15s\n" "$TEST_NAME,$INSTRUCTION,"Fail",$AUTHOR,$MESSAGE,$EXPECTED,$RETCODE"
+    printf "%-10s | %-12s | %-5s | %-10s | %-35s | %-15s | %-15s\n" "$TEST_NAME" "$INSTRUCTION" "Fail" "$AUTHOR" "$MESSAGE" "$EXPECTED" "$RETCODE"
 
     #echo "$TEST_NAME" Fail Expected "$EXPECTED" Returned "$RETCODE"
   fi
