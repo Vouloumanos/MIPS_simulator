@@ -1,8 +1,9 @@
 lui $3, 0x3000
 ori $3, $3, 0x0004
-lui $2, 0xAABB
-ori $2, $2, 0xFF61
-sw $2, 0($3)
+lui $4, 0xAABB
+ori $4, $4, 0xFF61
+sw $4, 0($3)
+ori $2, $2, 5
 jr $0
 nop
 
