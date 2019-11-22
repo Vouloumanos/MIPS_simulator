@@ -16,7 +16,7 @@ simulator: $(SIM_DEP)
 
 testbench:
 	mkdir -p bin
-	./test/converter.sh
+	#./test/converter.sh
 	cp -f ./test/mips_testbench ./bin
 	chmod +x ./bin/mips_testbench
 
