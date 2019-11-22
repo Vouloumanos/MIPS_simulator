@@ -8,5 +8,5 @@ jr $zero
 nop
 
 
-#Check for read from instruction address.
+#Check for read from instruction memory.
 #Expected: 204

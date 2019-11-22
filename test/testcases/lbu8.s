@@ -7,5 +7,5 @@ jr $zero
 nop
 
 
-#Check for read from instruction location.
+#Check for read from instruction memory.
 #Expected: 221
