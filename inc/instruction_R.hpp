@@ -37,7 +37,6 @@ public:
   void SUBU(cpu& mips_cpu);
   void XOR(cpu& mips_cpu);
 
-
 private:
   uint32_t src1;
   uint32_t src2;
