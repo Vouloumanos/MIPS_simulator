@@ -99,7 +99,7 @@ lbu6,lbu,Pass,sv1818,Location_out_of_range,245,245
 lbu7,lbu,Pass,sv1818,Write_only_location,245,245
 lbu8,lbu,Pass,sv1818,Read_from_instruction_memory,221,221
 lh0,lh,Pass,sv1818,lh_31:24,160,160
-lh10,lh,Fail,sv1818,Load_from_instruction_memory,204,52
+lh10,lh,Pass,sv1818,Load_from_instruction_memory,204,204
 lh1,lh,Pass,sv1818,lh_23:16,187,187
 lh2,lh,Pass,sv1818,lh_15:8,112,112
 lh3,lh,Pass,sv1818,lh_7:0,221,221
