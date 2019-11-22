@@ -69,8 +69,9 @@ divu7,divu,Pass,faw18,divu_1_by_big_hi,1,1
 divu8,divu,Pass,faw18,divu_1_by_big_lo,0,0
 fibonacci0,fibonacci,Fail,faw18,find_fibonacci_of_10,55,0
 input0,lw,Pass,sv1818,input_h,104,104
-input10,lw,Fail,sv1819,xx,255,0
-input11,lw,Fail,sv1820,xx,255,0
+input10,lw,Fail,sv1818,xx,255,0
+input11,lw,Fail,sv1818,xx,255,0
+input12,lw,Pass,sv1818,xx,223,223
 input1,lw,Pass,sv1821,xx,0,0
 input2,lw,Pass,sv1822,xx,0,0
 input3,lw,Pass,sv1823,xx,0,0
@@ -79,3 +80,9 @@ input5,lw,Pass,sv1825,xx,245,245
 input6,lw,Pass,sv1826,xx,245,245
 input7,lw,Pass,sv1827,input_a,6,6
 input8,lw,Fail,sv1828,xx,255,10
+input9,lw,Fail,sv1829,xx,255,0
+j0,j,Pass,faw18,j_valid,14,14
+jal0,jal,Pass,faw18,jal_valid,15,15
+jalr0,jalr,Pass,faw18,jalr_to_0,12,12
+jalr1,jalr,Pass,faw18,jalr_not_multiple_of_4,245,245
+jalr2,jalr,Pass,faw18,jalr_before_instruction_memory,245,245
