@@ -20,8 +20,8 @@ do
   TEST_NAME=${i##*/}
   TEST_NAME=${TEST_NAME%*.mips.bin}
   #echo $TEST_NAME
-  #IO_NAME=${TEST_NAME%*input}
-  #echo $IO_NAME
+  IO_NAME=${TEST_NAME:0:5}
+  echo $IO_NAME
 
   if [[ "$TEST_NAME" = "input0" ]]
   then
