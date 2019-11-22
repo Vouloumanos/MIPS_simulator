@@ -1,0 +1,31 @@
+
+./test/temp/factorial0.mips.elf:     file format elf32-tradbigmips
+
+
+Disassembly of section .text:
+
+10000000 <factorial-0xc>:
+10000000:	3c1d23ff 	lui	sp,0x23ff
+10000004:	10000012 	b	10000050 <main>
+10000008:	37bdfffc 	ori	sp,sp,0xfffc
+
+1000000c <factorial>:
+1000000c:	28820002 	slti	v0,a0,2
+10000010:	1440000a 	bnez	v0,1000003c <factorial+0x30>
+10000014:	24030001 	li	v1,1
+10000018:	24020001 	li	v0,1
+1000001c:	00440018 	mult	v0,a0
+10000020:	2484ffff 	addiu	a0,a0,-1
+10000024:	00001012 	mflo	v0
+10000028:	00000000 	nop
+1000002c:	1483fffc 	bne	a0,v1,10000020 <factorial+0x14>
+10000030:	00440018 	mult	v0,a0
+10000034:	03e00008 	jr	ra
+10000038:	00000000 	nop
+1000003c:	03e00008 	jr	ra
+10000040:	24020001 	li	v0,1
+	...
+
+10000050 <main>:
+10000050:	03e00008 	jr	ra
+10000054:	24020078 	li	v0,120

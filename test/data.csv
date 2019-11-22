@@ -73,6 +73,7 @@ DIVU5,DIVU,64,faw18,divu_big_lo
 DIVU6,DIVU,0,faw18,divu_big_hi
 DIVU7,DIVU,1,faw18,divu_1_by_big_hi
 DIVU8,DIVU,0,faw18,divu_1_by_big_lo
+FACTORIAL0,FUNCTION,120,faw18,factorial_of_5
 FIBONACCI0,FUNCTION,55,faw18,find_fibonacci_of_10
 INPUT0,LW,104,sv1818,input_h
 INPUT10,LW,255,sv1818,xx
@@ -263,6 +264,7 @@ SLTU0,SLTU,0,faw18,Sltu_-1_0
 SLTU1,SLTU,0,faw18,Sltu_-1_-2
 SLTU2,SLTU,1,faw18,Sltu_7_8
 SLTU3,SLTU,0,faw18,Sltu_7_0
+SORT_BUBBLE,STACK,12,faw18,bubble_sort_array
 SRA0,SRA,255,faw18,Sra_extension
 SRA1,SRA,1,faw18,sra_no_extension
 SRAV0,SRAV,255,faw18,srav_extension

@@ -13,7 +13,9 @@ OUT_CAPTURE='test/out_capture.csv'
 
 rm $OUTPUT_FILE
 echo ""TestId","Instruction","Status","Author","Message","ExpectedCode","ReturnCode"" >> $OUTPUT_FILE
-printf "%-10s | %-12s | %-5s | %-10s | %-35s | %-15s | %-15s\n" "TestId" "Instruction" "Status" "Author" "Message" "ExpectedCode" "ReturnedCode"
+#printf "%-10s | %-12s | %-10s | %-10s | %-35s | %-15s | %-15s\n" "TestId" "Instruction" "Status" "Author" "Message" "ExpectedCode" "ReturnedCode"
+printf "%-10s | %-12s | %-10s | %-10s | %-35s\n" "TestId" "Instruction" "Status" "Author" "Message"
+
 
 
 COUNT=2
@@ -81,12 +83,14 @@ do
   then
     echo "$TEST_NAME,$INSTRUCTION,"Pass",$AUTHOR,$MESSAGE,$EXPECTED,$RETCODE" >> $OUTPUT_FILE
     #echo "$TEST_NAME,$INSTRUCTION,"Pass",$AUTHOR,$MESSAGE,$EXPECTED,$RETCODE"
-    printf "%-10s | %-12s | %-5s | %-10s | %-35s | %-15s | %-15s\n" "$TEST_NAME" "$INSTRUCTION" "Pass" "$AUTHOR" "$MESSAGE" "$EXPECTED" "$RETCODE"
+    #printf "%-10s | %-12s | %-10s | %-10s | %-35s | %-15s | %-15s\n" "$TEST_NAME" "$INSTRUCTION" "Pass" "$AUTHOR" "$MESSAGE" "$EXPECTED" "$RETCODE"
+    printf "%-10s | %-12s | %-10s | %-10s | %-35s\n" "$TEST_NAME" "$INSTRUCTION" "Pass" "$AUTHOR" "$MESSAGE"
+
     #echo "$TEST_NAME" Pass""
   else
     echo "$TEST_NAME,$INSTRUCTION,"Fail",$AUTHOR,$MESSAGE,$EXPECTED,$RETCODE" >> $OUTPUT_FILE
     #echo "$TEST_NAME,$INSTRUCTION,"Fail",$AUTHOR,$MESSAGE,$EXPECTED,$RETCODE"
-    printf "%-10s | %-12s | %-5s | %-10s | %-35s | %-15s | %-15s\n" "$TEST_NAME" "$INSTRUCTION" "Fail" "$AUTHOR" "$MESSAGE" "$EXPECTED" "$RETCODE"
+    printf "%-10s | %-12s | %-10s | %-10s | %-35s\n" "$TEST_NAME" "$INSTRUCTION" "Fail" "$AUTHOR" "$MESSAGE"
 
     #echo "$TEST_NAME" Fail Expected "$EXPECTED" Returned "$RETCODE"
   fi
