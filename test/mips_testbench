@@ -13,7 +13,7 @@ OUT_CAPTURE='test/out_capture.csv'
 
 rm $OUTPUT_FILE
 echo ""TestId","Instruction","Status","Author","Message","ExpectedCode","ReturnCode"" >> $OUTPUT_FILE
-printf "%-10s | %-12s | %-5s | %-10s | %-35s | %-15s | %-15s\n" "TestId" "Instruction" "Pass" "Author" "Message" "ExpectedCode" "ReturnedCode"
+printf "%-10s | %-12s | %-5s | %-10s | %-35s | %-15s | %-15s\n" "TestId" "Instruction" "Status" "Author" "Message" "ExpectedCode" "ReturnedCode"
 
 
 COUNT=2
