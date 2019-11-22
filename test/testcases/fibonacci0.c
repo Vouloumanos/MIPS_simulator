@@ -1,4 +1,6 @@
 asm("li $sp, 0x23FFFFFC");
+asm("j _main");
+
 
 //int main();
 //int fibonacci(int n);
