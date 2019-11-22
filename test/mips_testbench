@@ -30,16 +30,18 @@ do
   if [[ "$IO_NAME" = "input" ]]
   then
     eval IO_LINE=($(sed "${IO_NUM}q;d" $IO_DATA))
-    IFS_IO=',' read -r -a IO_ARRAY <<< "$IO_LINE"
+    IFS=',' read -r -a IO_ARRAY <<< "$IO_LINE"
     INPUT_IO="${IO_ARRAY[0]}"
-    echo $INPUT_IO
+    echo "$INPUT_IO"
 
     ./bin/mips_simulator $i <<< "$INPUT_IO"
     RETCODE=$?
   elif [[ "$IO_NAME" = "outpu" ]]
   then
-    ./bin/mips_simulator $i > $OUT_CAPTURE
-    echo $OUT_CAPTURE
+    #./bin/mips_simulator $i > $OUT_CAPTURE
+    #echo $OUT_CAPTURE
+    OUT_CAPTURE="${./bin/mips_simulator $i}"
+    echo "${OUT_CAPTURE}"
 
     eval IO_LINE=($(sed "${IO_NUM}q;d" $IO_DATA))
     IFS_IO=',' read -r -a IO_ARRAY <<< "$IO_LINE"

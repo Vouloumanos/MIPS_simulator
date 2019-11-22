@@ -26,6 +26,7 @@ and1,and,12,faw18,and_different
 andi0,andi,85,sv1818,Simple_andi
 beq0,beq,5,sv1818,Branch
 beq1,beq,11,sv1818,Not_branch
+beq2,beq,5,sv1818,Branch_negative_offset
 bgez0,bgez,5,sv1818,Branch_at_positive
 bgez1,bgez,0,sv1818,Branch_at_zero
 bgez2,bgez,242,sv1818,Not_branch
@@ -72,6 +73,13 @@ input0,lw,104,sv1818,input_h
 input10,lw,255,sv1818,xx
 input11,lw,255,sv1818,xx
 input12,lw,223,sv1818,xx
+input13,lwl,6,sv1819,xx
+input14,lwr,6,sv1820,xx
+input15,lh,6,sv1821,xx
+input16,lh,255,sv1822,xx
+input17,lb,6,sv1823,xx
+input18,lb,97,sv1824,xx
+input19,lh,97,sv1825,xx
 input1,lw,0,sv1821,xx
 input2,lw,0,sv1822,xx
 input3,lw,0,sv1823,xx
@@ -203,6 +211,12 @@ multu3,multu,0,faw18,multu_big_lo
 multu4,multu,2,faw18,multu_big_hi
 or0,or,175,faw18,or_different
 ori0,ori,253,sv1818,Simple_ori
+output0,sw,5,sv1819,xx
+output1,sw,5,sv1820,xx
+output2,sw,245,sv1821,xx
+output3,sw,245,sv1822,xx
+output4,sw,245,sv1823,xx
+output5,sw,5,sv1824,xx
 sb0,sb,170,sv1818,sb_31:24
 sb1,sb,187,sv1818,sb_23:16
 sb2,sb,5,sv1818,sb_15:8
