@@ -34,9 +34,20 @@ do
   if [[ "$IO_NAME" = "input" ]]
   then
     if [[ "$IO_NUM" = "8" ]]
-    ./bin/mips_simulator $i
-    
-    RETCODE=$?
+    then
+      ./bin/mips_simulator $i
+      xdotool key e
+      xdotool keydown Control_L key d keyup Control_L
+      RETCODE=$?
+    else
+      eval IO_LINE=($(sed "${IO_NUM}q;d" $IO_DATA))
+      IFS=',' read -r -a IO_ARRAY <<< "$IO_LINE"
+      INPUT_IO="${IO_ARRAY[0]}"
+      echo "$INPUT_IO"
+
+      ./bin/mips_simulator $i <<< "$INPUT_IO"
+      RETCODE=$?
+    fi
   elif [[ "$IO_NAME1" = "output" ]]
   then
     #./bin/mips_simulator $i > $OUT_CAPTURE
